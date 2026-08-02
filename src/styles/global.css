@@ -425,6 +425,72 @@ strong {
   border-bottom: 1px solid var(--line);
 }
 
+.verse-card {
+  max-width: 48rem;
+  margin: 2.25rem 0;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 0;
+  border-top: 1px solid var(--dmi-navy);
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 250, 240, 0.58);
+}
+
+.verse-card > span {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--ember);
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.verse-card p {
+  margin: 0 0 0.9rem;
+  color: var(--moss);
+  font-size: clamp(1.22rem, 2vw, 1.6rem);
+  line-height: 1.55;
+}
+
+.verse-card cite {
+  color: var(--dmi-navy);
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.practice-grid {
+  max-width: 48rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin: 2.25rem 0;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.practice-grid > div {
+  padding: clamp(1.4rem, 3vw, 2.25rem);
+  background: var(--paper-deep);
+}
+
+.practice-grid span {
+  color: var(--ember);
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.practice-grid p {
+  margin: 0.8rem 0 0;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
 .discussion-prompt > span {
   display: block;
   margin-bottom: 0.5rem;
@@ -563,6 +629,15 @@ strong {
   display: block;
 }
 
+.scripture-notice {
+  max-width: 48rem;
+  margin: -3rem 0 2rem;
+  color: rgba(28, 29, 24, 0.56);
+  font-family: var(--sans) !important;
+  font-size: 0.66rem !important;
+  line-height: 1.55 !important;
+}
+
 .site-footer {
   gap: 2rem;
   padding: 2rem clamp(1.25rem, 5vw, 4rem);
@@ -639,6 +714,10 @@ strong {
   .response-steps li {
     grid-template-columns: 1fr;
     gap: 0.4rem;
+  }
+
+  .practice-grid {
+    grid-template-columns: 1fr;
   }
 
   .qr-section {
