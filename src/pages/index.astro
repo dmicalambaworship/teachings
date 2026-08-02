@@ -4,6 +4,7 @@ import SocialLinks from '../components/SocialLinks.astro';
 
 const base = import.meta.env.BASE_URL;
 const studyPath = `${base}2026-08-02-altar-undivided-heart/`;
+const songsPath = `${base}songs/`;
 const logoPath = `${base}dmi-logo.jpg`;
 ---
 
@@ -12,33 +13,64 @@ const logoPath = `${base}dmi-logo.jpg`;
   description="DMI Calamba City is a church co-laboring with God to transform lives, communities and nations."
   bodyClass="home-page"
 >
-  <main class="home-shell">
-    <div class="home-glow" aria-hidden="true"></div>
+  <main>
+    <section class="home-shell" aria-labelledby="site-title">
+      <div class="home-glow" aria-hidden="true"></div>
 
-    <header class="home-topbar">
-      <span class="brand-lockup">
-        <img src={logoPath} width="900" height="900" alt="DMI church logo" />
-        <span>Calamba City</span>
-      </span>
-      <span>God. Family. Nations.</span>
-    </header>
+      <header class="home-topbar">
+        <span class="brand-lockup">
+          <img src={logoPath} width="900" height="900" alt="DMI church logo" />
+          <span>Calamba City</span>
+        </span>
+        <span>God. Family. Nations.</span>
+      </header>
 
-    <section class="home-title" aria-labelledby="site-title">
-      <p class="home-kicker">Welcome to</p>
-      <h1 id="site-title"><span>DMI</span> <span>Calamba City</span></h1>
-      <p class="home-mission">We are a church <span>co-laboring with God</span> to transform lives, communities and nations.</p>
+      <div class="home-title">
+        <p class="home-kicker">Welcome to</p>
+        <h1 id="site-title"><span>DMI</span> <span>Calamba City</span></h1>
+        <p class="home-mission">We are a church <span>co-laboring with God</span> to transform lives, communities and nations.</p>
+      </div>
+
+      <footer class="home-footer">
+        <div class="home-feature-links">
+          <a class="study-link" href={studyPath}>
+            <span class="study-link-label">Latest Bible Study</span>
+            <span class="study-link-title">Altar of the Heart</span>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="study-link" href={songsPath}>
+            <span class="study-link-label">DMI Calamba Worship</span>
+            <span class="study-link-title">Listen to our songs</span>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <div class="home-footer-meta">
+          <p>Gathered around Jesus. Formed by his Word.</p>
+          <SocialLinks />
+        </div>
+      </footer>
     </section>
 
-    <footer class="home-footer">
-      <a class="study-link" href={studyPath}>
-        <span class="study-link-label">Latest Bible Study</span>
-        <span class="study-link-title">Altar of the Heart</span>
-        <span class="arrow" aria-hidden="true">↗</span>
-      </a>
-      <div class="home-footer-meta">
-        <p>Gathered around Jesus. Formed by his Word.</p>
-        <SocialLinks />
+    <section class="home-about" aria-labelledby="home-about-title">
+      <div class="home-about-intro">
+        <p class="section-number">A church in Calamba City</p>
+        <h2 id="home-about-title">A place to follow Jesus together.</h2>
+        <p>DMI Calamba City is a Christian church co-laboring with God to transform lives, communities and nations.</p>
       </div>
-    </footer>
+      <div class="home-about-grid">
+        <article class="home-info-card">
+          <span>Visit</span>
+          <h3>Gather with us</h3>
+          <address>3rd floor, AS Building, Crossing, Brgy. 1, Calamba City</address>
+          <a href="https://www.facebook.com/DMICalamba" target="_blank" rel="noreferrer">See church updates <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="home-info-card">
+          <span>Connect</span>
+          <h3>We would love to hear from you</h3>
+          <p>Questions, prayer requests, or looking for a church family?</p>
+          <a href="mailto:dmicalamba@gmail.com">dmicalamba@gmail.com <span aria-hidden="true">↗</span></a>
+        </article>
+      </div>
+    </section>
   </main>
 </BaseLayout>

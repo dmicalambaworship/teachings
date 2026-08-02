@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const logoPath = `${base}dmi-logo.jpg`;
+const artistURL = 'https://open.spotify.com/artist/5mSNQIFrjbuq7u1aIpsUAF';
+
+const songs = [
+  {
+    title: 'Kay Sayang Magpuri',
+    year: '2023',
+    duration: '3:52',
+    href: 'https://open.spotify.com/track/7nmxAwSufbEeQBpMwS80ez',
+    artwork: 'https://i.scdn.co/image/ab67616d00001e02a6319ed3ce5583beef81007d',
+  },
+  {
+    title: 'Sandigan',
+    year: '2023',
+    duration: '5:56',
+    href: 'https://open.spotify.com/track/7xaAF8abwhgNbzivFZ4AZF',
+    artwork: 'https://i.scdn.co/image/ab67616d00001e02b36285442f7613d33d45cc6c',
+  },
+  {
+    title: 'Walang Hanggang Pag-Ibig',
+    year: '2023',
+    duration: '9:32',
+    href: 'https://open.spotify.com/track/1PrSzUh4jzyBqMGFxNbVZn',
+    artwork: 'https://i.scdn.co/image/ab67616d00001e02eb56967c74d4dd6c0cd6cbff',
+  },
+  {
+    title: "Sa'Yo Lamang",
+    year: '2021',
+    duration: '8:08',
+    href: 'https://open.spotify.com/track/5FWqCacvDqpMup2GS8WBFo',
+    artwork: 'https://i.scdn.co/image/ab67616d00001e02dc3213310e137c6bae8c416b',
+  },
+  {
+    title: "I'm Not Afraid",
+    year: '2021',
+    duration: '7:26',
+    href: 'https://open.spotify.com/track/2j6kFyFfZlZJz5SLW4ntaa',
+    artwork: 'https://i.scdn.co/image/ab67616d00001e0290e0fa7b36d35d5331129c8a',
+  },
+];
+---
+
+<BaseLayout
+  title="Songs by DMI Calamba Worship"
+  description="Listen to original worship songs from DMI Calamba Worship on Spotify."
+  bodyClass="songs-page"
+>
+  <header class="songs-hero">
+    <nav class="study-nav" aria-label="Primary navigation">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home">
+        <img src={logoPath} width="900" height="900" alt="" />
+        <span>DMI · Calamba City</span>
+      </a>
+      <a class="songs-spotify-link" href={artistURL} target="_blank" rel="noreferrer">Open Spotify artist <span aria-hidden="true">↗</span></a>
+    </nav>
+
+    <div class="songs-hero-copy">
+      <p class="eyebrow">Original worship music</p>
+      <h1>Songs</h1>
+      <p>Music for worship, remembrance, and a life anchored in Jesus.</p>
+    </div>
+  </header>
+
+  <main class="songs-content">
+    <header class="songs-intro">
+      <div>
+        <p class="section-number">DMI Calamba Worship</p>
+        <h2>Listen wherever you are.</h2>
+      </div>
+      <p>Explore the five public releases listed on the artist’s Spotify profile. Select a song to listen on Spotify.</p>
+    </header>
+
+    <ol class="song-grid">
+      {songs.map((song) => (
+        <li>
+          <a class="song-card" href={song.href} target="_blank" rel="noreferrer">
+            <div class="song-artwork">
+              <img src={song.artwork} width="300" height="300" loading="lazy" alt={`Album art for ${song.title}`} />
+            </div>
+            <div class="song-card-copy">
+              <span class="song-meta">{song.year} · {song.duration}</span>
+              <h3>{song.title}</h3>
+              <span class="song-listen">Listen on Spotify <span aria-hidden="true">↗</span></span>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ol>
+
+    <section class="songs-callout" aria-labelledby="songs-callout-title">
+      <div>
+        <p class="section-number">Keep listening</p>
+        <h2 id="songs-callout-title">Follow DMI Calamba Worship.</h2>
+      </div>
+      <a href={artistURL} target="_blank" rel="noreferrer">Visit the artist profile <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a href={base}>DMI Calamba City</a>
+    <div class="site-footer-actions">
+      <span>God. Family. Nations.</span>
+      <SocialLinks />
+    </div>
+  </footer>
+</BaseLayout>
