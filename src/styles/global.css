@@ -372,6 +372,30 @@ strong {
   line-height: 1.55;
 }
 
+.aside-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--dmi-navy);
+  color: var(--dmi-navy);
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.aside-action span {
+  color: var(--ember);
+  font-size: 1rem;
+  transition: transform 180ms ease;
+}
+
+.aside-action:hover span {
+  transform: translate(0.12rem, -0.12rem);
+}
+
 .study-article {
   min-width: 0;
 }
