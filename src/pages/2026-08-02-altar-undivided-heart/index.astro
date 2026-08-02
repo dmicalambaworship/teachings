@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
 
 const base = import.meta.env.BASE_URL;
 const qrPath = `${base}qr/2026-08-02-altar-undivided-heart.png`;
@@ -167,6 +168,9 @@ const logoPath = `${base}dmi-logo.jpg`;
 
   <footer class="site-footer">
     <a href={base}>DMI Calamba City</a>
-    <span>Gathered around Jesus. Formed by his Word.</span>
+    <div class="site-footer-actions">
+      <span>Gathered around Jesus. Formed by his Word.</span>
+      <SocialLinks />
+    </div>
   </footer>
 </BaseLayout>
