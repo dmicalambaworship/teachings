@@ -168,6 +168,20 @@ strong {
   -webkit-text-stroke: 1px rgba(184, 236, 234, 0.72);
 }
 
+.home-mission {
+  max-width: 42rem;
+  margin: clamp(1.8rem, 4vh, 3rem) auto 0;
+  color: rgba(255, 250, 240, 0.68);
+  font-family: var(--serif);
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  line-height: 1.55;
+}
+
+.home-mission span {
+  color: var(--dmi-aqua);
+  font-style: italic;
+}
+
 .home-footer {
   align-items: flex-end;
   gap: 2rem;
@@ -667,13 +681,20 @@ strong {
     min-height: 100svh;
   }
 
-  .home-topbar > span:last-child,
   .home-footer-meta > p {
     display: none;
   }
 
   .home-topbar {
-    justify-content: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .home-topbar > span:last-child {
+    max-width: 8rem;
+    font-size: 0.56rem;
+    line-height: 1.45;
+    text-align: right;
   }
 
   .home-title h1 {
@@ -683,6 +704,11 @@ strong {
 
   .home-title h1 span:last-child {
     font-size: 0.47em;
+  }
+
+  .home-mission {
+    max-width: 26rem;
+    font-size: 1rem;
   }
 
   .home-footer {
