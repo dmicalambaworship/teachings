@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const base = import.meta.env.BASE_URL;
 const studyPath = `${base}2026-08-02-altar-undivided-heart/`;
+const logoPath = `${base}dmi-logo.jpg`;
 ---
 
 <BaseLayout
@@ -14,8 +15,11 @@ const studyPath = `${base}2026-08-02-altar-undivided-heart/`;
     <div class="home-glow" aria-hidden="true"></div>
 
     <header class="home-topbar">
+      <span class="brand-lockup">
+        <img src={logoPath} width="900" height="900" alt="DMI church logo" />
+        <span>Calamba City</span>
+      </span>
       <span>Discipleship · Mission · Identity</span>
-      <span>Calamba City</span>
     </header>
 
     <section class="home-title" aria-labelledby="site-title">

@@ -9,6 +9,7 @@ interface Props {
 
 const { title, description, bodyClass = '' } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const logoURL = new URL(`${import.meta.env.BASE_URL}dmi-logo.jpg`, Astro.site);
 ---
 
 <!doctype html>
@@ -17,14 +18,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#171812" />
+    <meta name="theme-color" content="#064a61" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={logoURL} />
+    <meta property="og:image:alt" content="DMI church logo" />
     <meta name="twitter:card" content="summary" />
+    <meta name="twitter:image" content={logoURL} />
+    <link rel="icon" type="image/jpeg" href={`${import.meta.env.BASE_URL}dmi-logo.jpg`} />
     <title>{title}</title>
   </head>
   <body class={bodyClass}>
