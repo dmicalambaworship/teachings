@@ -25,6 +25,7 @@ const serializedTranslations = JSON.stringify(translations).replaceAll('<', '\\u
       const originals = new Map();
       const originalAriaLabels = new Map();
       const originalAltText = new Map();
+      const originalLanguages = new Map();
 
       if (!translationSource || languageButtons.length === 0) return;
 
@@ -45,6 +46,10 @@ const serializedTranslations = JSON.stringify(translations).replaceAll('<', '\\u
 
       document.querySelectorAll('[data-i18n-alt]').forEach((element) => {
         originalAltText.set(element, element.getAttribute('alt'));
+      });
+
+      document.querySelectorAll('[data-i18n-lang]').forEach((element) => {
+        originalLanguages.set(element, element.getAttribute('lang'));
       });
 
       const setLanguage = (language, persist = true) => {
@@ -73,6 +78,11 @@ const serializedTranslations = JSON.stringify(translations).replaceAll('<', '\\u
             ? translations[key]
             : originalAltText.get(element);
           element.setAttribute('alt', value || '');
+        });
+
+        document.querySelectorAll('[data-i18n-lang]').forEach((element) => {
+          const value = nextLanguage === 'fil' ? 'fil' : originalLanguages.get(element);
+          element.setAttribute('lang', value || 'en');
         });
 
         languageButtons.forEach((button) => {
