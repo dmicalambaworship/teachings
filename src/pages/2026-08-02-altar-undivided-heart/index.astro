@@ -1,11 +1,97 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
 import SocialLinks from '../../components/SocialLinks.astro';
 
 const base = import.meta.env.BASE_URL;
 const qrPath = `${base}qr/2026-08-02-altar-undivided-heart.png`;
 const pageURL = 'https://dmicalambaworship.github.io/teachings/2026-08-02-altar-undivided-heart/';
 const logoPath = `${base}dmi-logo.jpg`;
+
+const translations = {
+  languageLabel: 'Wika',
+  languageAriaLabel: 'Wika ng pagbabasa',
+  navAria: 'Pangunahing navigation',
+  homeAria: 'Bumalik sa DMI Calamba City home',
+  summaryAria: 'Buod ng study',
+  idolQuestionsAria: 'Mga tanong para makilala ang isang idol',
+  practicesAria: 'Daily practices para alagaan ang devotion',
+  takeawayAria: 'Pangunahing takeaway ng study',
+  qrLinkAria: 'Buksan ang Bible study na ito',
+  qrImageAlt: 'QR code para sa Altar ng Puso Bible study',
+  eyebrow: 'Bible Study · Awit 86:11',
+  title: 'Altar ng Puso',
+  subtitle: 'Isang Pusong Buo para sa Diyos',
+  themeLabel: 'Tema',
+  theme: 'Pag-isahin ang puso. Linisin ang altar. Alagaan ang apoy.',
+  keyTextsLabel: 'Mga susing talata',
+  keyTexts: 'Awit 86:10–11<br />Ezekiel 14:3–6<br />Levitico 6:12–13<br />1 Tesalonica 5:16–19<br />Roma 12:1',
+  timeLabel: 'Oras',
+  time: '25–30 minuto',
+  presentationLabel: 'Presentation',
+  presentationLink: 'Buksan ang Canva slides <span aria-hidden="true">↗</span>',
+  serviceLabel: 'Sunday service',
+  serviceLink: 'Panoorin ang preaching <span aria-hidden="true">↗</span>',
+  section01: '01 · Magsimula rito',
+  openingTitle: 'Kapag siksikan ang altar',
+  openingLead: 'Karamihan sa mga believer ay hindi naman gumigising na planong talikuran ang Diyos. Mas tahimik ang panganib: patuloy tayong sumasamba sa Kanya habang may ibang loyalty na lumalaki sa tabi Niya. Hindi laging malamig na puso ang problema; minsan, <strong>siksikan ang altar</strong>.',
+  openingBody: 'Gusto natin ang Diyos, pero gusto rin natin ang control. Gusto natin ang kalooban Niya, pero gusto rin natin ang approval ng iba. Hindi lang humihingi si David ng mas matinding damdamin; hinihiling niyang pag-isahin ng Diyos ang kanyang buong pagkatao. Ang idol ay anumang nilikha na nagkakaroon ng veto power sa pagsunod natin at tumatanggap ng pinakamataas na tiwala, takot, loyalty, o pag-ibig na para lamang sa Diyos.',
+  keyTruthLabel: 'Susing katotohanan',
+  keyTruth: 'Ang pinakamalaking banta sa tuloy-tuloy na devotion ay hindi palaging opposition sa paligid natin. Ito ay ang hati-hating loyalty sa loob natin.',
+  section02: '02 · Tanggapin',
+  movementOneTitle: 'Hayaan ang Diyos na pag-isahin ang puso',
+  movementOneBody1: 'Malinaw ang pagkakasunod sa Awit 86:11: <strong>turuan Mo ako</strong>, para ako ay <strong>makalakad</strong>, at <strong>pag-isahin Mo ang puso ko</strong>. Nagsisimula si David sa daan ng Diyos, hindi sa path na napili na niya. Ang pusong buo ay nananalangin, “Turuan Mo ako, kahit salungat ang daan Mo sa gusto ko.” Ang katotohanan ay hindi lang impormasyon na hinahangaan; nagiging buhay ito ng pagsunod.',
+  keyVerse: 'Susing talata · ESV (English)',
+  movementOneBody2: 'Ang “pag-isahin Mo ang puso ko” ay panalangin para sa isang buo at integrated na inner life—ang isip, kalooban, damdamin, at layunin ay nakasentro sa tapat at may-paggalang na pagsunod sa Diyos. Dahil ang Diyos lamang ang Diyos, walang ibang master ang karapat-dapat sa trono. Ang hati-hating puso ay may isang kuwartong nakalaan para sa sarili; ang pusong buo ay tinatanggap si Jesus bilang Panginoon ng bawat kuwarto.',
+  discuss1Label: 'Pag-usapan · 1',
+  discuss1: 'Saan nahahati ang puso ko sa pagitan ng daan ng Diyos at ng ibang daan?',
+  section03: '03 · Pakawalan',
+  movementTwoTitle: 'Linisin ang altar mula sa mga karibal na pag-ibig',
+  movementTwoBody1: 'Sa Ezekiel 14, nakaupo ang mga elders sa harap ng propeta ng Diyos habang may mga idol silang kinikimkim sa puso. Mukhang spiritual ang posture nila, pero napagdesisyunan na nila kung saan ang loyalty nila. Gusto nila ng guidance nang walang surrender.',
+  keyVerses: 'Mga susing talata · ESV (English)',
+  movementTwoBody2: 'Madalas lumilitaw ang mga tagong idol kapag nanganganib silang mawala—sa takot na kumokontrol sa atin, sobrang galit, matinding defensiveness, lihim na compromise, o pagtangging sumunod. Direkta ang paanyaya ng Diyos: <strong>magsisi at tumalikod</strong>. Ang repentance ay hindi self-hatred; ito ang pagtigil sa pagdepensa sa bagay na sinisita ng Diyos.',
+  idolQuestion1: 'Ano ang pinakakinatatakutan kong mawala?',
+  idolQuestion2: 'Anong resulta ang ipinipilit kong ibigay sa akin ng Diyos?',
+  idolQuestion3: 'Kaninong approval ang kumokontrol sa pagsunod ko?',
+  movementTwoBody3: 'Dahil kay Cristo, ang repentance ay hindi pagtatangkang kumbinsihin ang isang atubiling Diyos na tanggapin tayo. Binuksan na ng grace ang daan pauwi. Inilalantad ng Diyos ang mga karibal na pag-ibig hindi lang para ipahiya tayo, kundi para mabawi ang puso natin.',
+  discuss2Label: 'Pag-usapan · 2',
+  discuss2: 'Anong reaction ko ang maaaring naglalantad ng karibal na pag-ibig—at ano ang hinihiling kong pagpalain ng Diyos na maaaring hinihiling Niyang isuko ko?',
+  section04: '04 · Isabuhay',
+  movementThreeTitle: 'Alagaan ang altar araw-araw',
+  movementThreeBody1: 'Ang utos na ito ay orihinal na tungkol sa pisikal na altar ng handog na sinusunog ng Israel. Inaalis ng mga pari ang abo, nagdadagdag ng sariwang kahoy, inaayos ang handog, at binabantayan ang apoy. Itinuturo ng larawan ang daily rhythm: <strong>hindi mapapalitan ng apoy kahapon ang pagsunod ngayon</strong>. Ang mga nakaraang karanasan sa Diyos ay testimonies, hindi nakaimbak na fuel.',
+  removeAshes: 'Alisin ang abo',
+  removeAshesBody: 'Kasalanang hindi ipinagtapat, bitterness, lihim na compromise, pride, mapanirang habits, at spiritual apathy.',
+  addWood: 'Magdagdag ng sariwang kahoy',
+  addWoodBody: 'Scripture, prayer, worship, obedience, fellowship, confession, fasting, service, at thanksgiving.',
+  movementThreeBody2: 'Hindi natin kayang likhain o kontrolin ang pagkilos ng Holy Spirit, at hindi natin kayang kitain ang presensya ng Diyos sa religious effort. Ang Diyos ang nagbibigay ng apoy; ang discipleship ang nag-aalaga sa altar. Hindi nagbubunga ng passivity ang grace—tinuturuan tayo nitong manatiling attentive at responsive.',
+  movementThreeBody3: 'Ang walang-tigil na prayer ay hindi ibig sabihin na walang tigil ang pagsasalita. Ito ay buhay na patuloy na ibinabalik sa Diyos ang worries, decisions, conviction, thanksgiving, failure, at surrender. Prayer ang rhythm na paulit-ulit na nagbabalik sa ating kalat-kalat na puso sa tunay nitong sentro.',
+  rememberLabel: 'Tandaan',
+  remember: 'Ang Diyos ang nagbibigay ng apoy. Mananatili tayong handang matuto, aalisin ang pumipigil sa gawa Niya, idaragdag ang tumutulong sa atin na manatiling attentive, at tutugon sa masunuring pananampalataya.',
+  discuss3Label: 'Pag-usapan · 3',
+  discuss3: 'Ano ang kailangang alisin, at anong isang daily practice ang kailangang idagdag, para manatiling responsive sa Diyos ang puso ko?',
+  section05: '05 · Ihandog',
+  movementFourTitle: 'Ilagay ang buong buhay sa harap ng Diyos',
+  movementFourBody1: 'Ang “altar ng puso” ay isang biblical picture, hindi direktang quotation mula sa Scripture. Ibinibigay ng Roma 12 ang response sa likod ng larawan: ang handog na nais ng Diyos ay hindi isang hiwalay na religious moment, kundi ang buong buhay—katawan, isip, ambitions, relationships, finances, private habits, public service, at future.',
+  movementFourBody2: 'Dahil maaaring lumayo ang isang living sacrifice, kailangang araw-araw i-renew ang surrender. Sinasabi natin, “Panginoon, sa Iyo ulit ang lahat.” Ang goal ay hindi pansamantalang spiritual excitement, kundi tuloy-tuloy na covenant faithfulness: isang pusong buong-buong available sa Diyos.',
+  section06: '06 · Isang simpleng tugon',
+  responseTitle: 'Pag-isahin. Linisin. Alagaan.',
+  uniteLabel: 'Pag-isahin',
+  uniteBody: 'Ipanalangin ang Awit 86:11 at anyayahan ang Diyos na pag-isahin ang bawat nagkakahating hangarin sa ilalim ng lordship ni Jesus.',
+  clearLabel: 'Linisin',
+  clearBody: 'Pangalanan at talikuran ang karibal na pag-ibig, resentment, compromise, o takot na sumasakop sa altar.',
+  tendLabel: 'Alagaan',
+  tendBody: 'Ihandog muli ang buong buhay at pumili ng isang rhythm: Scripture bago ang phone, prayer pause sa tanghali, o heart review sa gabi.',
+  prayTogether: 'Manalangin nang sama-sama',
+  prayerTitle: 'Panalangin para sa pusong buo',
+  prayer: 'Ama, turuan Mo kami ng Iyong daan at tulungan Mo kaming lumakad sa Iyong katotohanan. Tipunin Mo ang bawat kalat-kalat na affection, ambition, fear, at desire. Ilantad Mo ang mga idol na dinadala namin sa Iyong presensya, at palayain Mo kami sa pride at self-defense. Sa pamamagitan ng Iyong Espiritu, turuan Mo kaming magsisi agad, manalangin nang walang tigil, at ihandog sa Iyo ang aming buong buhay. Jesus, Ikaw lamang ang Diyos. Pag-isahin Mo ang aming mga puso upang matakot at gumalang sa Iyong pangalan. Amen.',
+  takeawayLabel: 'Dalhin mo ito',
+  takeaway: 'Pag-isahin ang puso. Linisin ang altar. Alagaan ang apoy. Ihandog muli sa Diyos ang buong buhay ngayong araw.',
+  shareLabel: 'I-share ang study',
+  shareTitle: 'Buksan sa ibang device',
+  shareBody: 'I-scan o i-download ang QR code para makabalik diretso sa Bible study na ito.',
+  downloadQr: 'I-download ang QR code',
+  footerTagline: 'Sama-samang nakasentro kay Jesus. Hinuhubog ng Kanyang Salita.'
+};
 ---
 
 <BaseLayout
@@ -14,218 +100,219 @@ const logoPath = `${base}dmi-logo.jpg`;
   bodyClass="study-page"
 >
   <header class="study-hero">
-    <nav class="study-nav" aria-label="Primary navigation">
-      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home">
+    <nav class="study-nav" aria-label="Primary navigation" data-i18n-aria-label="navAria">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria">
         <img src={logoPath} width="900" height="900" alt="" />
         <span>DMI · Calamba City</span>
       </a>
+      <LanguageToggle translations={translations} />
       <span>02 August 2026</span>
     </nav>
 
     <div class="study-hero-copy">
-      <p class="eyebrow">Bible Study · Psalm 86:11</p>
-      <h1>Altar of the Heart</h1>
-      <p class="study-subtitle">An Undivided Heart for God</p>
+      <p class="eyebrow" data-i18n="eyebrow">Bible Study · Psalm 86:11</p>
+      <h1 data-i18n="title">Altar of the Heart</h1>
+      <p class="study-subtitle" data-i18n="subtitle">An Undivided Heart for God</p>
     </div>
 
     <blockquote class="hero-scripture">
-      <p>“Teach me your way, O LORD, that I may walk in your truth; unite my heart to fear your name.”</p>
-      <cite>Psalm 86:11 ESV</cite>
+      <p lang="en">“Teach me your way, O LORD, that I may walk in your truth; unite my heart to fear your name.”</p>
+      <cite lang="en">Psalm 86:11 ESV</cite>
     </blockquote>
   </header>
 
   <main class="study-content">
-    <aside class="study-aside" aria-label="Study summary">
+    <aside class="study-aside" aria-label="Study summary" data-i18n-aria-label="summaryAria">
       <div>
-        <span class="aside-label">Theme</span>
-        <p>Unite the heart. Clear the altar. Tend the fire.</p>
+        <span class="aside-label" data-i18n="themeLabel">Theme</span>
+        <p data-i18n="theme">Unite the heart. Clear the altar. Tend the fire.</p>
       </div>
       <div>
-        <span class="aside-label">Key texts</span>
-        <p>Psalm 86:10–11<br />Ezekiel 14:3–6<br />Leviticus 6:12–13<br />1 Thessalonians 5:16–19<br />Romans 12:1</p>
+        <span class="aside-label" data-i18n="keyTextsLabel">Key texts</span>
+        <p data-i18n="keyTexts">Psalm 86:10–11<br />Ezekiel 14:3–6<br />Leviticus 6:12–13<br />1 Thessalonians 5:16–19<br />Romans 12:1</p>
       </div>
       <div>
-        <span class="aside-label">Time</span>
-        <p>25–30 minutes</p>
+        <span class="aside-label" data-i18n="timeLabel">Time</span>
+        <p data-i18n="time">25–30 minutes</p>
       </div>
       <div>
-        <span class="aside-label">Presentation</span>
-        <a class="aside-action" href="https://www.canva.com/d/MG3GYTQD8aNbpV7" target="_blank" rel="noreferrer">Open Canva slides <span aria-hidden="true">↗</span></a>
+        <span class="aside-label" data-i18n="presentationLabel">Presentation</span>
+        <a class="aside-action" href="https://www.canva.com/d/MG3GYTQD8aNbpV7" target="_blank" rel="noreferrer" data-i18n="presentationLink">Open Canva slides <span aria-hidden="true">↗</span></a>
       </div>
       <div>
-        <span class="aside-label">Sunday service</span>
-        <a class="aside-action" href="https://www.youtube.com/live/SkIZpXs_e_o?si=p-eZGkAaVs4RSLol" target="_blank" rel="noreferrer">Watch the preaching <span aria-hidden="true">↗</span></a>
+        <span class="aside-label" data-i18n="serviceLabel">Sunday service</span>
+        <a class="aside-action" href="https://www.youtube.com/live/SkIZpXs_e_o?si=p-eZGkAaVs4RSLol" target="_blank" rel="noreferrer" data-i18n="serviceLink">Watch the preaching <span aria-hidden="true">↗</span></a>
       </div>
     </aside>
 
     <article class="study-article">
       <section class="opening" aria-labelledby="opening-title">
-        <p class="section-number">01 · Begin here</p>
-        <h2 id="opening-title">When the altar is crowded</h2>
-        <p class="lead">
+        <p class="section-number" data-i18n="section01">01 · Begin here</p>
+        <h2 id="opening-title" data-i18n="openingTitle">When the altar is crowded</h2>
+        <p class="lead" data-i18n="openingLead">
           Most believers do not wake up intending to abandon God. The subtler danger is continuing to worship him while other loyalties grow beside him. The problem is not always a cold heart; sometimes <strong>the altar is crowded</strong>.
         </p>
-        <p>
+        <p data-i18n="openingBody">
           We want God, but also control. We want his will, but also approval. David does not merely ask for stronger feelings; he asks God to make his inner life one. An idol is anything created that gains veto power over our obedience and receives the ultimate trust, fear, allegiance, or love belonging to God.
         </p>
         <div class="key-statement">
-          <span>Key truth</span>
-          <p>The greatest threat to sustained devotion is not always opposition around us. It is divided allegiance within us.</p>
+          <span data-i18n="keyTruthLabel">Key truth</span>
+          <p data-i18n="keyTruth">The greatest threat to sustained devotion is not always opposition around us. It is divided allegiance within us.</p>
         </div>
       </section>
 
       <section aria-labelledby="movement-one">
-        <p class="section-number">02 · Receive</p>
-        <h2 id="movement-one">Let God unite the heart</h2>
-        <p>
+        <p class="section-number" data-i18n="section02">02 · Receive</p>
+        <h2 id="movement-one" data-i18n="movementOneTitle">Let God unite the heart</h2>
+        <p data-i18n="movementOneBody1">
           Psalm 86:11 moves in a clear order: <strong>teach me</strong>, so that I may <strong>walk</strong>, and <strong>unite my heart</strong>. David begins with God’s way, not a path he has already selected. An undivided heart prays, “Teach me, even when your way confronts mine.” Truth is not simply information to admire; it becomes a life of obedience.
         </p>
         <blockquote class="verse-card">
-          <span>Key verse · ESV</span>
-          <p>“For you are great and do wondrous things; you alone are God.”</p>
-          <cite>Psalm 86:10</cite>
+          <span data-i18n="keyVerse">Key verse · ESV</span>
+          <p lang="en">“For you are great and do wondrous things; you alone are God.”</p>
+          <cite lang="en">Psalm 86:10</cite>
         </blockquote>
-        <p>
+        <p data-i18n="movementOneBody2">
           “Unite my heart” is a prayer for an integrated inner life—thought, will, affection, and intention gathered around reverent allegiance to God. Because God alone is God, no competing master deserves the throne. A divided heart reserves one room; an undivided heart welcomes Jesus as Lord of every room.
         </p>
         <div class="discussion-prompt">
-          <span>Discuss · 1</span>
-          <p>Where is my heart divided between God’s way and another way?</p>
+          <span data-i18n="discuss1Label">Discuss · 1</span>
+          <p data-i18n="discuss1">Where is my heart divided between God’s way and another way?</p>
         </div>
       </section>
 
       <section aria-labelledby="movement-two">
-        <p class="section-number">03 · Release</p>
-        <h2 id="movement-two">Clear the altar of rival loves</h2>
-        <p>
+        <p class="section-number" data-i18n="section03">03 · Release</p>
+        <h2 id="movement-two" data-i18n="movementTwoTitle">Clear the altar of rival loves</h2>
+        <p data-i18n="movementTwoBody1">
           In Ezekiel 14, the elders sit before God’s prophet while carrying idols within. Their posture looks spiritual, but their allegiance is already decided. They want guidance without surrender.
         </p>
         <blockquote class="verse-card">
-          <span>Key verses · ESV</span>
-          <p>“Son of man, these men have taken their idols into their hearts, and set the stumbling block of their iniquity before their faces.”</p>
-          <p>“Thus says the Lord GOD: Repent and turn away from your idols, and turn away your faces from all your abominations.”</p>
-          <cite>Ezekiel 14:3, 6</cite>
+          <span data-i18n="keyVerses">Key verses · ESV</span>
+          <p lang="en">“Son of man, these men have taken their idols into their hearts, and set the stumbling block of their iniquity before their faces.”</p>
+          <p lang="en">“Thus says the Lord GOD: Repent and turn away from your idols, and turn away your faces from all your abominations.”</p>
+          <cite lang="en">Ezekiel 14:3, 6</cite>
         </blockquote>
-        <p>
+        <p data-i18n="movementTwoBody2">
           Hidden idols often become visible when threatened—through controlling fear, disproportionate anger, deep defensiveness, secret compromise, or refusal to obey. God’s invitation is direct: <strong>repent and turn away</strong>. Repentance is not self-hatred; it is the end of defending what God is confronting.
         </p>
-        <ul class="diagnostic-list" aria-label="Questions for recognizing an idol">
-          <li>What do I fear losing most?</li>
-          <li>Which outcome am I demanding from God?</li>
-          <li>Whose approval controls my obedience?</li>
+        <ul class="diagnostic-list" aria-label="Questions for recognizing an idol" data-i18n-aria-label="idolQuestionsAria">
+          <li data-i18n="idolQuestion1">What do I fear losing most?</li>
+          <li data-i18n="idolQuestion2">Which outcome am I demanding from God?</li>
+          <li data-i18n="idolQuestion3">Whose approval controls my obedience?</li>
         </ul>
-        <p>
+        <p data-i18n="movementTwoBody3">
           Through Christ, repentance is not an attempt to persuade a reluctant God to receive us. Grace has already opened the way home. God exposes rival loves not merely to shame us, but to reclaim our hearts.
         </p>
         <div class="discussion-prompt">
-          <span>Discuss · 2</span>
-          <p>Which reaction may be revealing a rival love—and what am I asking God to bless that he may be asking me to surrender?</p>
+          <span data-i18n="discuss2Label">Discuss · 2</span>
+          <p data-i18n="discuss2">Which reaction may be revealing a rival love—and what am I asking God to bless that he may be asking me to surrender?</p>
         </div>
       </section>
 
       <section aria-labelledby="movement-three">
-        <p class="section-number">04 · Practice</p>
-        <h2 id="movement-three">Tend the altar daily</h2>
+        <p class="section-number" data-i18n="section04">04 · Practice</p>
+        <h2 id="movement-three" data-i18n="movementThreeTitle">Tend the altar daily</h2>
         <blockquote class="verse-card">
-          <span>Key verses · ESV</span>
-          <p>“The fire on the altar shall be kept burning on it; it shall not go out. The priest shall burn wood on it every morning, and he shall arrange the burnt offering on it and shall burn on it the fat of the peace offerings. Fire shall be kept burning on the altar continually; it shall not go out.”</p>
-          <cite>Leviticus 6:12–13</cite>
+          <span data-i18n="keyVerses">Key verses · ESV</span>
+          <p lang="en">“The fire on the altar shall be kept burning on it; it shall not go out. The priest shall burn wood on it every morning, and he shall arrange the burnt offering on it and shall burn on it the fat of the peace offerings. Fire shall be kept burning on the altar continually; it shall not go out.”</p>
+          <cite lang="en">Leviticus 6:12–13</cite>
         </blockquote>
-        <p>
+        <p data-i18n="movementThreeBody1">
           This command originally concerned Israel’s physical altar of burnt offering. The priests removed ashes, added fresh wood, arranged the sacrifice, and guarded the flame. The picture teaches a daily rhythm: <strong>yesterday’s fire cannot replace today’s obedience</strong>. Past experiences with God are testimonies, not fuel reserves.
         </p>
-        <div class="practice-grid" aria-label="Daily practices for tending devotion">
+        <div class="practice-grid" aria-label="Daily practices for tending devotion" data-i18n-aria-label="practicesAria">
           <div>
-            <span>Remove the ashes</span>
-            <p>Unconfessed sin, bitterness, secret compromise, pride, destructive habits, and spiritual apathy.</p>
+            <span data-i18n="removeAshes">Remove the ashes</span>
+            <p data-i18n="removeAshesBody">Unconfessed sin, bitterness, secret compromise, pride, destructive habits, and spiritual apathy.</p>
           </div>
           <div>
-            <span>Add fresh wood</span>
-            <p>Scripture, prayer, worship, obedience, fellowship, confession, fasting, service, and thanksgiving.</p>
+            <span data-i18n="addWood">Add fresh wood</span>
+            <p data-i18n="addWoodBody">Scripture, prayer, worship, obedience, fellowship, confession, fasting, service, and thanksgiving.</p>
           </div>
         </div>
-        <p>
+        <p data-i18n="movementThreeBody2">
           We cannot manufacture the Holy Spirit or earn God’s presence through religious effort. God supplies the flame; discipleship tends the altar. Grace does not produce passivity—it teaches us to remain attentive and responsive.
         </p>
         <blockquote class="verse-card">
-          <span>Key verses · ESV</span>
-          <p>“Rejoice always, pray without ceasing, give thanks in all circumstances; for this is the will of God in Christ Jesus for you. Do not quench the Spirit.”</p>
-          <cite>1 Thessalonians 5:16–19</cite>
+          <span data-i18n="keyVerses">Key verses · ESV</span>
+          <p lang="en">“Rejoice always, pray without ceasing, give thanks in all circumstances; for this is the will of God in Christ Jesus for you. Do not quench the Spirit.”</p>
+          <cite lang="en">1 Thessalonians 5:16–19</cite>
         </blockquote>
-        <p>
+        <p data-i18n="movementThreeBody3">
           Unceasing prayer is not nonstop speech. It is a life that keeps returning anxieties, decisions, conviction, thanksgiving, failure, and surrender to God. Prayer is the rhythm by which the scattered heart repeatedly returns to its center.
         </p>
         <div class="key-statement dark">
-          <span>Remember</span>
-          <p>God gives the flame. We remain teachable, remove what quenches his work, add what keeps us attentive, and respond in obedient faith.</p>
+          <span data-i18n="rememberLabel">Remember</span>
+          <p data-i18n="remember">God gives the flame. We remain teachable, remove what quenches his work, add what keeps us attentive, and respond in obedient faith.</p>
         </div>
         <div class="discussion-prompt">
-          <span>Discuss · 3</span>
-          <p>What needs to be removed, and what one daily practice needs to be added, so my heart remains responsive to God?</p>
+          <span data-i18n="discuss3Label">Discuss · 3</span>
+          <p data-i18n="discuss3">What needs to be removed, and what one daily practice needs to be added, so my heart remains responsive to God?</p>
         </div>
       </section>
 
       <section aria-labelledby="movement-four">
-        <p class="section-number">05 · Offer</p>
-        <h2 id="movement-four">Place the whole life before God</h2>
+        <p class="section-number" data-i18n="section05">05 · Offer</p>
+        <h2 id="movement-four" data-i18n="movementFourTitle">Place the whole life before God</h2>
         <blockquote class="verse-card">
-          <span>Key verse · ESV</span>
-          <p>“I appeal to you therefore, brothers, by the mercies of God, to present your bodies as a living sacrifice, holy and acceptable to God, which is your spiritual worship.”</p>
-          <cite>Romans 12:1</cite>
+          <span data-i18n="keyVerse">Key verse · ESV</span>
+          <p lang="en">“I appeal to you therefore, brothers, by the mercies of God, to present your bodies as a living sacrifice, holy and acceptable to God, which is your spiritual worship.”</p>
+          <cite lang="en">Romans 12:1</cite>
         </blockquote>
-        <p>
+        <p data-i18n="movementFourBody1">
           “The altar of the heart” is a biblical picture, not a phrase quoted directly from Scripture. Romans 12 gives the response behind the picture: the offering God desires is not one isolated religious moment, but the whole life—body, thoughts, ambitions, relationships, finances, private habits, public service, and future.
         </p>
-        <p>
+        <p data-i18n="movementFourBody2">
           Because a living sacrifice can step away, surrender must be renewed. Daily we say, “Lord, everything belongs to you again.” The goal is not temporary spiritual excitement, but sustained covenant faithfulness: a heart wholly available to God.
         </p>
       </section>
 
       <section class="response-section" aria-labelledby="response-title">
-        <p class="section-number">06 · A simple response</p>
-        <h2 id="response-title">Unite. Clear. Tend.</h2>
+        <p class="section-number" data-i18n="section06">06 · A simple response</p>
+        <h2 id="response-title" data-i18n="responseTitle">Unite. Clear. Tend.</h2>
         <ol class="response-steps">
           <li>
-            <span>Unite</span>
-            <p>Pray Psalm 86:11 and invite God to gather every divided desire under the lordship of Jesus.</p>
+            <span data-i18n="uniteLabel">Unite</span>
+            <p data-i18n="uniteBody">Pray Psalm 86:11 and invite God to gather every divided desire under the lordship of Jesus.</p>
           </li>
           <li>
-            <span>Clear</span>
-            <p>Name and renounce the rival love, resentment, compromise, or fear occupying the altar.</p>
+            <span data-i18n="clearLabel">Clear</span>
+            <p data-i18n="clearBody">Name and renounce the rival love, resentment, compromise, or fear occupying the altar.</p>
           </li>
           <li>
-            <span>Tend</span>
-            <p>Offer your whole life again and choose one rhythm: Scripture before your phone, a midday prayer pause, or an evening heart review.</p>
+            <span data-i18n="tendLabel">Tend</span>
+            <p data-i18n="tendBody">Offer your whole life again and choose one rhythm: Scripture before your phone, a midday prayer pause, or an evening heart review.</p>
           </li>
         </ol>
       </section>
 
       <section class="closing-prayer" aria-labelledby="prayer-title">
-        <p class="section-number">Pray together</p>
-        <h2 id="prayer-title">A prayer for an undivided heart</h2>
-        <p>
+        <p class="section-number" data-i18n="prayTogether">Pray together</p>
+        <h2 id="prayer-title" data-i18n="prayerTitle">A prayer for an undivided heart</h2>
+        <p data-i18n="prayer">
           Father, teach us your way and cause us to walk in your truth. Gather every scattered affection, ambition, fear, and desire. Expose the idols we carry into your presence, and free us from pride and self-defense. By your Spirit, teach us to repent without delay, pray without ceasing, and offer our whole lives to you. Jesus, you alone are God. Unite our hearts to fear your name. Amen.
         </p>
       </section>
 
-      <section class="takeaway" aria-label="Study takeaway">
-        <span>Take this with you</span>
-        <p>Unite the heart. Clear the altar. Tend the fire. Offer the whole life to God again today.</p>
+      <section class="takeaway" aria-label="Study takeaway" data-i18n-aria-label="takeawayAria">
+        <span data-i18n="takeawayLabel">Take this with you</span>
+        <p data-i18n="takeaway">Unite the heart. Clear the altar. Tend the fire. Offer the whole life to God again today.</p>
       </section>
 
       <section class="qr-section" aria-labelledby="share-title">
         <div>
-          <p class="section-number">Share the study</p>
-          <h2 id="share-title">Open on another device</h2>
-          <p>Scan or download this QR code to return directly to this Bible study.</p>
-          <a class="text-link" href={qrPath} download="dmi-altar-of-the-heart-qr.png">Download QR code</a>
+          <p class="section-number" data-i18n="shareLabel">Share the study</p>
+          <h2 id="share-title" data-i18n="shareTitle">Open on another device</h2>
+          <p data-i18n="shareBody">Scan or download this QR code to return directly to this Bible study.</p>
+          <a class="text-link" href={qrPath} download="dmi-altar-of-the-heart-qr.png" data-i18n="downloadQr">Download QR code</a>
         </div>
-        <a class="qr-card" href={pageURL} aria-label="Open this Bible study">
-          <img src={qrPath} width="720" height="720" alt="QR code for Altar of the Heart Bible study" />
+        <a class="qr-card" href={pageURL} aria-label="Open this Bible study" data-i18n-aria-label="qrLinkAria">
+          <img src={qrPath} width="720" height="720" alt="QR code for Altar of the Heart Bible study" data-i18n-alt="qrImageAlt" />
         </a>
       </section>
 
-      <p class="scripture-notice">
+      <p class="scripture-notice" lang="en">
         Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.
       </p>
     </article>
@@ -234,7 +321,7 @@ const logoPath = `${base}dmi-logo.jpg`;
   <footer class="site-footer">
     <a href={base}>DMI Calamba City</a>
     <div class="site-footer-actions">
-      <span>Gathered around Jesus. Formed by his Word.</span>
+      <span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span>
       <SocialLinks />
     </div>
   </footer>
