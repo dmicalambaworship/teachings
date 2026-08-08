@@ -384,6 +384,53 @@ strong {
   color: var(--cream);
 }
 
+.language-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.25rem;
+  border: 1px solid rgba(255, 250, 240, 0.28);
+  border-radius: 999px;
+  background: rgba(3, 47, 65, 0.42);
+  color: var(--cream);
+  box-shadow: 0 0.5rem 2rem rgba(3, 47, 65, 0.18);
+  backdrop-filter: blur(0.8rem);
+}
+
+.language-switcher-label {
+  margin-left: 0.65rem;
+  color: rgba(255, 250, 240, 0.62);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+}
+
+.language-switcher button {
+  min-height: 2.25rem;
+  padding: 0.45rem 0.72rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 250, 240, 0.72);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.62rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.language-switcher button[aria-pressed="true"] {
+  background: var(--cream);
+  color: var(--dmi-navy);
+  box-shadow: 0 0.25rem 1rem rgba(3, 47, 65, 0.18);
+}
+
+.language-switcher button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
 .study-hero-copy {
   align-self: center;
   max-width: 76rem;
@@ -1097,6 +1144,21 @@ strong {
 
   .study-nav span {
     display: none;
+  }
+
+  .language-switcher {
+    position: static;
+    margin-left: auto;
+    gap: 0.25rem;
+    padding: 0.3rem;
+    border-color: rgba(255, 250, 240, 0.4);
+    background: rgba(3, 47, 65, 0.94);
+    box-shadow: 0 0.75rem 2.5rem rgba(3, 47, 65, 0.3);
+  }
+
+  .language-switcher button {
+    min-height: 2.75rem;
+    padding-inline: 0.85rem;
   }
 
   .study-content {

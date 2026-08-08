@@ -1,0 +1,114 @@
+---
+interface Props {
+  translations: Record<string, string>;
+}
+
+const { translations } = Astro.props;
+const serializedTranslations = JSON.stringify(translations).replaceAll('<', '\\u003c');
+---
+
+<div class="language-switcher" role="group" aria-label="Reading language" data-i18n-aria-label="languageAriaLabel">
+  <span class="language-switcher-label" data-i18n="languageLabel">Read in</span>
+  <button type="button" data-language-value="en" aria-pressed="true" lang="en">English</button>
+  <button type="button" data-language-value="fil" aria-pressed="false">Taglish</button>
+</div>
+
+<script is:inline type="application/json" data-study-translations set:html={serializedTranslations}></script>
+
+<script is:inline>
+  (() => {
+    const initializeLanguageToggle = () => {
+      const storageKey = 'dmi-study-language';
+      const root = document.documentElement;
+      const translationSource = document.querySelector('[data-study-translations]');
+      const languageButtons = document.querySelectorAll('[data-language-value]');
+      const originals = new Map();
+      const originalAriaLabels = new Map();
+      const originalAltText = new Map();
+
+      if (!translationSource || languageButtons.length === 0) return;
+
+      let translations = {};
+      try {
+        translations = JSON.parse(translationSource.textContent || '{}');
+      } catch {
+        return;
+      }
+
+      document.querySelectorAll('[data-i18n]').forEach((element) => {
+        originals.set(element, element.innerHTML);
+      });
+
+      document.querySelectorAll('[data-i18n-aria-label]').forEach((element) => {
+        originalAriaLabels.set(element, element.getAttribute('aria-label'));
+      });
+
+      document.querySelectorAll('[data-i18n-alt]').forEach((element) => {
+        originalAltText.set(element, element.getAttribute('alt'));
+      });
+
+      const setLanguage = (language, persist = true) => {
+        const nextLanguage = language === 'fil' ? 'fil' : 'en';
+
+        document.querySelectorAll('[data-i18n]').forEach((element) => {
+          const key = element.dataset.i18n;
+          if (!key) return;
+
+          element.innerHTML = nextLanguage === 'fil' && translations[key]
+            ? translations[key]
+            : originals.get(element);
+        });
+
+        document.querySelectorAll('[data-i18n-aria-label]').forEach((element) => {
+          const key = element.dataset.i18nAriaLabel;
+          const value = nextLanguage === 'fil' && key && translations[key]
+            ? translations[key]
+            : originalAriaLabels.get(element);
+          element.setAttribute('aria-label', value || '');
+        });
+
+        document.querySelectorAll('[data-i18n-alt]').forEach((element) => {
+          const key = element.dataset.i18nAlt;
+          const value = nextLanguage === 'fil' && key && translations[key]
+            ? translations[key]
+            : originalAltText.get(element);
+          element.setAttribute('alt', value || '');
+        });
+
+        languageButtons.forEach((button) => {
+          button.setAttribute('aria-pressed', String(button.dataset.languageValue === nextLanguage));
+        });
+
+        root.dataset.studyLanguage = nextLanguage;
+        root.lang = nextLanguage;
+
+        if (persist) {
+          try {
+            localStorage.setItem(storageKey, nextLanguage);
+          } catch {
+            // The mode still works when storage is unavailable.
+          }
+        }
+      };
+
+      languageButtons.forEach((button) => {
+        button.addEventListener('click', () => setLanguage(button.dataset.languageValue));
+      });
+
+      let savedLanguage = 'en';
+      try {
+        savedLanguage = localStorage.getItem(storageKey) || 'en';
+      } catch {
+        // English is the safe default when storage is unavailable.
+      }
+
+      setLanguage(savedLanguage, false);
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeLanguageToggle, { once: true });
+    } else {
+      initializeLanguageToggle();
+    }
+  })();
+</script>
