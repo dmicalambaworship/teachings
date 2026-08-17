@@ -147,6 +147,10 @@ strong {
   color: var(--dmi-aqua);
 }
 
+.aside-label {
+  display: block;
+}
+
 .home-title h1 {
   margin: 0;
   font-family: var(--serif);
@@ -355,6 +359,89 @@ strong {
 
 .home-info-card a span {
   color: var(--ember);
+}
+
+.home-studies {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.7fr) minmax(0, 1.3fr);
+  gap: clamp(3rem, 9vw, 9rem);
+  padding: clamp(5rem, 10vw, 9rem) clamp(1.25rem, 6vw, 6rem);
+  border-top: 1px solid var(--line);
+  background: var(--paper-deep);
+  color: var(--ink);
+}
+
+.home-studies-intro h2 {
+  max-width: 10ch;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(3rem, 5vw, 5.5rem);
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 0.95;
+}
+
+.home-studies-intro > p:last-child {
+  max-width: 34rem;
+  margin: 2rem 0 0;
+  color: rgba(28, 29, 24, 0.68);
+  font-family: var(--serif);
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  line-height: 1.65;
+}
+
+.home-study-list {
+  align-self: end;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-study-list a {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.35fr) minmax(0, 1fr) auto;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: center;
+  padding: 1.6rem 0;
+  border-top: 1px solid var(--dmi-navy);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.home-study-list time {
+  color: var(--ember);
+  font-size: 0.66rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.home-study-copy {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.home-study-copy strong {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.8vw, 2.35rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.home-study-copy small {
+  color: rgba(28, 29, 24, 0.62);
+  font-family: var(--serif);
+  font-size: 1rem;
+}
+
+.home-study-arrow {
+  color: var(--ember);
+  font-size: 1.4rem;
+  transition: transform 180ms ease;
+}
+
+.home-study-list a:hover .home-study-arrow {
+  transform: translate(0.14rem, -0.14rem);
 }
 
 .study-hero {
@@ -1088,13 +1175,29 @@ strong {
   }
 
   .home-about,
+  .home-studies,
   .songs-hero-copy,
   .songs-intro {
     grid-template-columns: 1fr;
   }
 
-  .home-about {
+  .home-about,
+  .home-studies {
     gap: 4rem;
+  }
+
+  .home-study-list a {
+    grid-template-columns: 1fr auto;
+  }
+
+  .home-study-list time,
+  .home-study-copy {
+    grid-column: 1;
+  }
+
+  .home-study-arrow {
+    grid-column: 2;
+    grid-row: 1 / 3;
   }
 
   .songs-hero {
