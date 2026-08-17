@@ -13,6 +13,6 @@ npm run dev
 
 Every push to `main` runs the GitHub Pages workflow. The production site is available at:
 
-- <https://dmicalambaworship.github.io/teachings/>
-- <https://dmicalambaworship.github.io/teachings/2026-08-02-altar-undivided-heart/>
-- <https://dmicalambaworship.github.io/teachings/2026-08-16-altar-of-our-family/>
+- <https://dmicalambacity.org/>
+- <https://dmicalambacity.org/2026-08-02-altar-undivided-heart/>
+- <https://dmicalambacity.org/2026-08-16-altar-of-our-family/>
