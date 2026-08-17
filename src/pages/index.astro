@@ -4,6 +4,7 @@ import SocialLinks from '../components/SocialLinks.astro';
 
 const base = import.meta.env.BASE_URL;
 const studyPath = `${base}2026-08-16-altar-of-our-family/`;
+const previousStudyPath = `${base}2026-08-02-altar-undivided-heart/`;
 const songsPath = `${base}songs/`;
 const logoPath = `${base}dmi-logo.jpg`;
 ---
@@ -71,6 +72,37 @@ const logoPath = `${base}dmi-logo.jpg`;
           <a href="mailto:dmicalamba@gmail.com">dmicalamba@gmail.com <span aria-hidden="true">↗</span></a>
         </article>
       </div>
+    </section>
+
+    <section class="home-studies" aria-labelledby="home-studies-title">
+      <header class="home-studies-intro">
+        <p class="section-number">Bible studies</p>
+        <h2 id="home-studies-title">Study the Word with us.</h2>
+        <p>Read the latest teaching or revisit an earlier study in English or Taglish.</p>
+      </header>
+
+      <ol class="home-study-list">
+        <li>
+          <a href={studyPath}>
+            <time datetime="2026-08-16">16 August 2026</time>
+            <span class="home-study-copy">
+              <strong>Altar of Our Family</strong>
+              <small>Making Jesus the Lord of Our Home</small>
+            </span>
+            <span class="home-study-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a href={previousStudyPath}>
+            <time datetime="2026-08-02">02 August 2026</time>
+            <span class="home-study-copy">
+              <strong>Altar of the Heart</strong>
+              <small>An Undivided Heart for God</small>
+            </span>
+            <span class="home-study-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      </ol>
     </section>
   </main>
 </BaseLayout>

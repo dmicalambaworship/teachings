@@ -1,225 +1,326 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
 import SocialLinks from '../../components/SocialLinks.astro';
 
 const base = import.meta.env.BASE_URL;
 const qrPath = `${base}qr/2026-08-16-altar-of-our-family.png`;
 const pageURL = 'https://dmicalambaworship.github.io/teachings/2026-08-16-altar-of-our-family/';
 const logoPath = `${base}dmi-logo.jpg`;
+
+const translations = {
+  languageLabel: 'Wika',
+  languageAriaLabel: 'Wika ng pagbabasa',
+  navAria: 'Pangunahing navigation',
+  homeAria: 'Bumalik sa DMI Calamba City home',
+  summaryAria: 'Buod ng study',
+  takeawayAria: 'Pangunahing takeaway ng study',
+  qrLinkAria: 'Buksan ang Bible study na ito',
+  qrImageAlt: 'QR code para sa Altar of Our Family Bible study',
+  eyebrow: 'Bible Study · Josue 24:14–15',
+  title: 'Altar of Our Family',
+  subtitle: 'Si Jesus ang Panginoon ng Ating Tahanan',
+  heroScripture: '<sup>15</sup> “At kung ayaw ninyong maglingkod kay Yahweh, pumili kayo ngayon kung sino ang inyong paglilingkuran: ang mga diyos na pinaglingkuran ng inyong mga ninuno sa Mesopotamia, o ang mga diyos ng mga Amoreo, na sinasamba dito sa lupaing inyong tinitirhan. Ngunit para sa akin at sa aking sambahayan, kay Yahweh kami maglilingkod.”',
+  heroCitation: 'Josue 24:15 · MBBTAG',
+  themeLabel: 'Tema',
+  theme: 'Alalahanin ang kabutihan Niya. Magpasiyang maglingkod. Alisin ang mga idol. I-reflect ang Kanyang design.',
+  keyTextsLabel: 'Mga susing talata',
+  keyTexts: 'Josue 24:14–15<br />Mateo 10:37<br />Deuteronomio 6:7',
+  timeLabel: 'Oras',
+  time: '25–30 minuto',
+  presentationLabel: 'Presentation',
+  presentationLink: 'Buksan ang Canva slides <span aria-hidden="true">↗</span>',
+  serviceLabel: 'Sunday service',
+  serviceLink: 'Panoorin ang preaching <span aria-hidden="true">↗</span>',
+  section01: '01 · Magsimula rito',
+  openingTitle: 'Ano ang altar ng family?',
+  openingLead: 'Sa Old Testament, ang altar ay place of worship, sacrifice, surrender, prayer, thanksgiving, at pakikipagtagpo sa Diyos. Kapag sinasabi nating <strong>altar ng family</strong>, ginagamit natin ang altar bilang larawan ng isang tahanang patuloy na isinusuko kay Jesus ang relationships, priorities, decisions, at future nito.',
+  openingBody: 'Kaya ang family altar ay higit pa sa family devotions, prayer before meals, o sabay-sabay na pag-attend ng church. Mahahalagang expressions of faith ang mga ito, pero may mas malalim na tanong: <strong>Si Jesus ba talaga ang Panginoon ng ating tahanan?</strong>',
+  keyTruthLabel: 'Susing katotohanan',
+  keyTruth: 'Ang family altar ay hindi lang kung ano ang nangyayari habang may devotion; makikita ito sa paraan ng pamumuhay ng family pagkatapos ng devotion.',
+  section02: '02 · Alalahanin',
+  rememberTitle: 'Alalahanin ang kabutihan ng Diyos',
+  rememberBody1: 'Bago tawagin ni Josue ang Israel na pumili kung sino ang paglilingkuran nila, ipinaalala muna niya ang lahat ng ginawa ng Diyos. Tinawag ng Diyos si Abraham, pinarami at pinrotektahan ang kanyang lahi, iniligtas ang Israel mula sa Egipto at sa Dagat na Pula, iningatan sila sa ilang, tinalo ang kanilang mga kaaway, at binigyan sila ng lupaing hindi nila itinayo o tinamnan.',
+  rememberBody2: 'Pagkatapos, sinabi ni Josue, “Ngayon nga ay matakot kayo sa Panginoon.” Nagsimula ang commitment nila sa pag-alala sa faithfulness ng Diyos.',
+  rememberBody3: 'Ganoon din sa ating mga family. Bago natin itanong, “Ano ang dapat nating gawin para sa Diyos?” alalahanin muna natin, “Ano na ang ginawa ng Diyos para sa atin?” Iniligtas Niya tayo, nag-provide Siya, nag-protect Siya, dinala Niya tayo sa mahihirap na seasons, at nanatili Siyang faithful sa ating family.',
+  keyVerse: 'Susing talata · MBBTAG',
+  joshuaVerse14: '<sup>14</sup> “Kaya ngayon, sambahin ninyo si Yahweh at paglingkuran ninyo siya nang buong puso\'t katapatan. Alisin ninyo ang mga diyus-diyosang dating sinasamba ng inyong mga ninuno sa Mesopotamia at sa Egipto. Si Yahweh lamang ang inyong paglingkuran.”',
+  joshuaCitation14: 'Josue 24:14',
+  discuss1Label: 'Pag-usapan · 1',
+  discuss1: 'Ano na ang ginawa ng Diyos para sa ating family na minsan nakakalimutan nating ipagpasalamat?',
+  section03: '03 · Magpasya',
+  resolveTitle: 'Magpasiyang maglingkod sa Panginoon',
+  resolveBody1: 'Matapos ipaalala sa Israel ang faithfulness ng Diyos, tinawag sila ni Josue na magdesisyon. Hindi siya makakapili para sa bawat Israelita, pero kaya niyang ideklara ang direksyon ng sarili niyang household: “Para sa akin at sa aking sambahayan, kay Yahweh kami maglilingkod.”',
+  resolveBody2: 'Nagsisimula ang family altar sa kaparehong decision: <strong>“Sa tahanang ito, si Jesus ang Panginoon.”</strong> Higit ito sa pag-attend ng church, pagkakaroon ng family devotions, o pagdarasal nang sama-sama. Ang mga practices na ito ay expressions ng mas malalim na commitment na hayaan si Jesus ang mamahala sa buhay ng household.',
+  resolveBody3: 'Kapag si Jesus ang Lord, natututo ang family na hindi lang itanong, “Ano ang gusto natin?” kundi, “Ano ang gusto ni Jesus?” Hindi lang, “Ano ang convenient?” kundi, “Ano ang nagbibigay-honor kay Cristo?”',
+  joshuaVerse15: '<sup>15</sup> “At kung ayaw ninyong maglingkod kay Yahweh, pumili kayo ngayon kung sino ang inyong paglilingkuran: ang mga diyos na pinaglingkuran ng inyong mga ninuno sa Mesopotamia, o ang mga diyos ng mga Amoreo, na sinasamba dito sa lupaing inyong tinitirhan. Ngunit para sa akin at sa aking sambahayan, kay Yahweh kami maglilingkod.”',
+  joshuaCitation15: 'Josue 24:15',
+  discuss2Label: 'Pag-usapan · 2',
+  discuss2: 'Sa practical na paraan, ano ang ibig sabihin para sa ating family ng “Maglilingkod kami sa Panginoon”?',
+  section04: '04 · Alisin',
+  removeTitle: 'Alisin ang mga idol',
+  removeBody1: 'Sinabi ni Josue sa Israel na alisin ang mga diyos na kumakanya sa kanilang allegiance. Maaaring hindi tayo yumuyuko sa mga rebulto ngayon, pero puwede pa ring magkaroon ng idols ang ating family. Money, career, success, achievements ng mga anak, comfort, entertainment, reputation, personal happiness, at maging ang family mismo ay puwedeng pumalit sa lugar na para sa Diyos lamang.',
+  removeBody2: 'Hindi naman laging masama ang mga ito. Marami rito ay good gifts from God. Pero ang isang mabuting regalo ay nagiging idol kapag pinapalitan nito ang Giver.',
+  removeBody3: 'Sinabi ni Jesus na kahit ang pagmamahal natin sa ama, ina, anak na lalaki, o anak na babae ay hindi dapat mauna sa pagmamahal natin sa Kanya. Hindi Niya hinihinging mahalin natin nang mas kaunti ang ating family. Tinuturuan Niya tayong unahin Siya para mahalin natin nang tama ang ating family.',
+  matthewVerse: '<sup>37</sup> “Ang umiibig sa kanyang ama o ina nang higit sa akin ay hindi karapat-dapat sa akin. Ang umiibig sa kanyang anak nang higit sa akin ay hindi karapat-dapat sa akin.”',
+  matthewCitation: 'Mateo 10:37',
+  discuss3Label: 'Pag-usapan · 3',
+  discuss3: 'Anong mabuting bagay sa ating family ang puwedeng maging idol kung hahayaan natin itong pumalit sa tamang lugar ng Diyos?',
+  section05: '05 · I-reflect',
+  reflectTitle: 'I-reflect ang design ng Diyos para sa family',
+  reflectBody1: 'Kung si Jesus ang Lord ng ating home, dapat makita ang Kanyang lordship sa pakikitungo natin sa isa\'t isa. Tinatawag ang husbands na magmahal nang sacrificial gaya ng pagmamahal ni Cristo sa Church; ang wives na magbigay-galang sa kanilang husbands; ang parents na palakihin ang kanilang mga anak ayon sa discipline at instruction ng Lord; at ang children na sumunod at magbigay-honor sa kanilang parents (Efeso 5:25, 33; 6:1–4).',
+  reflectBody2: 'Ang design ng Diyos para sa family ay hindi lang tungkol sa roles; tungkol ito sa <strong>relationships shaped by Christ</strong>. Ang marriage, parenting, communication, conflicts, finances, decisions, at relationships natin ay dapat lalong mag-reflect ng Kanyang character.',
+  reflectBody3: 'Ipinapaalala ng Deuteronomio 6 na dapat ituro nang buong sikap ang faith na ito sa ating mga anak at isama sa everyday life. Ang home ay place of discipleship. Matututo ang mga anak hindi lang sa sinasabi natin, kundi sa paulit-ulit nilang nakikita sa atin.',
+  reflectBody4: 'Kaya ang family altar ay hindi lang lugar kung saan naririnig ng mga anak ang tungkol kay Jesus. Dito nila nakikita kung ano ang hitsura ng pagsunod kay Jesus.',
+  deuteronomyVerse: '<sup>7</sup> “Ituro ninyo ito sa inyong mga anak; pag-aralan ninyo ito sa inyong tahanan, sa inyong paglalakbay, sa inyong pagtulog sa gabi, at sa inyong pagbangon sa umaga.”',
+  deuteronomyCitation: 'Deuteronomio 6:7',
+  discuss4Label: 'Pag-usapan · 4',
+  discuss4: 'Ano ang magbabago sa ating home kung talagang hahayaan nating hubugin ni Jesus ang paraan ng pagmamahal, pakikipag-usap, pagpapatawad, pagdidisiplina, at pagdedesisyon natin?',
+  section06: '06 · Tumugon',
+  responseTitle: 'Alalahanin. Magpasya. Alisin. I-reflect.',
+  responseBody1: 'Nagsisimula ang altar ng family sa pag-alala sa goodness ng Diyos, pagdedesisyong maglingkod sa Kanya, pag-aalis ng idols na kumakalaban sa Kanya, at pagre-reflect ng Kanyang design sa paraan ng pamumuhay natin.',
+  responseBody2: 'Ang paglalagay kay Jesus sa center ay hindi nangangahulugang wala nang conflict, financial difficulty, mistakes, o failure. Ibig sabihin, kapag dumating ang mga iyon, alam natin kung saan babalik.',
+  returnLabel: 'Bumalik',
+  returnJesus: 'Bumalik kay Jesus.',
+  returnWord: 'Bumalik sa Kanyang Salita.',
+  returnPrayer: 'Bumalik sa panalangin.',
+  returnGrace: 'Bumalik sa grace.',
+  returnCross: 'Bumalik sa krus.',
+  declarationLabel: 'Ang ating deklarasyon',
+  declaration: '“Jesus, Ikaw ang Panginoon ng tahanang ito.”',
+  section07: '07 · Manalangin nang sama-sama',
+  prayerTitle: 'Panalangin para sa altar ng family',
+  prayer1: 'Ama, salamat sa Iyong goodness at faithfulness sa aming mga family. Tulungan Mo kaming alalahanin ang Iyong mga ginawa, magdesisyong maglingkod sa Iyo, alisin ang anumang pumapalit sa Iyo, at i-reflect ang Iyong character sa aming homes.',
+  prayer2: 'Turuan Mo kaming mahalin ang aming spouses nang sacrificial, palakihin ang aming mga anak ayon sa Iyong Word, magbigay-honor sa isa\'t isa, magpatawad sa isa\'t isa, at gumawa ng decisions na nakalulugod sa Iyo.',
+  prayer3: 'Nawa ang aming mga tahanan ay maging lugar kung saan si Jesus ay hindi lang welcome, kundi tunay na Panginoon. In Jesus\' name, Amen.',
+  takeawayLabel: 'Dalhin mo ito',
+  takeaway: 'Alalahanin ang kabutihan Niya. Magpasiyang maglingkod. Alisin ang mga idol. I-reflect ang Kanyang design. “Para sa akin at sa aking sambahayan, kay Yahweh kami maglilingkod.”',
+  shareLabel: 'I-share ang study',
+  shareTitle: 'Buksan sa ibang device',
+  shareBody: 'I-scan o i-download ang QR code para makabalik diretso sa Bible study na ito.',
+  downloadQr: 'I-download ang QR code',
+  scriptureNotice: 'Scripture texts are from the Magandang Balita Biblia © 2012 Philippine Bible Society, used with permission.',
+  footerTagline: 'Sama-samang nakasentro kay Jesus. Hinuhubog ng Kanyang Salita.'
+};
 ---
 
 <BaseLayout
-  title="Altar of Our Family: Making Jesus Lord of Our Home | DMI Calamba City"
-  description="Isang Taglish Bible study mula sa Josue 24:14–15 tungkol sa pag-alala sa kabutihan ng Diyos, pagpiling maglingkod sa Kanya, pag-aalis ng mga diyus-diyosan, at pamumuhay bilang tahanang nakasentro kay Jesus."
+  title="Altar of Our Family: Making Jesus the Lord of Our Home | DMI Calamba City"
+  description="A Bible study from Joshua 24:14–15 about remembering God's faithfulness, choosing to serve the Lord, removing idols, and reflecting Christ in the home."
   bodyClass="study-page"
 >
   <header class="study-hero">
-    <nav class="study-nav" aria-label="Primary navigation">
-      <a class="brand-lockup" href={base} aria-label="Bumalik sa DMI Calamba City home">
+    <nav class="study-nav" aria-label="Primary navigation" data-i18n-aria-label="navAria">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria">
         <img src={logoPath} width="900" height="900" alt="" />
         <span>DMI · Calamba City</span>
       </a>
+      <LanguageToggle translations={translations} />
       <span>16 August 2026</span>
     </nav>
 
     <div class="study-hero-copy">
-      <p class="eyebrow">Bible Study · Josue 24:14–15</p>
-      <h1>Altar of Our Family</h1>
-      <p class="study-subtitle">Making Jesus Lord of Our Home</p>
+      <p class="eyebrow" data-i18n="eyebrow">Bible Study · Joshua 24:14–15</p>
+      <h1 data-i18n="title">Altar of Our Family</h1>
+      <p class="study-subtitle" data-i18n="subtitle">Making Jesus the Lord of Our Home</p>
     </div>
 
     <blockquote class="hero-scripture">
-      <p>“At kung inaakala ninyong masama na maglingkod sa Panginoon, ay piliin ninyo sa araw na ito kung sino ang inyong paglilingkuran; kung ang mga dios ng inyong mga magulang na pinaglingkuran sa dako roon ng Ilog, o ang dios ng mga Amorrheo na ang lupain nila ay inyong tinatahanan: nguni't sa ganang akin at ng aking sangbahayan ay maglilingkod kami sa Panginoon.”</p>
-      <cite>Josue 24:15 · Ang Dating Biblia (1905)</cite>
+      <p lang="en" data-i18n="heroScripture" data-i18n-lang>“But as for me and my house, we will serve the LORD.”</p>
+      <cite lang="en" data-i18n="heroCitation" data-i18n-lang>Joshua 24:15 ESV</cite>
     </blockquote>
   </header>
 
   <main class="study-content">
-    <aside class="study-aside" aria-label="Study summary">
+    <aside class="study-aside" aria-label="Study summary" data-i18n-aria-label="summaryAria">
       <div>
-        <span class="aside-label">Tema</span>
-        <p>Remember His goodness. Resolve to serve Him. Remove the idols. Reflect His design.</p>
+        <span class="aside-label" data-i18n="themeLabel">Theme</span>
+        <p data-i18n="theme">Remember His goodness. Resolve to serve Him. Remove the idols. Reflect His design.</p>
       </div>
       <div>
-        <span class="aside-label">Key texts</span>
-        <p>Josue 24:14–15<br />Mateo 10:37<br />Deuteronomio 6:7</p>
+        <span class="aside-label" data-i18n="keyTextsLabel">Key texts</span>
+        <p data-i18n="keyTexts">Joshua 24:14–15<br />Matthew 10:37<br />Deuteronomy 6:7</p>
       </div>
       <div>
-        <span class="aside-label">Oras</span>
-        <p>25–30 minutes</p>
+        <span class="aside-label" data-i18n="timeLabel">Time</span>
+        <p data-i18n="time">25–30 minutes</p>
       </div>
       <div>
-        <span class="aside-label">Previous study</span>
-        <a class="aside-action" href={`${base}2026-08-02-altar-undivided-heart/`}>Altar of the Heart <span aria-hidden="true">↗</span></a>
+        <span class="aside-label" data-i18n="presentationLabel">Presentation</span>
+        <a class="aside-action" href="https://canva.link/u09m40ithxqhlo1" target="_blank" rel="noreferrer" data-i18n="presentationLink">Open Canva slides <span aria-hidden="true">↗</span></a>
+      </div>
+      <div>
+        <span class="aside-label" data-i18n="serviceLabel">Sunday service</span>
+        <a class="aside-action" href="https://www.youtube.com/live/n2lHw5vQicQ?si=TzYtqRBY8ofHUG04" target="_blank" rel="noreferrer" data-i18n="serviceLink">Watch the preaching <span aria-hidden="true">↗</span></a>
       </div>
     </aside>
 
     <article class="study-article">
       <section class="opening" aria-labelledby="opening-title">
-        <p class="section-number">01 · Begin here</p>
-        <h2 id="opening-title">Ano ang altar ng family?</h2>
-        <p class="lead">
-          Sa Old Testament, ang altar ay place of worship, sacrifice, surrender, prayer, thanksgiving, at pakikipagtagpo sa Diyos. Kapag sinasabi nating <strong>altar ng family</strong>, ginagamit natin ang altar bilang larawan ng isang tahanang patuloy na isinusuko kay Jesus ang relationships, priorities, decisions, at future nito.
+        <p class="section-number" data-i18n="section01">01 · Begin here</p>
+        <h2 id="opening-title" data-i18n="openingTitle">What is the altar of the family?</h2>
+        <p class="lead" data-i18n="openingLead">
+          An altar in the Old Testament was a place of worship, sacrifice, surrender, prayer, thanksgiving, and encounter with God. When we speak of the <strong>altar of the family</strong>, we use the altar as a metaphor for a home that continually surrenders its relationships, priorities, decisions, and future to Jesus Christ as Lord.
         </p>
-        <p>
-          Kaya ang family altar ay higit pa sa family devotions, prayer before meals, o sabay-sabay na pag-attend ng church. Mahahalagang expressions of faith ang mga ito, pero may mas malalim na tanong: <strong>Si Jesus ba talaga ang Panginoon ng ating tahanan?</strong>
+        <p data-i18n="openingBody">
+          The family altar is therefore more than family devotions, prayer before meals, or attending church together. These are valuable expressions of faith, but the deeper question is: <strong>Is Jesus truly Lord of our home?</strong>
         </p>
         <div class="key-statement">
-          <span>Key truth</span>
-          <p>Ang family altar ay hindi lang kung ano ang nangyayari habang may devotion; makikita ito sa paraan ng pamumuhay ng family pagkatapos ng devotion.</p>
+          <span data-i18n="keyTruthLabel">Key truth</span>
+          <p data-i18n="keyTruth">The family altar is not only what happens during family devotion; it is how the family lives after the devotion is over.</p>
         </div>
       </section>
 
       <section aria-labelledby="remember-title">
-        <p class="section-number">02 · Remember</p>
-        <h2 id="remember-title">Remember God's goodness</h2>
-        <p>
-          Bago tawagin ni Josue ang Israel na pumili kung sino ang paglilingkuran nila, ipinaalala muna niya ang lahat ng ginawa ng Diyos. Tinawag ng Diyos si Abraham, pinarami at pinrotektahan ang kanyang lahi, iniligtas ang Israel mula sa Egipto at sa Dagat na Pula, iningatan sila sa ilang, tinalo ang kanilang mga kaaway, at binigyan sila ng lupaing hindi nila itinayo o tinamnan.
+        <p class="section-number" data-i18n="section02">02 · Remember</p>
+        <h2 id="remember-title" data-i18n="rememberTitle">Remember God's goodness</h2>
+        <p data-i18n="rememberBody1">
+          Before Joshua called Israel to choose whom they would serve, he reminded them of everything God had done. God had called Abraham, multiplied and protected his descendants, delivered Israel from Egypt, saved them at the Red Sea, protected them in the wilderness, defeated their enemies, and gave them a land they had not built or planted.
         </p>
-        <p>
-          Pagkatapos, sinabi ni Josue, “Ngayon nga ay matakot kayo sa Panginoon.” Nagsimula ang commitment nila sa pag-alala sa faithfulness ng Diyos.
+        <p data-i18n="rememberBody2">
+          Then Joshua said, “Now therefore fear the LORD and serve him.” Their commitment began with remembering God's faithfulness.
         </p>
-        <p>
-          Ganoon din sa ating mga family. Bago natin itanong, “Ano ang dapat nating gawin para sa Diyos?” alalahanin muna natin, “Ano na ang ginawa ng Diyos para sa atin?” Iniligtas Niya tayo, nag-provide Siya, nag-protect Siya, dinala Niya tayo sa mahihirap na seasons, at nanatili Siyang faithful sa ating family.
+        <p data-i18n="rememberBody3">
+          The same is true for our families. Before asking, “What should we do for God?” let us first remember, “What has God already done for us?” He has saved us, provided for us, protected us, carried us through difficult seasons, and remained faithful to our family.
         </p>
         <blockquote class="verse-card">
-          <span>Key verse · Ang Dating Biblia (1905)</span>
-          <p>“Ngayon nga ay matakot kayo sa Panginoon, at paglingkuran ninyo siya sa pagtatapat at sa katotohanan: at inyong alisin ang mga dios na mga pinaglingkuran ng inyong mga magulang sa dako roon ng Ilog at sa Egipto; at inyong paglingkuran ang Panginoon.”</p>
-          <cite>Josue 24:14</cite>
+          <span data-i18n="keyVerse">Key verse · ESV</span>
+          <p lang="en" data-i18n="joshuaVerse14" data-i18n-lang>“Now therefore fear the LORD and serve him in sincerity and in faithfulness.”</p>
+          <cite lang="en" data-i18n="joshuaCitation14" data-i18n-lang>Joshua 24:14</cite>
         </blockquote>
         <div class="discussion-prompt">
-          <span>Discuss · 1</span>
-          <p>Ano na ang ginawa ng Diyos para sa ating family na minsan nakakalimutan nating ipagpasalamat?</p>
+          <span data-i18n="discuss1Label">Discuss · 1</span>
+          <p data-i18n="discuss1">What has God already done for our family that we sometimes forget to thank Him for?</p>
         </div>
       </section>
 
       <section aria-labelledby="resolve-title">
-        <p class="section-number">03 · Resolve</p>
-        <h2 id="resolve-title">Choose to serve the Lord</h2>
-        <p>
-          Matapos ipaalala sa Israel ang faithfulness ng Diyos, tinawag sila ni Josue na magdesisyon. Hindi siya makakapili para sa bawat Israelita, pero kaya niyang ideklara ang direksyon ng sarili niyang household: “Sa ganang akin at ng aking sangbahayan ay maglilingkod kami sa Panginoon.”
+        <p class="section-number" data-i18n="section03">03 · Resolve</p>
+        <h2 id="resolve-title" data-i18n="resolveTitle">Resolve to serve the Lord</h2>
+        <p data-i18n="resolveBody1">
+          After reminding Israel of God's faithfulness, Joshua called them to make a decision. He could not choose for every Israelite, but he could declare the direction of his own household: “As for me and my house, we will serve the LORD.”
         </p>
-        <p>
-          Nagsisimula ang family altar sa kaparehong decision: <strong>“Sa tahanang ito, si Jesus ang Panginoon.”</strong> Higit ito sa pag-attend ng church, pagkakaroon ng family devotions, o pagdarasal nang sama-sama. Ang mga practices na ito ay expressions ng mas malalim na commitment na hayaan si Jesus ang mamahala sa buhay ng household.
+        <p data-i18n="resolveBody2">
+          The family altar begins with a similar decision: <strong>“In this home, Jesus is Lord.”</strong> This means more than attending church, having family devotions, or praying together. These practices are expressions of a deeper commitment to allow Jesus to govern the life of the household.
         </p>
-        <p>
-          Kapag si Jesus ang Lord, natututo ang family na hindi lang itanong, “Ano ang gusto natin?” kundi, “Ano ang gusto ni Jesus?” Hindi lang, “Ano ang convenient?” kundi, “Ano ang nagbibigay-honor kay Cristo?”
+        <p data-i18n="resolveBody3">
+          When Jesus is Lord, the family learns to ask not simply, “What do we want?” but “What does Jesus want?” Not simply, “What is convenient?” but “What honors Christ?”
         </p>
         <blockquote class="verse-card">
-          <span>Key verse · Ang Dating Biblia (1905)</span>
-          <p>“At kung inaakala ninyong masama na maglingkod sa Panginoon, ay piliin ninyo sa araw na ito kung sino ang inyong paglilingkuran; kung ang mga dios ng inyong mga magulang na pinaglingkuran sa dako roon ng Ilog, o ang dios ng mga Amorrheo na ang lupain nila ay inyong tinatahanan: nguni't sa ganang akin at ng aking sangbahayan ay maglilingkod kami sa Panginoon.”</p>
-          <cite>Josue 24:15</cite>
+          <span data-i18n="keyVerse">Key verse · ESV</span>
+          <p lang="en" data-i18n="joshuaVerse15" data-i18n-lang>“But as for me and my house, we will serve the LORD.”</p>
+          <cite lang="en" data-i18n="joshuaCitation15" data-i18n-lang>Joshua 24:15</cite>
         </blockquote>
         <div class="discussion-prompt">
-          <span>Discuss · 2</span>
-          <p>Sa practical na paraan, ano ang ibig sabihin para sa ating family ng “Maglilingkod kami sa Panginoon”?</p>
+          <span data-i18n="discuss2Label">Discuss · 2</span>
+          <p data-i18n="discuss2">What would it practically mean for our family to say, “We will serve the Lord”?</p>
         </div>
       </section>
 
       <section aria-labelledby="remove-title">
-        <p class="section-number">04 · Remove</p>
-        <h2 id="remove-title">Remove the idols</h2>
-        <p>
-          Sinabi ni Josue sa Israel na alisin ang mga diyos na kumakanya sa kanilang allegiance. Maaaring hindi tayo yumuyuko sa mga rebulto ngayon, pero puwede pa ring magkaroon ng idols ang ating family. Money, career, success, achievements ng mga anak, comfort, entertainment, reputation, personal happiness, at maging ang family mismo ay puwedeng pumalit sa lugar na para sa Diyos lamang.
+        <p class="section-number" data-i18n="section04">04 · Remove</p>
+        <h2 id="remove-title" data-i18n="removeTitle">Remove the idols</h2>
+        <p data-i18n="removeBody1">
+          Joshua told Israel to “put away the gods” that had competed for their allegiance. We may not bow before statues today, but our families can still have idols. Money, career, success, children's achievements, comfort, entertainment, reputation, personal happiness, and even family itself can take God's rightful place.
         </p>
-        <p>
-          Hindi naman laging masama ang mga ito. Marami rito ay good gifts from God. Pero ang isang mabuting regalo ay nagiging idol kapag pinapalitan nito ang Giver.
+        <p data-i18n="removeBody2">
+          These things are not necessarily bad. Many are good gifts from God. But a good gift becomes an idol when it takes the place of the Giver.
         </p>
-        <p>
-          Sinabi ni Jesus na kahit ang pagmamahal natin sa ama, ina, anak na lalaki, o anak na babae ay hindi dapat mauna sa pagmamahal natin sa Kanya. Hindi Niya hinihinging mahalin natin nang mas kaunti ang ating family. Tinuturuan Niya tayong unahin Siya para mahalin natin nang tama ang ating family.
+        <p data-i18n="removeBody3">
+          Jesus said that even our love for father, mother, son, or daughter must never come before our love for Him. He is not asking us to love our families less; He is teaching us to love Him first so that we can love our families rightly.
         </p>
         <blockquote class="verse-card">
-          <span>Key verse · Ang Dating Biblia (1905)</span>
-          <p>“Ang umiibig sa ama o sa ina ng higit kay sa akin ay hindi karapatdapat sa akin; at ang umiibig sa anak na lalake o anak na babae ng higit kay sa akin ay hindi karapatdapat sa akin.”</p>
-          <cite>Mateo 10:37</cite>
+          <span data-i18n="keyVerse">Key verse · ESV</span>
+          <p lang="en" data-i18n="matthewVerse" data-i18n-lang>“Whoever loves father or mother more than me is not worthy of me, and whoever loves son or daughter more than me is not worthy of me.”</p>
+          <cite lang="en" data-i18n="matthewCitation" data-i18n-lang>Matthew 10:37</cite>
         </blockquote>
         <div class="discussion-prompt">
-          <span>Discuss · 3</span>
-          <p>Anong mabuting bagay sa ating family ang puwedeng maging idol kung hahayaan natin itong pumalit sa tamang lugar ng Diyos?</p>
+          <span data-i18n="discuss3Label">Discuss · 3</span>
+          <p data-i18n="discuss3">What good thing in our family could become an idol if we allow it to take God's rightful place?</p>
         </div>
       </section>
 
       <section aria-labelledby="reflect-title">
-        <p class="section-number">05 · Reflect</p>
-        <h2 id="reflect-title">Reflect God's design for the family</h2>
-        <p>
-          Kung si Jesus ang Lord ng ating home, dapat makita ang Kanyang lordship sa pakikitungo natin sa isa't isa. Tinatawag ang husbands na magmahal nang sacrificial gaya ng pagmamahal ni Cristo sa Church; ang wives na magbigay-galang sa kanilang husbands; ang parents na palakihin ang kanilang mga anak ayon sa discipline at instruction ng Lord; at ang children na sumunod at magbigay-honor sa kanilang parents (Efeso 5:25, 33; 6:1–4).
+        <p class="section-number" data-i18n="section05">05 · Reflect</p>
+        <h2 id="reflect-title" data-i18n="reflectTitle">Reflect God's design for the family</h2>
+        <p data-i18n="reflectBody1">
+          If Jesus is Lord of our home, His lordship should be reflected in the way we treat one another. Husbands are called to love sacrificially as Christ loved the Church, wives are called to honor their husbands as unto the Lord, parents are called to raise their children in the discipline and instruction of the Lord, and children are called to obey and honor their parents (Ephesians 5:25, 33; 6:1–4).
         </p>
-        <p>
-          Ang design ng Diyos para sa family ay hindi lang tungkol sa roles; tungkol ito sa <strong>relationships shaped by Christ</strong>. Ang marriage, parenting, communication, conflicts, finances, decisions, at relationships natin ay dapat lalong mag-reflect ng Kanyang character.
+        <p data-i18n="reflectBody2">
+          God's design for the family is not merely about roles; it is about <strong>relationships shaped by Christ</strong>. Our marriages, parenting, communication, conflicts, finances, decisions, and relationships should increasingly reflect His character.
         </p>
-        <p>
-          Ipinapaalala ng Deuteronomio 6 na dapat ituro nang buong sikap ang faith na ito sa ating mga anak at isama sa everyday life. Ang home ay place of discipleship. Matututo ang mga anak hindi lang sa sinasabi natin, kundi sa paulit-ulit nilang nakikita sa atin.
+        <p data-i18n="reflectBody3">
+          Deuteronomy 6 reminds us that this faith is to be taught diligently to our children and woven into everyday life. The home is a place of discipleship. Our children will learn not only from what we teach them, but from what they repeatedly see in us.
         </p>
-        <p>
-          Kaya ang family altar ay hindi lang lugar kung saan naririnig ng mga anak ang tungkol kay Jesus. Dito nila nakikita kung ano ang hitsura ng pagsunod kay Jesus.
+        <p data-i18n="reflectBody4">
+          The family altar is therefore not simply where our children hear about Jesus. It is where they see what following Jesus looks like.
         </p>
         <blockquote class="verse-card">
-          <span>Key verse · Ang Dating Biblia (1905)</span>
-          <p>“At iyong ituturo ng buong sikap sa iyong mga anak, at iyong sasalitain tungkol sa kanila pagka ikaw ay nakaupo sa iyong bahay, at pagka ikaw ay lumakad sa daan, at pagka ikaw ay nahihiga at pagka ikaw ay bumabangon.”</p>
-          <cite>Deuteronomio 6:7</cite>
+          <span data-i18n="keyVerse">Key verse · ESV</span>
+          <p lang="en" data-i18n="deuteronomyVerse" data-i18n-lang>“You shall teach them diligently to your children, and shall talk of them when you sit in your house, and when you walk by the way.”</p>
+          <cite lang="en" data-i18n="deuteronomyCitation" data-i18n-lang>Deuteronomy 6:7</cite>
         </blockquote>
         <div class="discussion-prompt">
-          <span>Discuss · 4</span>
-          <p>Ano ang magbabago sa ating home kung talagang hahayaan nating hubugin ni Jesus ang paraan ng pagmamahal, pakikipag-usap, pagpapatawad, pagdidisiplina, at pagdedesisyon natin?</p>
+          <span data-i18n="discuss4Label">Discuss · 4</span>
+          <p data-i18n="discuss4">What would change in our home if we truly allowed Jesus to shape the way we love, communicate, forgive, discipline, and make decisions?</p>
         </div>
       </section>
 
       <section class="response-section" aria-labelledby="response-title">
-        <p class="section-number">06 · Respond</p>
-        <h2 id="response-title">Remember. Resolve. Remove. Reflect.</h2>
-        <p>
-          Nagsisimula ang altar ng family sa pag-alala sa goodness ng Diyos, pagdedesisyong maglingkod sa Kanya, pag-aalis ng idols na kumakalaban sa Kanya, at pagre-reflect ng Kanyang design sa paraan ng pamumuhay natin.
+        <p class="section-number" data-i18n="section06">06 · Respond</p>
+        <h2 id="response-title" data-i18n="responseTitle">Remember. Resolve. Remove. Reflect.</h2>
+        <p data-i18n="responseBody1">
+          The altar of the family begins by remembering God's goodness, resolving to serve Him, removing the idols that compete with Him, and reflecting His design in the way we live together.
         </p>
-        <p>
-          Ang paglalagay kay Jesus sa center ay hindi nangangahulugang wala nang conflict, financial difficulty, mistakes, o failure. Ibig sabihin, kapag dumating ang mga iyon, alam natin kung saan babalik.
+        <p data-i18n="responseBody2">
+          Putting Jesus at the center does not mean our families will never experience conflict, financial difficulty, mistakes, or failure. It means that when those things happen, we know where to return.
         </p>
         <ol class="response-steps">
-          <li><span>Return</span><p>Return to Jesus.</p></li>
-          <li><span>Return</span><p>Return to His Word.</p></li>
-          <li><span>Return</span><p>Return to prayer.</p></li>
-          <li><span>Return</span><p>Return to grace.</p></li>
-          <li><span>Return</span><p>Return to the cross.</p></li>
+          <li><span data-i18n="returnLabel">Return</span><p data-i18n="returnJesus">Return to Jesus.</p></li>
+          <li><span data-i18n="returnLabel">Return</span><p data-i18n="returnWord">Return to His Word.</p></li>
+          <li><span data-i18n="returnLabel">Return</span><p data-i18n="returnPrayer">Return to prayer.</p></li>
+          <li><span data-i18n="returnLabel">Return</span><p data-i18n="returnGrace">Return to grace.</p></li>
+          <li><span data-i18n="returnLabel">Return</span><p data-i18n="returnCross">Return to the cross.</p></li>
         </ol>
         <div class="key-statement dark">
-          <span>Our declaration</span>
-          <p>“Jesus, You are Lord of this home.”</p>
+          <span data-i18n="declarationLabel">Our declaration</span>
+          <p data-i18n="declaration">“Jesus, You are Lord of this home.”</p>
         </div>
       </section>
 
       <section class="closing-prayer" aria-labelledby="prayer-title">
-        <p class="section-number">07 · Pray together</p>
-        <h2 id="prayer-title">A prayer for the family altar</h2>
-        <p>
-          Father, salamat sa Iyong goodness at faithfulness sa aming mga family. Tulungan Mo kaming alalahanin ang Iyong mga ginawa, magdesisyong maglingkod sa Iyo, alisin ang anumang pumapalit sa Iyo, at i-reflect ang Iyong character sa aming homes.
+        <p class="section-number" data-i18n="section07">07 · Pray together</p>
+        <h2 id="prayer-title" data-i18n="prayerTitle">A prayer for the family altar</h2>
+        <p data-i18n="prayer1">
+          Father, thank You for Your goodness and faithfulness to our families. Help us remember what You have done, resolve to serve You, remove anything that takes Your place, and reflect Your character in our homes.
         </p>
-        <p>
-          Turuan Mo kaming mahalin ang aming spouses nang sacrificial, palakihin ang aming mga anak ayon sa Iyong Word, magbigay-honor sa isa't isa, magpatawad sa isa't isa, at gumawa ng decisions na nakalulugod sa Iyo.
+        <p data-i18n="prayer2">
+          Teach us to love our spouses sacrificially, raise our children according to Your Word, honor one another, forgive one another, and make decisions that please You.
         </p>
-        <p>
-          Nawa ang aming mga tahanan ay maging lugar kung saan si Jesus ay hindi lang welcome, kundi tunay na Panginoon. In Jesus' name, Amen.
+        <p data-i18n="prayer3">
+          May our homes become places where Jesus is not merely welcomed, but where Jesus is Lord. In Jesus' name, Amen.
         </p>
       </section>
 
-      <section class="takeaway" aria-label="Study takeaway">
-        <span>Take this with you</span>
-        <p>Remember His goodness. Resolve to serve Him. Remove the idols. Reflect His design. “Sa ganang akin at ng aking sangbahayan ay maglilingkod kami sa Panginoon.”</p>
+      <section class="takeaway" aria-label="Study takeaway" data-i18n-aria-label="takeawayAria">
+        <span data-i18n="takeawayLabel">Take this with you</span>
+        <p data-i18n="takeaway">Remember His goodness. Resolve to serve Him. Remove the idols. Reflect His design. “As for me and my house, we will serve the LORD.”</p>
       </section>
 
       <section class="qr-section" aria-labelledby="share-title">
         <div>
-          <p class="section-number">Share the study</p>
-          <h2 id="share-title">Open on another device</h2>
-          <p>I-scan o i-download ang QR code para makabalik diretso sa Bible study na ito.</p>
-          <a class="text-link" href={qrPath} download="dmi-altar-of-our-family-qr.png">Download QR code</a>
+          <p class="section-number" data-i18n="shareLabel">Share the study</p>
+          <h2 id="share-title" data-i18n="shareTitle">Open on another device</h2>
+          <p data-i18n="shareBody">Scan or download this QR code to return directly to this Bible study.</p>
+          <a class="text-link" href={qrPath} download="dmi-altar-of-our-family-qr.png" data-i18n="downloadQr">Download QR code</a>
         </div>
-        <a class="qr-card" href={pageURL} aria-label="Buksan ang Bible study na ito">
-          <img src={qrPath} width="720" height="720" alt="QR code para sa Altar of Our Family Bible study" />
+        <a class="qr-card" href={pageURL} aria-label="Open this Bible study" data-i18n-aria-label="qrLinkAria">
+          <img src={qrPath} width="720" height="720" alt="QR code for Altar of Our Family Bible study" data-i18n-alt="qrImageAlt" />
         </a>
       </section>
 
-      <p class="scripture-notice">
-        Ang mga sipi ng Kasulatan ay mula sa Ang Dating Biblia (1905), public domain.
+      <p class="scripture-notice" lang="en" data-i18n="scriptureNotice">
+        Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.
       </p>
     </article>
   </main>
@@ -227,7 +328,7 @@ const logoPath = `${base}dmi-logo.jpg`;
   <footer class="site-footer">
     <a href={base}>DMI Calamba City</a>
     <div class="site-footer-actions">
-      <span>Gathered around Jesus. Formed by his Word.</span>
+      <span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span>
       <SocialLinks />
     </div>
   </footer>
