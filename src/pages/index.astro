@@ -3,8 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 
 const base = import.meta.env.BASE_URL;
-const studyPath = `${base}2026-08-16-altar-of-our-family/`;
-const previousStudyPath = `${base}2026-08-02-altar-undivided-heart/`;
+const studyPath = `${base}2026-08-23-your-labor-is-not-in-vain/`;
+const previousStudyPath = `${base}2026-08-16-altar-of-our-family/`;
+const firstStudyPath = `${base}2026-08-02-altar-undivided-heart/`;
 const songsPath = `${base}songs/`;
 const logoPath = `${base}dmi-logo.jpg`;
 ---
@@ -36,7 +37,7 @@ const logoPath = `${base}dmi-logo.jpg`;
         <div class="home-feature-links">
           <a class="study-link" href={studyPath}>
             <span class="study-link-label">Latest Bible Study</span>
-            <span class="study-link-title">Altar of Our Family</span>
+            <span class="study-link-title">Your Labor Is Not in Vain</span>
             <span class="arrow" aria-hidden="true">↗</span>
           </a>
           <a class="study-link" href={songsPath}>
@@ -84,6 +85,16 @@ const logoPath = `${base}dmi-logo.jpg`;
       <ol class="home-study-list">
         <li>
           <a href={studyPath}>
+            <time datetime="2026-08-23">23 August 2026</time>
+            <span class="home-study-copy">
+              <strong>Your Labor Is Not in Vain</strong>
+              <small>Serving the Lord with a Pure Heart</small>
+            </span>
+            <span class="home-study-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a href={previousStudyPath}>
             <time datetime="2026-08-16">16 August 2026</time>
             <span class="home-study-copy">
               <strong>Altar of Our Family</strong>
@@ -93,7 +104,7 @@ const logoPath = `${base}dmi-logo.jpg`;
           </a>
         </li>
         <li>
-          <a href={previousStudyPath}>
+          <a href={firstStudyPath}>
             <time datetime="2026-08-02">02 August 2026</time>
             <span class="home-study-copy">
               <strong>Altar of the Heart</strong>
