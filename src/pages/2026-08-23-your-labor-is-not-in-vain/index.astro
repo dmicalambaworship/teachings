@@ -1,0 +1,335 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const qrPath = `${base}qr/2026-08-23-your-labor-is-not-in-vain.png`;
+const pageURL = 'https://dmicalambacity.org/2026-08-23-your-labor-is-not-in-vain/';
+const logoPath = `${base}dmi-logo.jpg`;
+
+const translations = {
+  languageLabel: 'Wika',
+  languageAriaLabel: 'Wika ng pagbabasa',
+  navAria: 'Pangunahing navigation',
+  homeAria: 'Bumalik sa DMI Calamba City home',
+  summaryAria: 'Buod ng study',
+  takeawayAria: 'Pangunahing takeaway ng study',
+  qrLinkAria: 'Buksan ang Bible study na ito',
+  qrImageAlt: 'QR code para sa Your Labor Is Not in Vain Bible study',
+  eyebrow: 'Bible Study · 1 Mga Taga-Corinto 15:58',
+  title: 'Hindi Sayang ang Iyong Paglilingkod',
+  subtitle: 'Maglingkod sa Panginoon nang may Malinis na Puso',
+  heroScripture: '<sup>58</sup> “Kaya nga, mga minamahal kong kapatid, magpakatatag kayo at huwag matinag. Maging masipag kayo sa paglilingkod sa Panginoon, dahil alam ninyong hindi masasayang ang inyong paghihirap para sa kanya.”',
+  heroCitation: '1 Mga Taga-Corinto 15:58 · MBBTAG',
+  themeLabel: 'Tema',
+  theme: 'Maglingkod nang kusang-loob. Ipasuri sa Diyos ang iyong motives. Gamitin ang ipinagkatiwala Niya. Manatiling faithful.',
+  keyTextsLabel: 'Mga susing talata',
+  keyTexts: '1 Mga Taga-Corinto 15:58<br />Mga Hebreo 6:10<br />1 Pedro 4:10<br />Mga Taga-Colosas 3:23–24',
+  timeLabel: 'Oras',
+  time: '25–30 minuto',
+  presentationLabel: 'Presentation',
+  presentationLink: 'Buksan ang Canva slides <span aria-hidden="true">↗</span>',
+  serviceLabel: 'Sunday service',
+  serviceLink: 'Panoorin sa YouTube <span aria-hidden="true">↗</span>',
+  facebookLabel: 'Preaching video',
+  facebookLink: 'Panoorin sa Facebook <span aria-hidden="true">↗</span>',
+  section01: '01 · Magsimula rito',
+  openingTitle: 'Sino ang audience ng iyong paglilingkod?',
+  openingLead: 'May mga uri ng ministry na madaling makita: preaching, worship leading, pagtuturo, media, at iba pang public roles. Pero marami ring <strong>hidden ministry</strong>—pananalangin, paglilinis, pag-aayos, private encouragement, sacrificial giving, at tahimik na pagtulong sa nangangailangan.',
+  openingBody: 'Puwedeng hindi mapansin ng tao ang mga gawaing ito, pero hindi sila invisible sa Diyos. Nakikita Niya ang bawat act of service, alam Niya ang bawat sacrifice, at pinahahalagahan Niya ang bawat gawaing inialay para sa Kanyang glory. Public man o hidden ang assignment, pareho ang mahalagang tanong: <strong>Para kanino ko ito ginagawa?</strong>',
+  keyTruthLabel: 'Susing katotohanan',
+  keyTruth: 'Nakikita ito ng Diyos. Pinahahalagahan ito ng Diyos. Ginagantimpalaan ito ng Diyos.',
+  section02: '02 · Kusang-loob',
+  willingTitle: 'Maglingkod nang kusang-loob',
+  willingBody1: 'Ang volunteerism ang puso ng ministry. Ang tunay na volunteer ay hindi primarily nagsiserve dahil sa salary, position, o recognition, kundi dahil mahal niya ang Diyos at ang mga tao. Ang willing heart ay nagsasabing, “Use me, Lord. Send me, Lord. Available ako para sa Iyong gawain.”',
+  willingBody2: 'Hindi nangangahulugang masama ang tamang compensation o appreciation. Pero hindi dapat nakadepende sa mga iyon ang ating obedience. Kapag walang nakapansin, may Isang nakakakita. Kapag walang nagpasalamat, hindi nakakalimot ang Diyos.',
+  willingBody3: 'Prayer, church administration, finance, cleaning, cooking, pagdalaw, pag-message sa nanghihina, at tahimik na pagtulong sa kapitbahay ay tunay na ministry kapag ginagawa para sa Panginoon.',
+  keyVerse: 'Susing talata · MBBTAG',
+  hebrewsVerse: '<sup>10</sup> “Makatarungan ang Diyos; hindi niya malilimutan ang inyong ginawa at ang pagmamahal na inyong ipinakita at hanggang ngayo’y ipinapakita sa pamamagitan ng paglilingkod ninyo sa mga hinirang ng Diyos.”',
+  hebrewsCitation: 'Mga Hebreo 6:10',
+  discuss1Label: 'Pag-usapan · 1',
+  discuss1: 'Anong hidden service ang ipinagkatiwala sa iyo ngayon? Paano ka mananatiling faithful kahit walang nakakakita o pumupuri?',
+  section03: '03 · Suriin ang puso',
+  heartTitle: 'Hayaan ang Diyos na suriin ang iyong motives',
+  heartBody1: 'Hindi lang itinatanong ng Diyos, “Nagsiserve ka ba?” Tinatanong din Niya, “Bakit ka nagsiserve?” Puwedeng ma-impress ang mga tao sa performance habang pride, comparison, selfish ambition, o desire for recognition ang tahimik na namumuno sa puso.',
+  heartBody2: 'Makikita ang wrong motive kapag mabilis tayong ma-discourage dahil hindi napansin, ikinukumpara natin ang ministry natin sa iba, nagsiserve lang tayo kapag may personal benefit, o mas mahalaga sa atin ang position kaysa obedience.',
+  heartBody3: 'Ang right motive ay hindi “Sino ang nakakita sa akin?” kundi “Nalugod ba ang Diyos?” Hindi tayo earnestly nagsiserve para bilhin ang reward ng langit. Nagsiserve tayo dahil mahal natin ang Panginoon. Kapag tama ang puso, ang service ay nagiging worship.',
+  proverbsVerse: '<sup>2</sup> “Ang akala ng tao ay tama ang kanyang kilos, ngunit sa tunay niyang layon, si Yahweh ang nakatatalos.”',
+  proverbsCitation: 'Mga Kawikaan 16:2',
+  discuss2Label: 'Pag-usapan · 2',
+  discuss2: 'Kung si Lord lang ang makakaalam ng ginawa mo, enough na ba iyon? Anong motive ang nais mong ipasuri at linisin sa Kanya?',
+  section04: '04 · Gamitin ang kaloob',
+  giftsTitle: 'I-steward ang ibinigay ng Diyos',
+  giftsBody1: 'Ang ministry ay hindi lang para sa pastors, preachers, worship leaders, o missionaries. Bawat believer ay tumanggap ng grace na maibabahagi sa iba. Hindi man platform gift ang sa iyo, puwedeng gamitin ng Diyos ang iyong compassion, resources, testimony, voice, hands, feet, hospitality, practical skills, at influence.',
+  giftsBody2: 'Sa parable of the talents sa Mateo 25, pinuri ng master ang mga servant na naging faithful sa ipinagkatiwala sa kanila. Ang problema ng ikatlong servant ay hindi maliit ang natanggap niya; ibinaon niya ang hawak niya. Kaya huwag hintaying maging impressive ang gift bago ito gamitin. Ihandog kung ano ang nasa kamay mo ngayon.',
+  giftsBody3: 'May gift ka? Gamitin mo. May resources ka? I-share mo. May testimony ka? Ikuwento mo. May compassion ka? Mag-serve ka ng isang tao. Ang goal ay hindi gawing kilala ang ating pangalan kundi ipakilala ang pangalan ni Jesus.',
+  peterVerse: '<sup>10</sup> “Bilang mabubuting katiwala ng iba’t ibang kaloob ng Diyos, gamitin ninyo sa kapakinabangan ng lahat ang kakayahang tinanggap ng bawat isa sa inyo.”',
+  peterCitation: '1 Pedro 4:10',
+  discuss3Label: 'Pag-usapan · 3',
+  discuss3: 'Anong gift, resource, experience, o opportunity ang matagal mo nang hindi ginagamit? Sino ang puwede mong paglingkuran sa pamamagitan nito ngayong linggo?',
+  section05: '05 · Manatiling faithful',
+  faithfulTitle: 'Magpatuloy kahit nakakapagod',
+  faithfulBody1: 'Nakakapagod ang ministry dahil kailangan ng consistency, showing up, discipline, at responsibility. May opposition, discouragement, criticism, at seasons na parang mabagal ang progress. Pero mas mabigat ang regret ng paulit-ulit na pagsisimula at pagtalikod sa ipinagkatiwala ng Diyos.',
+  faithfulBody2: 'Hindi ibig sabihin ng faithfulness na hindi tayo nagpapahinga, humihingi ng tulong, o nagre-recover mula sa burnout. Kailangan ng servants ang healthy rhythms at grace. Ang point ay hindi perfection kundi ang hindi pagsuko sa calling ng Diyos dahil lang kulang ang applause o mahirap ang season.',
+  faithfulBody3: 'Ang ministry ay gift from God. Alagaan ito nang may honor at respect. Manatili hanggang dumating ang araw na marinig natin mula sa ating Master: “Magaling! Tapat at mabuting lingkod!”',
+  colossiansVerse: '<sup>23</sup> “Anuman ang inyong ginagawa, gawin ninyo nang buong puso na parang sa Panginoon kayo naglilingkod at hindi sa mga tao. <sup>24</sup> Sapagkat si Cristo ang Panginoong pinaglilingkuran ninyo at alalahanin ninyong pagkakalooban kayo ng Panginoon ng gantimpalang inilaan niya para sa inyo.”',
+  colossiansCitation: 'Mga Taga-Colosas 3:23–24',
+  discuss4Label: 'Pag-usapan · 4',
+  discuss4: 'Saan ka pinakanapagod o na-discourage sa paglilingkod? Anong support, rest, o renewed commitment ang makatutulong para manatili kang faithful?',
+  section06: '06 · Tumugon',
+  responseTitle: 'Maglingkod para sa audience of One',
+  responseBody1: 'Hindi sayang ang anumang gawaing tunay na ginawa sa Panginoon. Hindi man maalala ng tao ang iyong labor, may record ang langit. Bawat hidden prayer, act of obedience, sacrifice, at faithful moment ay precious sa Diyos.',
+  responseBody2: 'Pumili ng isang konkretong response ngayong linggo. Huwag hintayin ang platform, title, o perfect opportunity. Maglingkod kung saan ka na inilagay ng Diyos—sa church, home, school, workplace, neighborhood, o community.',
+  responseStepLabel: 'Tumugon',
+  responseNotice: 'Pansinin ang isang taong nangangailangan.',
+  responseOffer: 'I-offer sa Diyos ang gift o resource na hawak mo.',
+  responseServe: 'Gawin ang isang hidden act of service nang buong puso.',
+  responseRelease: 'I-release ang need for recognition at ipaubaya sa Diyos ang reward.',
+  declarationLabel: 'Ang ating deklarasyon',
+  declaration: '“Maglilingkod ako sa Panginoon nang may malinis na puso. Mananatili akong faithful. Hindi ako susuko, dahil hindi sayang ang aking paglilingkod sa Panginoon.”',
+  section07: '07 · Manalangin',
+  prayerTitle: 'Panalangin ng isang willing servant',
+  prayer1: 'Panginoon, salamat dahil nakikita Mo ang public at hidden service. Salamat dahil hindi Mo nakakalimutan ang gawa at pag-ibig na iniaalay sa Iyong pangalan.',
+  prayer2: 'Suriin Mo ang puso ko. Alisin Mo ang pride, comparison, selfish ambition, at desire for recognition. Turuan Mo akong maglingkod dahil mahal Kita at mahal ko ang mga taong mahal Mo. Linisin Mo ang motives ko at Ikaw lamang ang maluwalhati sa aking service.',
+  prayer3: 'Tulungan Mo akong gamitin nang tapat ang anumang ipinagkatiwala Mo. Bigyan Mo ako ng grace para magpatuloy kapag mahirap at ng wisdom para magpahinga nang tama. Narito ako, Panginoon. Gamitin Mo ako. Isugo Mo ako. In Jesus’ name, Amen.',
+  takeawayLabel: 'Dalhin mo ito',
+  takeaway: 'God sees it. God values it. God rewards it. Manatiling matatag, maglingkod nang buong puso, at tandaan: hindi sayang ang iyong labor in the Lord.',
+  shareLabel: 'I-share ang study',
+  shareTitle: 'Buksan sa ibang device',
+  shareBody: 'I-scan o i-download ang QR code para makabalik diretso sa Bible study na ito.',
+  downloadQr: 'I-download ang QR code',
+  scriptureNotice: 'Scripture texts are from the Magandang Balita Biblia © 2012 Philippine Bible Society, used with permission.',
+  footerTagline: 'Sama-samang nakasentro kay Jesus. Hinuhubog ng Kanyang Salita.'
+};
+---
+
+<BaseLayout
+  title="Your Labor Is Not in Vain: Serve the Lord with a Pure Heart | DMI Calamba City"
+  description="A Bible study from 1 Corinthians 15:58 about willing service, pure motives, faithful stewardship, and enduring in the work of the Lord."
+  bodyClass="study-page"
+>
+  <header class="study-hero">
+    <nav class="study-nav" aria-label="Primary navigation" data-i18n-aria-label="navAria">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria">
+        <img src={logoPath} width="900" height="900" alt="" />
+        <span>DMI · Calamba City</span>
+      </a>
+      <LanguageToggle translations={translations} />
+      <span>23 August 2026</span>
+    </nav>
+
+    <div class="study-hero-copy">
+      <p class="eyebrow" data-i18n="eyebrow">Bible Study · 1 Corinthians 15:58</p>
+      <h1 data-i18n="title">Your Labor Is Not in Vain</h1>
+      <p class="study-subtitle" data-i18n="subtitle">Serving the Lord with a Pure Heart</p>
+    </div>
+
+    <blockquote class="hero-scripture">
+      <p lang="en" data-i18n="heroScripture" data-i18n-lang><sup>58</sup> “Therefore, my beloved brothers, be steadfast, immovable, always abounding in the work of the Lord, knowing that in the Lord your labor is not in vain.”</p>
+      <cite lang="en" data-i18n="heroCitation" data-i18n-lang>1 Corinthians 15:58 · ESV</cite>
+    </blockquote>
+  </header>
+
+  <main class="study-content">
+    <aside class="study-aside" aria-label="Study summary" data-i18n-aria-label="summaryAria">
+      <div>
+        <span class="aside-label" data-i18n="themeLabel">Theme</span>
+        <p data-i18n="theme">Serve willingly. Let God purify your motives. Use what He entrusted to you. Remain faithful.</p>
+      </div>
+      <div>
+        <span class="aside-label" data-i18n="keyTextsLabel">Key texts</span>
+        <p data-i18n="keyTexts">1 Corinthians 15:58<br />Hebrews 6:10<br />1 Peter 4:10<br />Colossians 3:23–24</p>
+      </div>
+      <div>
+        <span class="aside-label" data-i18n="timeLabel">Time</span>
+        <p data-i18n="time">25–30 minutes</p>
+      </div>
+      <div>
+        <span class="aside-label" data-i18n="presentationLabel">Presentation</span>
+        <a class="aside-action" href="https://canva.link/yneod15ec1g7g54" target="_blank" rel="noreferrer" data-i18n="presentationLink">Open Canva slides <span aria-hidden="true">↗</span></a>
+      </div>
+      <div>
+        <span class="aside-label" data-i18n="serviceLabel">Sunday service</span>
+        <a class="aside-action" href="https://www.youtube.com/watch?v=X67OBVe5flk" target="_blank" rel="noreferrer" data-i18n="serviceLink">Watch on YouTube <span aria-hidden="true">↗</span></a>
+      </div>
+      <div>
+        <span class="aside-label" data-i18n="facebookLabel">Preaching video</span>
+        <a class="aside-action" href="https://www.facebook.com/DMICalamba/videos/1518487063362268" target="_blank" rel="noreferrer" data-i18n="facebookLink">Watch on Facebook <span aria-hidden="true">↗</span></a>
+      </div>
+    </aside>
+
+    <article class="study-article">
+      <section class="opening" aria-labelledby="opening-title">
+        <p class="section-number" data-i18n="section01">01 · Begin here</p>
+        <h2 id="opening-title" data-i18n="openingTitle">Who is the audience for your service?</h2>
+        <p class="lead" data-i18n="openingLead">
+          Some ministry is easy to see: preaching, worship leading, teaching, media, and other public roles. But much of the Lord’s work is <strong>hidden ministry</strong>—praying, cleaning, organizing, encouraging privately, giving sacrificially, and quietly helping someone in need.
+        </p>
+        <p data-i18n="openingBody">
+          People may never notice these acts, but they are not invisible to God. He sees every act of service, knows every sacrifice, and values everything offered for His glory. Whether the assignment is public or hidden, the essential question is the same: <strong>Who am I doing this for?</strong>
+        </p>
+        <div class="key-statement">
+          <span data-i18n="keyTruthLabel">Key truth</span>
+          <p data-i18n="keyTruth">God sees it. God values it. God rewards it.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="willing-title">
+        <p class="section-number" data-i18n="section02">02 · Serve willingly</p>
+        <h2 id="willing-title" data-i18n="willingTitle">Serve with a willing heart</h2>
+        <p data-i18n="willingBody1">
+          Volunteerism is the heart of ministry. A true volunteer does not serve primarily for salary, position, or recognition, but out of love for God and people. A willing heart says, “Use me, Lord. Send me, Lord. I am available for Your work.”
+        </p>
+        <p data-i18n="willingBody2">
+          This does not mean that fair compensation or appreciation is wrong. It means our obedience must not depend on them. When no one notices, One still sees. When no one says thank you, God does not forget.
+        </p>
+        <p data-i18n="willingBody3">
+          Prayer, church administration, finance, cleaning, cooking, visiting, messaging someone who is discouraged, and quietly helping a neighbor are all real ministry when done for the Lord.
+        </p>
+        <blockquote class="verse-card">
+          <span data-i18n="keyVerse">Key verse · ESV</span>
+          <p lang="en" data-i18n="hebrewsVerse" data-i18n-lang><sup>10</sup> “For God is not unjust so as to overlook your work and the love that you have shown for his name in serving the saints, as you still do.”</p>
+          <cite lang="en" data-i18n="hebrewsCitation" data-i18n-lang>Hebrews 6:10</cite>
+        </blockquote>
+        <div class="discussion-prompt">
+          <span data-i18n="discuss1Label">Discuss · 1</span>
+          <p data-i18n="discuss1">What hidden service has God entrusted to you right now? How can you remain faithful when no one sees or praises it?</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="heart-title">
+        <p class="section-number" data-i18n="section03">03 · Check the heart</p>
+        <h2 id="heart-title" data-i18n="heartTitle">Let God examine your motives</h2>
+        <p data-i18n="heartBody1">
+          God is not only asking, “Are you serving?” He is also asking, “Why are you serving?” People can be impressed by a performance while pride, comparison, selfish ambition, or the desire for recognition quietly rules the heart.
+        </p>
+        <p data-i18n="heartBody2">
+          Wrong motives show themselves when we are quickly discouraged because we were not noticed, compare our ministry with others, serve only when it benefits us, or care more about position than obedience.
+        </p>
+        <p data-i18n="heartBody3">
+          The right question is not “Who saw me?” but “Is God pleased?” We do not serve earnestly to purchase a heavenly reward. We serve because we love the Lord. When the heart is right, service becomes worship.
+        </p>
+        <blockquote class="verse-card">
+          <span data-i18n="keyVerse">Key verse · ESV</span>
+          <p lang="en" data-i18n="proverbsVerse" data-i18n-lang><sup>2</sup> “All the ways of a man are pure in his own eyes, but the LORD weighs the spirit.”</p>
+          <cite lang="en" data-i18n="proverbsCitation" data-i18n-lang>Proverbs 16:2</cite>
+        </blockquote>
+        <div class="discussion-prompt">
+          <span data-i18n="discuss2Label">Discuss · 2</span>
+          <p data-i18n="discuss2">If only the Lord knew what you did, would that be enough? What motive do you want Him to examine and purify?</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="gifts-title">
+        <p class="section-number" data-i18n="section04">04 · Use the gift</p>
+        <h2 id="gifts-title" data-i18n="giftsTitle">Steward what God has given</h2>
+        <p data-i18n="giftsBody1">
+          Ministry is not only for pastors, preachers, worship leaders, or missionaries. Every believer has received grace to share with others. Your gift may never place you on a platform, but God can use your compassion, resources, testimony, voice, hands, feet, hospitality, practical skills, and influence.
+        </p>
+        <p data-i18n="giftsBody2">
+          In the parable of the talents in Matthew 25, the master praised the servants who faithfully used what he entrusted to them. The third servant’s problem was not that he received less; he buried what he had. Do not wait for your gift to look impressive before using it. Offer what is already in your hands.
+        </p>
+        <p data-i18n="giftsBody3">
+          Has God given you a gift? Use it. Resources? Share them. A testimony? Tell it. Compassion? Serve someone. The goal is not to make our name known but to make the name of Jesus known.
+        </p>
+        <blockquote class="verse-card">
+          <span data-i18n="keyVerse">Key verse · ESV</span>
+          <p lang="en" data-i18n="peterVerse" data-i18n-lang><sup>10</sup> “As each has received a gift, use it to serve one another, as good stewards of God’s varied grace.”</p>
+          <cite lang="en" data-i18n="peterCitation" data-i18n-lang>1 Peter 4:10</cite>
+        </blockquote>
+        <div class="discussion-prompt">
+          <span data-i18n="discuss3Label">Discuss · 3</span>
+          <p data-i18n="discuss3">What gift, resource, experience, or opportunity have you left unused? Who could you serve through it this week?</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="faithful-title">
+        <p class="section-number" data-i18n="section05">05 · Remain faithful</p>
+        <h2 id="faithful-title" data-i18n="faithfulTitle">Keep going when service is tiring</h2>
+        <p data-i18n="faithfulBody1">
+          Ministry can be tiring because it requires consistency, showing up, discipline, and responsibility. There will be opposition, discouragement, criticism, and seasons when progress seems slow. Yet the regret of repeatedly starting over and walking away from what God entrusted can be heavier still.
+        </p>
+        <p data-i18n="faithfulBody2">
+          Faithfulness does not mean refusing rest, help, or recovery from burnout. Servants need healthy rhythms and grace. The point is not perfection; it is refusing to abandon God’s call merely because applause is missing or the season is difficult.
+        </p>
+        <p data-i18n="faithfulBody3">
+          Your ministry is a gift from God. Treat it with honor and care. Stay faithful until the day you hear your Master say, “Well done, good and faithful servant.”
+        </p>
+        <blockquote class="verse-card">
+          <span data-i18n="keyVerse">Key verse · ESV</span>
+          <p lang="en" data-i18n="colossiansVerse" data-i18n-lang><sup>23</sup> “Whatever you do, work heartily, as for the Lord and not for men, <sup>24</sup> knowing that from the Lord you will receive the inheritance as your reward. You are serving the Lord Christ.”</p>
+          <cite lang="en" data-i18n="colossiansCitation" data-i18n-lang>Colossians 3:23–24</cite>
+        </blockquote>
+        <div class="discussion-prompt">
+          <span data-i18n="discuss4Label">Discuss · 4</span>
+          <p data-i18n="discuss4">Where have you become tired or discouraged in serving? What support, rest, or renewed commitment would help you remain faithful?</p>
+        </div>
+      </section>
+
+      <section class="response-section" aria-labelledby="response-title">
+        <p class="section-number" data-i18n="section06">06 · Respond</p>
+        <h2 id="response-title" data-i18n="responseTitle">Serve for an audience of One</h2>
+        <p data-i18n="responseBody1">
+          Nothing genuinely done for the Lord is wasted. People may forget your labor, but heaven keeps record. Every hidden prayer, act of obedience, sacrifice, and faithful moment is precious to God.
+        </p>
+        <p data-i18n="responseBody2">
+          Choose one concrete response this week. Do not wait for a platform, title, or perfect opportunity. Serve where God has already placed you—in the church, home, school, workplace, neighborhood, or community.
+        </p>
+        <ol class="response-steps">
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseNotice">Notice one person who needs help.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseOffer">Offer God the gift or resource already in your hands.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseServe">Do one hidden act of service wholeheartedly.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseRelease">Release the need for recognition and leave the reward to God.</p></li>
+        </ol>
+        <div class="key-statement dark">
+          <span data-i18n="declarationLabel">Our declaration</span>
+          <p data-i18n="declaration">“I will serve the Lord with a pure heart. I will remain faithful. I will not grow weary, because my labor in the Lord is not in vain.”</p>
+        </div>
+      </section>
+
+      <section class="closing-prayer" aria-labelledby="prayer-title">
+        <p class="section-number" data-i18n="section07">07 · Pray</p>
+        <h2 id="prayer-title" data-i18n="prayerTitle">A willing servant’s prayer</h2>
+        <p data-i18n="prayer1">
+          Lord, thank You that You see both public and hidden service. Thank You that You do not forget the work and love offered in Your name.
+        </p>
+        <p data-i18n="prayer2">
+          Search my heart. Remove pride, comparison, selfish ambition, and the desire for recognition. Teach me to serve because I love You and the people You love. Purify my motives, and let You alone receive the glory from my service.
+        </p>
+        <p data-i18n="prayer3">
+          Help me faithfully use whatever You have entrusted to me. Give me grace to continue when it is difficult and wisdom to rest well. Here I am, Lord. Use me. Send me. In Jesus’ name, Amen.
+        </p>
+      </section>
+
+      <section class="takeaway" aria-label="Study takeaway" data-i18n-aria-label="takeawayAria">
+        <span data-i18n="takeawayLabel">Take this with you</span>
+        <p data-i18n="takeaway">God sees it. God values it. God rewards it. Stand firm, serve wholeheartedly, and remember: your labor in the Lord is not in vain.</p>
+      </section>
+
+      <section class="qr-section" aria-labelledby="share-title">
+        <div>
+          <p class="section-number" data-i18n="shareLabel">Share the study</p>
+          <h2 id="share-title" data-i18n="shareTitle">Open on another device</h2>
+          <p data-i18n="shareBody">Scan or download this QR code to return directly to this Bible study.</p>
+          <a class="text-link" href={qrPath} download="dmi-your-labor-is-not-in-vain-qr.png" data-i18n="downloadQr">Download QR code</a>
+        </div>
+        <a class="qr-card" href={pageURL} aria-label="Open this Bible study" data-i18n-aria-label="qrLinkAria">
+          <img src={qrPath} width="720" height="720" alt="QR code for Your Labor Is Not in Vain Bible study" data-i18n-alt="qrImageAlt" />
+        </a>
+      </section>
+
+      <p class="scripture-notice" lang="en" data-i18n="scriptureNotice">
+        Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.
+      </p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <a href={base}>DMI Calamba City</a>
+    <div class="site-footer-actions">
+      <span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span>
+      <SocialLinks />
+    </div>
+  </footer>
+</BaseLayout>
