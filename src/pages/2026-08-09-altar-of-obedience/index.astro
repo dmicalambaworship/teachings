@@ -1,0 +1,366 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const qrPath = `${base}qr/2026-08-09-altar-of-obedience.png`;
+const pageURL = 'https://dmicalambacity.org/2026-08-09-altar-of-obedience/';
+const logoPath = `${base}dmi-logo.jpg`;
+
+const translations = {
+  languageLabel: 'Wika',
+  languageAriaLabel: 'Wika ng pagbabasa',
+  navAria: 'Pangunahing navigation',
+  homeAria: 'Bumalik sa DMI Calamba City home',
+  summaryAria: 'Buod ng study',
+  takeawayAria: 'Pangunahing takeaway ng study',
+  qrLinkAria: 'Buksan ang Bible study na ito',
+  qrImageAlt: 'QR code para sa Altar of Obedience Bible study',
+  eyebrow: 'Bible Study · Filipos 2:1–11',
+  title: 'Altar of Obedience',
+  subtitle: 'Magtiwala sa Diyos Nang Sapat para Sumunod',
+  heroScripture: '<sup>8</sup> Nagpakumbaba siya at naging masunurin hanggang kamatayan, maging ito man ay kamatayan sa krus.',
+  heroCitation: 'Filipos 2:8 · MBBTAG',
+  themeLabel: 'Tema',
+  theme: 'Isuko ang lahat. Magtiwala sa puso ng Diyos. Yakapin ang krus. Gawing action ang iyong yes.',
+  keyTextsLabel: 'Mga susing talata',
+  keyTexts: 'Filipos 1:27–30<br />Filipos 2:1–11<br />Lucas 9:23',
+  timeLabel: 'Oras',
+  time: '25–30 minuto',
+  presentationLabel: 'Presentation',
+  presentationLink: 'Buksan ang Canva slides <span aria-hidden="true">↗</span>',
+  serviceLabel: 'Sunday service',
+  serviceLink: 'Panoorin ang preaching <span aria-hidden="true">↗</span>',
+  section01: '01 · Magsimula rito',
+  openingTitle: 'Magtiwala ba ako sa Diyos nang sapat para sumunod?',
+  openingLead: 'Nagbabago ang itsura ng struggle sa bawat generation. Puwedeng comfort, success, control, money, relationships, title, o reputation ang hawak nating mahigpit. Pero iisa ang mas malalim na labanan: <strong>Magtiwala ba ako sa Diyos nang sapat para sumunod sa Kanya?</strong>',
+  openingBody: 'Ang pinakamalaking battle of faith ay hindi tungkol sa ability kundi sa surrender. Hindi kawalan ng kakayahan ang madalas pumipigil sa atin; ayaw nating ilapag ang hinihingi ng Diyos. Maaaring hindi maintindihan o purihin ng ibang tao ang obedience, pero hindi approval ng tao ang goal natin. Ang goal natin ay bigyang-lugod ang Diyos.',
+  keyTruthLabel: 'Susing katotohanan',
+  keyTruth: 'May kapalit palagi ang obedience, pero ang ginagawa ng Diyos sa pamamagitan nito ay mas dakila kaysa sa anumang isinusuko natin.',
+  section02: '02 · Tumingin kay Jesus',
+  jesusTitle: 'Si Jesus ang larawan ng masunuring buhay',
+  jesusBody1: 'Sa Filipos 1:27–30, hinikayat ni Pablo ang mga believer na mamuhay nang karapat-dapat sa gospel—matatag, nagkakaisa, at handang magtiis para kay Cristo. Ang “kaya nga” sa simula ng chapter 2 ay nag-uugnay ng tawag na iyon sa paraan ng pakikitungo nila sa isa’t isa.',
+  jesusBody2: 'Pagdating sa Filipos 2:5–11, hindi lang nagbibigay si Pablo ng magandang description tungkol kay Jesus. Ipinapakita niya ang ultimate example ng surrendered life. Bagaman tunay na Diyos, hindi ginamit ni Jesus ang Kanyang status para sa sariling advantage. Nag-anyong servant Siya, nagpakumbaba, at sumunod hanggang kamatayan sa krus.',
+  keyVerse: 'Susing talata · MBBTAG',
+  philippiansVerse: '<sup>8</sup> Nagpakumbaba siya at naging masunurin hanggang kamatayan, maging ito man ay kamatayan sa krus.',
+  philippiansCitation: 'Filipos 2:8',
+  jesusBody3: 'Sa altar of obedience, inilapag ni Jesus ang Kanyang rights, position, privileges, comfort, will, at sa huli, ang Kanyang buhay. Kung Siya ang ating model at Lord, tinatawag din Niya tayong magtiwala, magsuko, at sumunod.',
+  discuss1Label: 'Pag-usapan · 1',
+  discuss1: 'Alin sa comfort, control, success, money, relationship, title, o reputation ang pinakamahirap kong isuko sa Diyos ngayon?',
+  section03: '03 · Alisin ang sarili sa center',
+  centerTitle: 'Palitan ang self-life ng humility',
+  centerBody1: 'Direktang tinutugunan ng Filipos 2:3–4 ang selfish ambition at vain conceit. Mas malalim ito kaysa bad behavior. Ang tanong ay: <strong>Sino ang nasa center—ako o si Cristo?</strong> Kapag self ang center, lumalakas ang pride, self-interest, at division. Kapag si Cristo ang center, natututo tayong magpakumbaba, magbigay ng sarili, at pahalagahan ang kapakanan ng iba.',
+  centerBody2: 'Ang humility ay hindi pag-deny sa value na ibinigay ng Diyos sa atin. Ito ay pagtangging gawing sentro at panginoon ng buhay ang sarili. Hindi na “Ano ang gusto ko?” ang final question kundi “Ano ang gusto ni Jesus?” Hindi na “Ano ang deserve ko?” kundi “Ano ang hinihingi ng love?”',
+  contrastAria: 'Pagkakaiba ng self-life at buhay na nakasentro kay Jesus',
+  selfLabel: 'Sinasabi ng self',
+  selfWant: '“Gusto ko ito.”',
+  selfDeserve: '“Deserve ko ito.”',
+  selfHappy: '“Gagawin ko ang nagpapasaya sa akin.”',
+  jesusLabel: 'Itinatanong ng follower ni Jesus',
+  jesusWant: '“Ano ang gusto ni Jesus?”',
+  jesusLove: '“Ano ang hinihingi ng love?”',
+  jesusFather: '“Ano ang nagbibigay-lugod sa Ama?”',
+  discuss2Label: 'Pag-usapan · 2',
+  discuss2: 'Sa anong decision o relationship ko kailangang alisin ang sarili sa center at pahalagahan ang kapakanan ng iba?',
+  section04: '04 · Magtiwala',
+  crossTitle: 'Ang obedience ay nangangailangan ng trust',
+  crossBody1: 'Sumusunod lamang tayo hanggang sa lawak ng tiwala natin. Nagtiwala si Abraham lampas sa nakikita niyang dahilan nang ihandog niya si Isaac, naniniwalang kayang bumuhay ng Diyos mula sa mga patay. Nagtiwala sina Joseph at Daniel sa gitna ng betrayal, prison, at lions’ den. Sumunod sila nang pinakamataas ang cost, at nanatiling faithful ang Diyos.',
+  crossBody2: 'Si Jesus ang ultimate example. Sumunod Siya sa Ama hanggang kamatayan—hindi dahil madali ang cross, kundi dahil lubos Siyang nagtiwala sa puso ng Ama. Ang surrendered life ay trusting life. Ang tanong ay hindi lang kung nasa atin ang Holy Spirit, kundi kung yielded tayo sa pamamahala Niya.',
+  rememberLabel: 'Tandaan',
+  remember: 'Kapag pinagdududahan natin ang goodness ng Diyos, nagiging mahirap ang obedience. Kapag kilala natin ang Kanyang character, nagiging worship ang obedience.',
+  crossBody3: 'Ipinapakita ng Filipos 2 ang kingdom pattern: obedience bago honor. Mula cross at death, dinala si Jesus sa exaltation, lordship, at worship. Hindi natin nakakamit ang salvation sa sacrifice natin; tinatanggap natin ito sa ginawa ni Cristo. Pero ang grace na nagliligtas ay humuhubog sa atin ayon sa Kanyang cross-shaped life—surrender bago glory, service bago honor, at death bago resurrection.',
+  discuss3Label: 'Pag-usapan · 3',
+  discuss3: 'Saan ako tinatawag ng Diyos na magtiwala sa Kanya kahit hindi ko pa nakikita o naiintindihan ang ginagawa Niya?',
+  section05: '05 · Yakapin ang cost',
+  dailyTitle: 'Maaaring mukhang pagkawala ang obedience',
+  lukeVerse: '<sup>23</sup> Sinabi niya sa lahat, “Ang sinumang nagnanais sumunod sa akin ay kinakailangang itakwil ang kanyang sarili, pasanin araw-araw ang kanyang krus, at sumunod sa akin.”',
+  lukeCitation: 'Lucas 9:23',
+  dailyBody1: 'Sa human perspective, mukhang failure ang cross; pero naging pinakamalaking victory ito sa history. Maaaring kailanganin ng obedience na bitawan ang ease, certainty, comfort, security, popularity, promotion, relationships, money, dreams, at control sa future na maingat nating pinlano. Totoo ang mga cost, pero hindi nasasayang ang obedience. Tinutubos ng Diyos ang inilalagay natin sa altar.',
+  dailyBody2: 'Hindi sinabi ni Jesus, “I-improve mo lang ang sarili mo.” Sinabi Niya, “Itakwil ang iyong sarili.” Tatlo ang tawag Niya: <strong>itakwil ang sarili, pasanin araw-araw ang krus, at sumunod sa Akin</strong>. Hindi Niya pinapaganda lang ang old nature; hinuhubog Niya tayong maging katulad Niya. Bawat act of obedience ay nagsasabing, “Diyos, mas nagtitiwala ako sa Iyo kaysa sa sarili ko.”',
+  dailyStepsAria: 'Tatlong hakbang ng araw-araw na pagsunod',
+  denyLabel: 'Itakwil',
+  denyBody: 'Pangalanan kung saan ipinipilit ng self ang control at isuko iyon sa lordship ni Jesus.',
+  carryLabel: 'Pasanin',
+  carryBody: 'Tanggapin ang faithful at loving obedience na inilalagay ng Diyos sa harap mo, kahit may kapalit.',
+  followLabel: 'Sumunod',
+  followBody: 'Gawin ang susunod na malinaw na hakbang na naaayon sa Salita at character ni Cristo.',
+  discuss4Label: 'Pag-usapan · 4',
+  discuss4: 'Ano ang maaaring maging cost ng obedience para sa akin—at ano ang isang malinaw at konkretong hakbang na hinihingi ng Diyos ngayon?',
+  section06: '06 · Tumugon',
+  responseTitle: 'Makinig. Ilapag. Sumunod.',
+  responseBody: 'Sa Mateo 21:28–32, sinabi ni Jesus ang tungkol sa dalawang anak. Ang isa ay tumanggi pero kalaunan ay sumunod; ang isa ay nagsabing “yes” pero hindi pumunta. Hindi lang verbal na “Yes, Lord” ang gusto ng Diyos kundi yes na nagiging action.',
+  twoSonsLabel: 'Aling anak ako?',
+  twoSons: 'Ang anak na nagsabing yes pero hindi pumunta—o ang anak na kalaunang sumunod? Ang tunay na obedience ay hindi intensyon lamang; kumikilos ito.',
+  responseBody2: 'Sa altar, itanong: “Ano ang aking Isaac? Ano ang hinihinging ilagay ko sa altar?” Hindi palaging immediate ang reward ng obedience. Minsan pinagpapala tayo ng Diyos dito; minsan sa eternity ang reward. Pero hindi kailanman talo ang ibinibigay natin sa Kanya.',
+  listenLabel: 'Makinig',
+  listenBody: 'Suriin ang Salita at tanungin: “Panginoon, ano ang gusto Mong sundin ko?”',
+  layDownLabel: 'Ilapag',
+  layDownBody: 'Isuko ang right, comfort, control, approval, o outcome na pumipigil sa obedience.',
+  obeyLabel: 'Sumunod',
+  obeyBody: 'Kumilos sa faith—hindi para makita ng tao, kundi para bigyang-lugod ang Diyos.',
+  section07: '07 · Manalangin nang sama-sama',
+  prayerTitle: 'Panalangin ng surrender at obedience',
+  prayer1: 'Ama, salamat dahil ipinakita sa amin ni Jesus ang ganap na humility at obedience. Patawarin Mo kami sa mga pagkakataong ang sarili, comfort, control, approval, at ambition ang inilalagay namin sa center.',
+  prayer2: 'Bigyan Mo kami ng faith na magtiwala sa Iyo nang sapat para sumunod. Sa altar, isinusuko namin ang aming Isaac at niyayakap ang aming krus. Tulungan Mo kaming ilapag ang aming rights, tanggapin ang Iyong process, at gawin ang susunod na hakbang na hinihingi Mo.',
+  prayer3: 'Nawa ang aming buhay ay magbigay-lugod sa Iyo at magpakita na si Jesus ang Panginoon. Sa pangalan ni Jesus, Amen.',
+  takeawayLabel: 'Dalhin mo ito',
+  takeaway: 'Isuko ang lahat. Magtiwala sa puso ng Diyos. Yakapin ang krus. Huwag lang magsabi ng yes—gawing action ang iyong obedience.',
+  shareLabel: 'I-share ang study',
+  shareTitle: 'Buksan sa ibang device',
+  shareBody: 'I-scan o i-download ang QR code para makabalik diretso sa Bible study na ito.',
+  downloadQr: 'I-download ang QR code',
+  scriptureNotice: 'Scripture texts are from the Magandang Balita Biblia © 2012 Philippine Bible Society, used with permission.',
+  footerTagline: 'Sama-samang nakasentro kay Jesus. Hinuhubog ng Kanyang Salita.'
+};
+---
+
+<BaseLayout
+  title="Altar of Obedience: Trusting God Enough to Obey | DMI Calamba City"
+  description="A Bible study from Philippians 2:1–11 about Christ's humility, surrendering the self-life, taking up the cross daily, and trusting God enough to obey."
+  bodyClass="study-page"
+>
+  <header class="study-hero">
+    <nav class="study-nav" aria-label="Primary navigation" data-i18n-aria-label="navAria">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria">
+        <img src={logoPath} width="900" height="900" alt="" />
+        <span>DMI · Calamba City</span>
+      </a>
+      <LanguageToggle translations={translations} />
+      <span>09 August 2026</span>
+    </nav>
+
+    <div class="study-hero-copy">
+      <p class="eyebrow" data-i18n="eyebrow">Bible Study · Philippians 2:1–11</p>
+      <h1 data-i18n="title">Altar of Obedience</h1>
+      <p class="study-subtitle" data-i18n="subtitle">Trusting God Enough to Obey</p>
+    </div>
+
+    <blockquote class="hero-scripture">
+      <p lang="en" data-i18n="heroScripture" data-i18n-lang><sup>8</sup> “He humbled himself by becoming obedient to the point of death, even death on a cross.”</p>
+      <cite lang="en" data-i18n="heroCitation" data-i18n-lang>Philippians 2:8 ESV</cite>
+    </blockquote>
+  </header>
+
+  <main class="study-content">
+    <aside class="study-aside" aria-label="Study summary" data-i18n-aria-label="summaryAria">
+      <div>
+        <span class="aside-label" data-i18n="themeLabel">Theme</span>
+        <p data-i18n="theme">Surrender everything. Trust God's heart. Embrace the cross. Put your yes into action.</p>
+      </div>
+      <div>
+        <span class="aside-label" data-i18n="keyTextsLabel">Key texts</span>
+        <p data-i18n="keyTexts">Philippians 1:27–30<br />Philippians 2:1–11<br />Luke 9:23</p>
+      </div>
+      <div>
+        <span class="aside-label" data-i18n="timeLabel">Time</span>
+        <p data-i18n="time">25–30 minutes</p>
+      </div>
+      <div>
+        <span class="aside-label" data-i18n="presentationLabel">Presentation</span>
+        <a class="aside-action" href="https://canva.link/jwlyr31xoxsgy5x" target="_blank" rel="noreferrer" data-i18n="presentationLink">Open Canva slides <span aria-hidden="true">↗</span></a>
+      </div>
+      <div>
+        <span class="aside-label" data-i18n="serviceLabel">Sunday service</span>
+        <a class="aside-action" href="https://www.youtube.com/live/8GgKO8HcTEg" target="_blank" rel="noreferrer" data-i18n="serviceLink">Watch the preaching <span aria-hidden="true">↗</span></a>
+      </div>
+    </aside>
+
+    <article class="study-article">
+      <section class="opening" aria-labelledby="opening-title">
+        <p class="section-number" data-i18n="section01">01 · Begin here</p>
+        <h2 id="opening-title" data-i18n="openingTitle">Will I trust God enough to obey?</h2>
+        <p class="lead" data-i18n="openingLead">
+          Struggles look different from one generation to another. We may hold tightly to comfort, success, control, money, relationships, titles, or reputation. But the deeper battle remains the same: <strong>Will I trust God enough to obey Him?</strong>
+        </p>
+        <p data-i18n="openingBody">
+          The greatest battle of faith is not about ability but surrender. What often stops us is not that we cannot obey, but that we do not want to lay down what God is asking from us. Obedience may be misunderstood or go unrecognized, but human approval is not our goal. Our goal is to please God.
+        </p>
+        <div class="key-statement">
+          <span data-i18n="keyTruthLabel">Key truth</span>
+          <p data-i18n="keyTruth">Obedience will always cost us something, but what God accomplishes through it is greater than anything we surrender.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="jesus-title">
+        <p class="section-number" data-i18n="section02">02 · Look to Jesus</p>
+        <h2 id="jesus-title" data-i18n="jesusTitle">Jesus is the picture of an obedient life</h2>
+        <p data-i18n="jesusBody1">
+          In Philippians 1:27–30, Paul urged believers to live worthy of the gospel—standing firm, united, and willing to suffer for Christ. The “therefore” at the beginning of chapter 2 connects that call with how they should live toward one another.
+        </p>
+        <p data-i18n="jesusBody2">
+          In Philippians 2:5–11, Paul does more than give a beautiful description of Jesus. He presents the ultimate example of a surrendered life. Though truly God, Jesus did not use His status for His own advantage. He took the form of a servant, humbled Himself, and obeyed to the point of death on a cross.
+        </p>
+        <blockquote class="verse-card">
+          <span data-i18n="keyVerse">Key verse · ESV</span>
+          <p lang="en" data-i18n="philippiansVerse" data-i18n-lang><sup>8</sup> “He humbled himself by becoming obedient to the point of death, even death on a cross.”</p>
+          <cite lang="en" data-i18n="philippiansCitation" data-i18n-lang>Philippians 2:8</cite>
+        </blockquote>
+        <p data-i18n="jesusBody3">
+          At the altar of obedience, Jesus laid down His rights, position, privileges, comfort, will, and ultimately His life. If He is our model and Lord, He also calls us to trust, surrender, and obey.
+        </p>
+        <div class="discussion-prompt">
+          <span data-i18n="discuss1Label">Discuss · 1</span>
+          <p data-i18n="discuss1">Which is hardest for me to surrender to God right now: comfort, control, success, money, a relationship, a title, or reputation?</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="center-title">
+        <p class="section-number" data-i18n="section03">03 · Move self from the center</p>
+        <h2 id="center-title" data-i18n="centerTitle">Replace the self-life with humility</h2>
+        <p data-i18n="centerBody1">
+          Philippians 2:3–4 directly confronts selfish ambition and vain conceit. The issue is deeper than bad behavior. The question is: <strong>Who is at the center—self or Christ?</strong> When self is at the center, pride, self-interest, and division grow. When Christ is at the center, we learn humility, self-giving, and concern for others.
+        </p>
+        <p data-i18n="centerBody2">
+          Humility does not deny the value God has given us. It refuses to make the self the center and lord of life. “What do I want?” is no longer the final question, but “What does Jesus want?” Not merely, “What do I deserve?” but “What does love require?”
+        </p>
+        <div class="practice-grid" aria-label="Contrast between the self-life and a Jesus-centered life" data-i18n-aria-label="contrastAria">
+          <div>
+            <span data-i18n="selfLabel">Self says</span>
+            <p data-i18n="selfWant">“I want this.”</p>
+            <p data-i18n="selfDeserve">“I deserve this.”</p>
+            <p data-i18n="selfHappy">“I will do what makes me happy.”</p>
+          </div>
+          <div>
+            <span data-i18n="jesusLabel">A follower of Jesus asks</span>
+            <p data-i18n="jesusWant">“What does Jesus want?”</p>
+            <p data-i18n="jesusLove">“What does love require?”</p>
+            <p data-i18n="jesusFather">“What pleases the Father?”</p>
+          </div>
+        </div>
+        <div class="discussion-prompt">
+          <span data-i18n="discuss2Label">Discuss · 2</span>
+          <p data-i18n="discuss2">In which decision or relationship do I need to move self from the center and consider the interests of others?</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="cross-title">
+        <p class="section-number" data-i18n="section04">04 · Trust</p>
+        <h2 id="cross-title" data-i18n="crossTitle">Obedience demands trust</h2>
+        <p data-i18n="crossBody1">
+          We obey only as much as we trust. Abraham trusted God beyond reason when he offered Isaac, believing that God could raise the dead. Joseph and Daniel trusted God through betrayal, prison, and the lions' den. They obeyed when the cost was highest, and God remained faithful.
+        </p>
+        <p data-i18n="crossBody2">
+          Jesus is the ultimate example. He obeyed the Father to the point of death—not because the cross was easy, but because He fully trusted the Father's heart. A surrendered life is a trusting life. The issue is not merely having the Holy Spirit, but being yielded to His rule.
+        </p>
+        <div class="key-statement dark">
+          <span data-i18n="rememberLabel">Remember</span>
+          <p data-i18n="remember">When we doubt God's goodness, obedience becomes difficult. When we know His character, obedience becomes worship.</p>
+        </div>
+        <p data-i18n="crossBody3">
+          Philippians 2 shows the kingdom pattern: obedience before honor. From cross and death, Jesus moved to exaltation, lordship, and worship. We do not earn salvation through our sacrifice; we receive it through Christ's finished work. But saving grace shapes us into His cross-shaped life—surrender before glory, service before honor, and death before resurrection.
+        </p>
+        <div class="discussion-prompt">
+          <span data-i18n="discuss3Label">Discuss · 3</span>
+          <p data-i18n="discuss3">Where is God calling me to trust Him even when I cannot yet see or understand what He is doing?</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="daily-title">
+        <p class="section-number" data-i18n="section05">05 · Embrace the cost</p>
+        <h2 id="daily-title" data-i18n="dailyTitle">Obedience may look like losing</h2>
+        <blockquote class="verse-card">
+          <span data-i18n="keyVerse">Key verse · ESV</span>
+          <p lang="en" data-i18n="lukeVerse" data-i18n-lang><sup>23</sup> “If anyone would come after me, let him deny himself and take up his cross daily and follow me.”</p>
+          <cite lang="en" data-i18n="lukeCitation" data-i18n-lang>Luke 9:23</cite>
+        </blockquote>
+        <p data-i18n="dailyBody1">
+          From a human perspective, the cross looked like failure, yet it became history's greatest victory. Obedience may require giving up ease, certainty, comfort, security, popularity, promotion, relationships, money, dreams, and control over a carefully planned future. The costs are real, but obedience is never wasted. God redeems what we place on the altar.
+        </p>
+        <p data-i18n="dailyBody2">
+          Jesus did not say, “Merely improve yourself.” He said, “Deny yourself.” His call has three movements: <strong>deny yourself, take up your cross daily, and follow Me</strong>. He is not simply improving the old nature; He is forming us to become like Him. Every act of obedience declares, “God, I trust You more than I trust myself.”
+        </p>
+        <ol class="response-steps" aria-label="Three movements of daily obedience" data-i18n-aria-label="dailyStepsAria">
+          <li>
+            <span data-i18n="denyLabel">Deny</span>
+            <p data-i18n="denyBody">Name where self is insisting on control and surrender it to the lordship of Jesus.</p>
+          </li>
+          <li>
+            <span data-i18n="carryLabel">Carry</span>
+            <p data-i18n="carryBody">Receive the faithful and loving obedience God places before you, even when it costs.</p>
+          </li>
+          <li>
+            <span data-i18n="followLabel">Follow</span>
+            <p data-i18n="followBody">Take the next clear step that agrees with Scripture and the character of Christ.</p>
+          </li>
+        </ol>
+        <div class="discussion-prompt">
+          <span data-i18n="discuss4Label">Discuss · 4</span>
+          <p data-i18n="discuss4">What might obedience cost me—and what clear, concrete step is God asking me to take now?</p>
+        </div>
+      </section>
+
+      <section class="response-section" aria-labelledby="response-title">
+        <p class="section-number" data-i18n="section06">06 · Respond</p>
+        <h2 id="response-title" data-i18n="responseTitle">Listen. Lay down. Obey.</h2>
+        <p data-i18n="responseBody">
+          In Matthew 21:28–32, Jesus tells of two sons. One refused but later obeyed; the other said “yes” but never went. God desires more than a verbal “Yes, Lord.” He desires a yes that becomes action.
+        </p>
+        <div class="key-statement dark">
+          <span data-i18n="twoSonsLabel">Which son am I?</span>
+          <p data-i18n="twoSons">The son who said yes but never went—or the son who eventually obeyed? Real obedience is more than intention; it acts.</p>
+        </div>
+        <p data-i18n="responseBody2">
+          At the altar, ask, “What is my Isaac? What is God asking me to place on the altar?” The reward of obedience is not always immediate. Sometimes God blesses us here; sometimes He rewards us in eternity. But we never lose what we surrender to Him.
+        </p>
+        <ol class="response-steps">
+          <li>
+            <span data-i18n="listenLabel">Listen</span>
+            <p data-i18n="listenBody">Open the Word and ask, “Lord, what do You want me to obey?”</p>
+          </li>
+          <li>
+            <span data-i18n="layDownLabel">Lay down</span>
+            <p data-i18n="layDownBody">Surrender the right, comfort, control, approval, or outcome that is resisting obedience.</p>
+          </li>
+          <li>
+            <span data-i18n="obeyLabel">Obey</span>
+            <p data-i18n="obeyBody">Act in faith—not to be seen by people, but to please God.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="closing-prayer" aria-labelledby="prayer-title">
+        <p class="section-number" data-i18n="section07">07 · Pray together</p>
+        <h2 id="prayer-title" data-i18n="prayerTitle">A prayer of surrender and obedience</h2>
+        <p data-i18n="prayer1">
+          Father, thank You that Jesus has shown us perfect humility and obedience. Forgive us for the ways we place self, comfort, control, approval, and ambition at the center.
+        </p>
+        <p data-i18n="prayer2">
+          Give us faith to trust You enough to obey. At the altar, we surrender our Isaac and embrace our cross. Help us lay down our rights, receive Your process, and do the next thing You ask of us.
+        </p>
+        <p data-i18n="prayer3">
+          May our lives please You and show that Jesus is Lord. In Jesus' name, Amen.
+        </p>
+      </section>
+
+      <section class="takeaway" aria-label="Study takeaway" data-i18n-aria-label="takeawayAria">
+        <span data-i18n="takeawayLabel">Take this with you</span>
+        <p data-i18n="takeaway">Surrender everything. Trust God's heart. Embrace the cross. Do not merely say yes—put your obedience into action.</p>
+      </section>
+
+      <section class="qr-section" aria-labelledby="share-title">
+        <div>
+          <p class="section-number" data-i18n="shareLabel">Share the study</p>
+          <h2 id="share-title" data-i18n="shareTitle">Open on another device</h2>
+          <p data-i18n="shareBody">Scan or download this QR code to return directly to this Bible study.</p>
+          <a class="text-link" href={qrPath} download="dmi-altar-of-obedience-qr.png" data-i18n="downloadQr">Download QR code</a>
+        </div>
+        <a class="qr-card" href={pageURL} aria-label="Open this Bible study" data-i18n-aria-label="qrLinkAria">
+          <img src={qrPath} width="720" height="720" alt="QR code for Altar of Obedience Bible study" data-i18n-alt="qrImageAlt" />
+        </a>
+      </section>
+
+      <p class="scripture-notice" lang="en" data-i18n="scriptureNotice">
+        Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.
+      </p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <a href={base}>DMI Calamba City</a>
+    <div class="site-footer-actions">
+      <span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span>
+      <SocialLinks />
+    </div>
+  </footer>
+</BaseLayout>
