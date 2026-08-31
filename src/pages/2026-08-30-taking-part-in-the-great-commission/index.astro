@@ -1,0 +1,255 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const qrPath = `${base}qr/2026-08-30-taking-part-in-the-great-commission.png`;
+const pageURL = 'https://dmicalambacity.org/2026-08-30-taking-part-in-the-great-commission/';
+const logoPath = `${base}dmi-logo.jpg`;
+
+const translations = {
+  languageLabel: 'Wika',
+  languageAriaLabel: 'Wika ng pagbabasa',
+  navAria: 'Pangunahing navigation',
+  homeAria: 'Bumalik sa DMI Calamba City home',
+  summaryAria: 'Buod ng study',
+  takeawayAria: 'Pangunahing takeaway ng study',
+  qrLinkAria: 'Buksan ang Bible study na ito',
+  qrImageAlt: 'QR code para sa Taking Part in the Great Commission Bible study',
+  eyebrow: 'Bible Study · Mateo 28:16–20',
+  title: 'Makibahagi sa Dakilang Utos',
+  subtitle: 'Ang Takdang-Gawain ng Mananampalataya',
+  heroScripture: '<sup>18</sup> Lumapit si Jesus at sinabi sa kanila, “Ibinigay na sa akin ang lahat ng kapangyarihan sa langit at sa lupa. <sup>19</sup> Kaya puntahan ninyo ang lahat ng mga tao sa buong mundo at gawin ninyo silang mga tagasunod ko. Bautismuhan ninyo sila sa pangalan ng Ama, ng Anak, at ng Banal na Espiritu. <sup>20</sup> Turuan ninyo silang sumunod sa lahat ng iniutos ko sa inyo. At tandaan ninyo: lagi ninyo akong kasama hanggang sa katapusan ng mundo.”',
+  heroCitation: 'Mateo 28:18–20 · ASND',
+  themeLabel: 'Tema',
+  theme: 'Humayo sa awtoridad ni Jesus. Gumawa ng mga alagad. Turuan silang sumunod. Magtiwala sa Kanyang presensya.',
+  keyTextsLabel: 'Mga susing talata',
+  keyTexts: 'Mateo 28:16–20<br />Roma 6:4<br />Santiago 1:22<br />Gawa 2:5–12, 38–39',
+  timeLabel: 'Oras',
+  time: '30–35 minuto',
+  keyVerse: 'Susing talata · ASND',
+  presentationLabel: 'Presentation',
+  presentationLink: 'Buksan ang Google Slides <span aria-hidden="true">↗</span>',
+  serviceLabel: 'Sunday service',
+  serviceLink: 'Panoorin sa YouTube <span aria-hidden="true">↗</span>',
+  section01: '01 · Magsimula rito',
+  openingTitle: 'Ang huling utos ni Jesus ay misyon natin ngayon',
+  openingLead: 'Bago bumalik si Jesus sa Ama, hindi lamang Siya nag-iwan ng mensaheng aalalahanin. Nag-iwan Siya ng misyong ipagpapatuloy. Ang Great Commission ay hindi optional project para sa iilang Christians; ito ang assignment ng bawat believer.',
+  openingBody: 'Ang prayer life, Word life, fellowship, at evangelism ay parang apat na gulong ng buhay Kristiyano. Tayo ay nananalangin, natututo sa Salita, lumalago kasama ng ibang believers, at ibinabahagi ang faith—pagkatapos ay inuulit natin ang rhythm na ito habang gumagawa rin ng mga alagad.',
+  keyTruthLabel: 'Susing katotohanan',
+  keyTruth: 'Hindi lang mensaheng aalalahanin ang iniwan ni Jesus; iniwan Niya sa atin ang misyong ipagpapatuloy.',
+  section02: '02 · Humayo sa Kanyang awtoridad',
+  authorityTitle: 'Ang awtoridad ni Jesus ang ating kumpiyansa',
+  authorityBody1: 'Sinimulan ni Jesus ang utos na humayo sa isang katiyakan: nasa Kanya ang lahat ng awtoridad sa langit at sa lupa. Kaya maibabahagi natin ang good news saanman tayo ilagay—sa bahay, paaralan, trabaho, kapitbahayan, at komunidad.',
+  authorityBody2: 'Habang dumidilim ang kultura, lalo dapat makita ang liwanag ng gospel. May resistance, rejection, at opposition, pero hindi nito kayang daigin ang gawain ni Cristo. Hindi tayo humahayo sa sariling lakas o reputasyon; humahayo tayo sa ilalim ng Kanyang pamumuno.',
+  authorityBody3: 'Ang tagumpay ay hindi nasusukat sa agarang positive response. Kapag tinanggihan ang mensahe, bumangon at magpatuloy. Tapat nating ibinabahagi si Jesus, at ipinagkakatiwala natin sa Diyos ang resulta.',
+  discuss1Label: 'Pag-usapan · 1',
+  discuss1: 'Saan ka pinadalhan ng Diyos ngayon? Anong takot o opposition ang kailangan mong harapin sa ilalim ng awtoridad ni Jesus?',
+  section03: '03 · Gumawa ng alagad',
+  disciplesTitle: 'Follow. Learn. Transform. Send. Repeat.',
+  disciplesBody1: 'Ang disciple ay follower at learner na patuloy na binabago ni Jesus at pagkatapos ay isinusugo. Una, sumusunod tayo kay Cristo. Ikalawa, natututo tayo sa Kanyang Salita at sa fellowship. Ikatlo, hinahayaan natin Siyang alisin ang impurities at hubugin ang character natin. Ikaapat, humahayo tayo para tulungan ang iba na sumunod din sa Kanya.',
+  disciplesBody2: 'Hindi instant ang transformation. Tulad ng gold na nililinis sa apoy o clay na hinuhubog ng potter, araw-araw tayong sinasanctify ng Panginoon. Kailangan ang pusong teachable, willing magbago, at handang sumunod.',
+  disciplesBody3: 'Ang goal ng discipleship ay hindi maging kamukha ng isang pastor, celebrity, o admired leader. Ang goal ay maging katulad ni Jesus sa character, love, obedience, at mission.',
+  lukeVerse: '<sup>40</sup> “Walang mag-aaral na nakakahigit sa kanyang guro. Ngunit kapag natapos na niya ang kanyang pagsasanay, matutulad siya sa kanyang guro.”',
+  lukeCitation: 'Lucas 6:40 · ASND',
+  discuss2Label: 'Pag-usapan · 2',
+  discuss2: 'Sa cycle na follow, learn, transform, at send, nasaan ka ngayon? Ano ang isang next step na ipinapagawa sa iyo ni Jesus?',
+  section04: '04 · Bautismuhan at turuang sumunod',
+  obedienceTitle: 'Ang discipleship ay humahantong sa obedience',
+  obedienceBody1: 'Iniutos ni Jesus na bautismuhan ang Kanyang mga alagad sa pangalan ng Ama, Anak, at Banal na Espiritu. Ang baptism ay public identification with Christ—pakikiisa sa Kanyang kamatayan at muling pagkabuhay at paglakad sa bagong buhay. Ito ay act of faith at step of obedience.',
+  obedienceBody2: 'Iniutos din Niya na turuan silang sundin ang lahat ng Kanyang sinabi. Hindi sapat ang makinig lamang o sumang-ayon mentally. Ang tunay na faith ay tumutugon: listen, believe, obey, receive God’s blessing—then repeat.',
+  obedienceBody3: 'Ang wise builder at foolish builder ay parehong nakarinig. Ang pagkakaiba ay obedience. Bilang disciples na binabago pa rin, kailangan natin ang pusong handang matuto, magbago, at gawin ang sinasabi ng Panginoon.',
+  romansVerse: '<sup>4</sup> “Kaya sa bautismo, inilibing tayong kasama niya dahil kasama rin tayo sa kanyang kamatayan. At kung paanong muling binuhay si Cristo sa kapangyarihan ng Ama, dapat din tayong mamuhay sa bagong buhay.”',
+  romansCitation: 'Roma 6:4 · ASND',
+  discuss3Label: 'Pag-usapan · 3',
+  discuss3: 'May utos ba ng Diyos na narinig at pinaniwalaan mo pero hindi mo pa sinusunod? Ano ang practical act of obedience mo this week?',
+  section05: '05 · Magtiwala sa Kanyang presensya',
+  presenceTitle: '“I am with you always”',
+  presenceBody1: 'Hindi tayo isinugo ni Jesus nang mag-isa. Kasama natin Siya hanggang sa katapusan ng panahon. Lumalakad Siya kasama natin, nagbibigay ng strength, nag-iingat, at gumagabay. Totoo ang promise na ito sa masaya at mahirap na seasons.',
+  presenceBody2: 'Hindi ipinangako ni Jesus na mawawala ang trouble o rejection. Ipinangako Niya ang Kanyang presensya. Kapag hindi tinanggap ng isang tao ang message, alalahaning hindi ikaw lang ang tinanggihan. Manatiling humble, bounce back, at patuloy na magmahal.',
+  psalmVerse: '<sup>4</sup> “Kahit dumaan ako sa pinakamadilim na libis, hindi ako matatakot dahil kayo ay aking kasama.”',
+  psalmCitation: 'Salmo 23:4 · ASND',
+  discuss4Label: 'Pag-usapan · 4',
+  discuss4: 'Saan mo kailangang paniwalaan muli na kasama mo si Jesus? Paano babaguhin ng Kanyang presensya ang paraan ng iyong pag-share?',
+  section06: '06 · Alamin ang iyong assignment',
+  assignmentTitle: 'Love believers. Share God’s goodness with others.',
+  assignmentBody1: 'Sa fellow believers, malinaw ang assignment: love one another. Mahalin ang Diyos nang buong puso, kaluluwa, at lakas, at hayaang makita ang vertical love na iyon sa horizontal love—sa encouragement, fellowship, patience, at practical care para sa church family.',
+  assignmentBody2: 'Sa mga hindi pa nakakakilala kay Jesus, ibahagi ang kabutihan ng Diyos at ang call to repent. Lahat tayo ay nagkasala, pero sa Kanyang mercy ay ibinigay ng Diyos si Jesus bilang kapatawaran at kaligtasan. Ang gospel ay honest tungkol sa sin at overflowing sa good news ng grace.',
+  actsVerse: '<sup>38</sup> “Magsisi kayo at magpabautismo sa pangalan ni Jesu-Cristo para patawarin ang inyong mga kasalanan. At tatanggapin ninyo ang Banal na Espiritu. <sup>39</sup> Sapagkat ang pangako ay para sa inyo, sa inyong mga anak, at sa lahat ng nasa malayo.”',
+  actsCitation: 'Gawa 2:38–39 · ASND',
+  discuss5Label: 'Pag-usapan · 5',
+  discuss5: 'Sino ang believer na kailangan mong mahalin at palakasin? Sino ang hindi pa nakakakilala kay Jesus na maaari mong sabihan tungkol sa kabutihan ng Diyos?',
+  section07: '07 · Maging ordinaryong witness',
+  witnessesTitle: 'Lahat tayo ay maaaring maging instrumento',
+  witnessesBody1: 'Pagkatapos ng Pentecost, narinig ng mga tao mula sa maraming nations ang wonderful works of God sa sarili nilang languages. Umuwi ang ordinaryong visitors, workers, traders, at believers dala ang good news. Bago pa makarating ang apostles sa ilang lugar, may mga Christians na roon dahil may mga nameless witnesses na naging faithful.',
+  witnessesBody2: 'Hindi kailangang sikat, ordained, o nasa public ministry para makibahagi sa Great Commission. Bata o matanda, babae o lalaki, student o professional—bawat disciple na makapagsasalita ay maaaring magbahagi. Kilala ng Panginoon ang hidden witnesses at gagantimpalaan Niya ang kanilang faithfulness.',
+  witnessesBody3: 'Magsimula sa mga taong malapit: kapamilya, kaibigan, kaklase, katrabaho, kapitbahay, at kachat. Sa halip na puro tsismis o empty talk, dalhin ang good news, encouragement, at testimony ng ginawa ni Jesus.',
+  actsNationsVerse: '<sup>11</sup> “Naririnig natin silang nagsasalita sa sarili nating mga wika tungkol sa mga kahanga-hangang gawa ng Diyos.” <sup>12</sup> Namangha at nagtaka silang lahat at nagtanungan, “Ano ang ibig sabihin nito?”',
+  actsNationsCitation: 'Gawa 2:11–12 · ASND',
+  discuss6Label: 'Pag-usapan · 6',
+  discuss6: 'Anong ordinaryong conversation o relationship ang maaaring gamitin ng Diyos bilang doorway para sa gospel ngayong linggo?',
+  section08: '08 · Tumugon',
+  responseTitle: 'Ipagpatuloy ang misyong iniwan ni Jesus',
+  responseBody1: 'Ang Great Commission ay hindi lamang para sa church program o special event. Ito ang daily assignment ng bawat disciple. Humahayo tayo dahil may awtoridad si Jesus, gumagawa ng disciples dahil mahal Niya ang nations, at nagpapatuloy dahil lagi natin Siyang kasama.',
+  responseBody2: 'Pumili ng isang konkretong response. Huwag hintaying maging expert. Ibahagi kung ano ang alam mong ginawa ni Jesus, tulungan ang isang tao na sumunod, at manatiling available sa Holy Spirit.',
+  responseStepLabel: 'Tumugon',
+  responsePray: 'Ipanalangin ang isang taong kailangang makilala si Jesus.',
+  responseShare: 'Ibahagi ang kabutihan ng Diyos at ang sarili mong testimony.',
+  responseDisciple: 'Tulungan ang isang believer na matuto at sumunod sa Salita.',
+  responseGo: 'Humayo sa bahay, school, workplace, o community na pinaglagyan sa iyo.',
+  declarationLabel: 'Ang ating deklarasyon',
+  declaration: '“Makikibahagi ako sa Great Commission. Susunod ako kay Jesus, magpapahubog sa Kanya, at tutulong sa iba na maging Kanyang alagad. Humahayo ako sa Kanyang awtoridad at presensya.”',
+  section09: '09 · Manalangin',
+  prayerTitle: 'Panalangin ng isang isinugong alagad',
+  prayer1: 'Ama, salamat sa privilege at opportunity na makibahagi sa huling utos ni Jesus—ang ibahagi ang good news at gumawa ng disciples sa lahat ng nations.',
+  prayer2: 'Gawin Mo kaming kasangkapan ng Iyong mabuting balita. Ilagay Mo sa puso namin ang mga kapamilya, kaibigan, kapitbahay, at taong nangangailangan ng encouragement. Gawin Mo kaming ilaw at asin, lalo na sa mga nawawala at nanghihina ang faith.',
+  prayer3: 'Kumilos Ka sa amin. Ipakita sa pamamagitan ng aming buhay ang Iyong kadakilaan, pagmamahal, kapatawaran, awa, at kabutihan. Bigyan Mo kami ng tapang na humayo at ng pusong handang sumunod. In Jesus’ name, Amen.',
+  takeawayLabel: 'Dalhin mo ito',
+  takeaway: 'Follow Jesus. Learn from Him. Let Him transform you. Go and make disciples. Hindi tayo nag-iisa—kasama natin Siya palagi.',
+  shareLabel: 'I-share ang study',
+  shareTitle: 'Buksan sa ibang device',
+  shareBody: 'I-scan o i-download ang QR code para makabalik diretso sa Bible study na ito.',
+  downloadQr: 'I-download ang QR code',
+  scriptureNotice: 'Ang mga sipi sa Tagalog ay mula sa Ang Salita ng Dios (Tagalog Contemporary Bible), © 2010, 2014, 2018 Biblica, Inc. Ginamit nang may pahintulot.',
+  footerTagline: 'Sama-samang nakasentro kay Jesus. Hinuhubog ng Kanyang Salita.'
+};
+---
+
+<BaseLayout
+  title="Taking Part in the Great Commission: The Believer’s Assignment | DMI Calamba City"
+  description="A Bible study from Matthew 28:16–20 about going in Jesus’ authority, making disciples, teaching obedience, and trusting his presence."
+  bodyClass="study-page"
+>
+  <header class="study-hero">
+    <nav class="study-nav" aria-label="Primary navigation" data-i18n-aria-label="navAria">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria">
+        <img src={logoPath} width="900" height="900" alt="" />
+        <span>DMI · Calamba City</span>
+      </a>
+      <LanguageToggle translations={translations} />
+      <span>30 August 2026</span>
+    </nav>
+
+    <div class="study-hero-copy">
+      <p class="eyebrow" data-i18n="eyebrow">Bible Study · Matthew 28:16–20</p>
+      <h1 data-i18n="title">Taking Part in the Great Commission</h1>
+      <p class="study-subtitle" data-i18n="subtitle">The Believer’s Assignment</p>
+    </div>
+
+    <blockquote class="hero-scripture">
+      <p lang="en" data-i18n="heroScripture" data-i18n-lang><sup>18</sup> And Jesus came and said to them, “All authority in heaven and on earth has been given to me. <sup>19</sup> Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, <sup>20</sup> teaching them to observe all that I have commanded you. And behold, I am with you always, to the end of the age.”</p>
+      <cite lang="en" data-i18n="heroCitation" data-i18n-lang>Matthew 28:18–20 · ESV</cite>
+    </blockquote>
+  </header>
+
+  <main class="study-content">
+    <aside class="study-aside" aria-label="Study summary" data-i18n-aria-label="summaryAria">
+      <div><span class="aside-label" data-i18n="themeLabel">Theme</span><p data-i18n="theme">Go in Jesus’ authority. Make disciples. Teach them to obey. Trust his presence.</p></div>
+      <div><span class="aside-label" data-i18n="keyTextsLabel">Key texts</span><p data-i18n="keyTexts">Matthew 28:16–20<br />Romans 6:4<br />James 1:22<br />Acts 2:5–12, 38–39</p></div>
+      <div><span class="aside-label" data-i18n="timeLabel">Time</span><p data-i18n="time">30–35 minutes</p></div>
+      <div><span class="aside-label" data-i18n="presentationLabel">Presentation</span><a class="aside-action" href="https://docs.google.com/presentation/d/1JQcazVATrgNG12orcFhAgOFPFFEwcEXd/edit?slide=id.p1#slide=id.p1" target="_blank" rel="noreferrer" data-i18n="presentationLink">Open Google Slides <span aria-hidden="true">↗</span></a></div>
+      <div><span class="aside-label" data-i18n="serviceLabel">Sunday service</span><a class="aside-action" href="https://www.youtube.com/live/fzA2SC3WYTs?si=HU84kTpxwpZC7YFd" target="_blank" rel="noreferrer" data-i18n="serviceLink">Watch on YouTube <span aria-hidden="true">↗</span></a></div>
+    </aside>
+
+    <article class="study-article">
+      <section class="opening" aria-labelledby="opening-title">
+        <p class="section-number" data-i18n="section01">01 · Begin here</p>
+        <h2 id="opening-title" data-i18n="openingTitle">Jesus’ final charge is our present mission</h2>
+        <p class="lead" data-i18n="openingLead">Before Jesus returned to the Father, he did not leave only a message to remember. He left a mission to continue. The Great Commission is not an optional project for a few Christians; it is every believer’s assignment.</p>
+        <p data-i18n="openingBody">Prayer life, Word life, fellowship, and evangelism are like four wheels of the Christian life. We pray, learn Scripture, grow with other believers, and share our faith—then repeat that rhythm as we help others become disciples too.</p>
+        <div class="key-statement"><span data-i18n="keyTruthLabel">Key truth</span><p data-i18n="keyTruth">Jesus did not leave us merely with a message to remember; he left us with a mission to continue.</p></div>
+      </section>
+
+      <section aria-labelledby="authority-title">
+        <p class="section-number" data-i18n="section02">02 · Go in his authority</p>
+        <h2 id="authority-title" data-i18n="authorityTitle">Jesus’ authority is our confidence</h2>
+        <p data-i18n="authorityBody1">Jesus began his command to go with a certainty: all authority in heaven and on earth belongs to him. Therefore, we can share the good news wherever he places us—at home, school, work, in our neighborhood, and throughout our community.</p>
+        <p data-i18n="authorityBody2">As culture grows darker, the light of the gospel must become more visible. Resistance, rejection, and opposition will come, but they cannot overcome Christ’s work. We do not go in our own strength or reputation; we go under his rule.</p>
+        <p data-i18n="authorityBody3">Success is not measured by an immediate positive response. When the message is rejected, get back up and continue. We faithfully share Jesus and entrust the result to God.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss1Label">Discuss · 1</span><p data-i18n="discuss1">Where has God sent you today? What fear or opposition must you face under Jesus’ authority?</p></div>
+      </section>
+
+      <section aria-labelledby="disciples-title">
+        <p class="section-number" data-i18n="section03">03 · Make disciples</p>
+        <h2 id="disciples-title" data-i18n="disciplesTitle">Follow. Learn. Transform. Send. Repeat.</h2>
+        <p data-i18n="disciplesBody1">A disciple is a follower and learner whom Jesus continually transforms and then sends. First, we follow Christ. Second, we learn from his Word and through fellowship. Third, we let him remove our impurities and shape our character. Fourth, we go and help others follow him too.</p>
+        <p data-i18n="disciplesBody2">Transformation is not instant. Like gold refined by fire or clay shaped by a potter, we are sanctified day by day. We need teachable hearts that are willing to change and ready to obey.</p>
+        <p data-i18n="disciplesBody3">The goal of discipleship is not to resemble a pastor, celebrity, or admired leader. The goal is to become like Jesus in character, love, obedience, and mission.</p>
+        <blockquote class="verse-card"><span data-i18n="keyVerse">Key verse · ESV</span><p lang="en" data-i18n="lukeVerse" data-i18n-lang><sup>40</sup> “A disciple is not above his teacher, but everyone when he is fully trained will be like his teacher.”</p><cite lang="en" data-i18n="lukeCitation" data-i18n-lang>Luke 6:40 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss2Label">Discuss · 2</span><p data-i18n="discuss2">In the cycle of follow, learn, transform, and send, where are you right now? What is one next step Jesus is asking you to take?</p></div>
+      </section>
+
+      <section aria-labelledby="obedience-title">
+        <p class="section-number" data-i18n="section04">04 · Baptize and teach obedience</p>
+        <h2 id="obedience-title" data-i18n="obedienceTitle">Discipleship leads to obedience</h2>
+        <p data-i18n="obedienceBody1">Jesus commanded that his disciples be baptized in the name of the Father, Son, and Holy Spirit. Baptism publicly identifies us with Christ—with his death and resurrection and with walking in new life. It is an act of faith and a step of obedience.</p>
+        <p data-i18n="obedienceBody2">He also commanded us to teach disciples to observe everything he said. Merely hearing or agreeing mentally is not enough. Living faith responds: listen, believe, obey, receive God’s blessing—then repeat.</p>
+        <p data-i18n="obedienceBody3">The wise and foolish builders both heard. The difference was obedience. As disciples still being transformed, we need hearts ready to learn, change, and do what the Lord says.</p>
+        <blockquote class="verse-card"><span data-i18n="keyVerse">Key verse · ESV</span><p lang="en" data-i18n="romansVerse" data-i18n-lang><sup>4</sup> “We were buried therefore with him by baptism into death, in order that, just as Christ was raised from the dead by the glory of the Father, we too might walk in newness of life.”</p><cite lang="en" data-i18n="romansCitation" data-i18n-lang>Romans 6:4 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss3Label">Discuss · 3</span><p data-i18n="discuss3">Is there a command of God you have heard and believed but have not yet obeyed? What practical act of obedience will you take this week?</p></div>
+      </section>
+
+      <section aria-labelledby="presence-title">
+        <p class="section-number" data-i18n="section05">05 · Trust his presence</p>
+        <h2 id="presence-title" data-i18n="presenceTitle">“I am with you always”</h2>
+        <p data-i18n="presenceBody1">Jesus does not send us alone. He is with us to the end of the age. He walks with us, strengthens us, protects us, and guides us. His promise holds in joyful and difficult seasons.</p>
+        <p data-i18n="presenceBody2">Jesus did not promise the absence of trouble or rejection. He promised his presence. When someone refuses the message, remember that you are not the only one being rejected. Stay humble, get back up, and keep loving.</p>
+        <blockquote class="verse-card"><span data-i18n="keyVerse">Key verse · ESV</span><p lang="en" data-i18n="psalmVerse" data-i18n-lang><sup>4</sup> “Even though I walk through the valley of the shadow of death, I will fear no evil, for you are with me.”</p><cite lang="en" data-i18n="psalmCitation" data-i18n-lang>Psalm 23:4 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss4Label">Discuss · 4</span><p data-i18n="discuss4">Where do you need to believe again that Jesus is with you? How will his presence change the way you share?</p></div>
+      </section>
+
+      <section aria-labelledby="assignment-title">
+        <p class="section-number" data-i18n="section06">06 · Know your assignment</p>
+        <h2 id="assignment-title" data-i18n="assignmentTitle">Love believers. Share God’s goodness with others.</h2>
+        <p data-i18n="assignmentBody1">With fellow believers, the assignment is clear: love one another. Love God with all your heart, soul, and strength, and let that vertical love become horizontal love through encouragement, fellowship, patience, and practical care for the church family.</p>
+        <p data-i18n="assignmentBody2">With those who do not yet know Jesus, share God’s goodness and the call to repent. We have all sinned, yet in his mercy God gave Jesus for our forgiveness and salvation. The gospel is honest about sin and overflowing with the good news of grace.</p>
+        <blockquote class="verse-card"><span data-i18n="keyVerse">Key verse · ESV</span><p lang="en" data-i18n="actsVerse" data-i18n-lang><sup>38</sup> “Repent and be baptized every one of you in the name of Jesus Christ for the forgiveness of your sins, and you will receive the gift of the Holy Spirit. <sup>39</sup> For the promise is for you and for your children and for all who are far off.”</p><cite lang="en" data-i18n="actsCitation" data-i18n-lang>Acts 2:38–39 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss5Label">Discuss · 5</span><p data-i18n="discuss5">Which believer can you love and strengthen? Who does not yet know Jesus that you could tell about God’s goodness?</p></div>
+      </section>
+
+      <section aria-labelledby="witnesses-title">
+        <p class="section-number" data-i18n="section07">07 · Be an ordinary witness</p>
+        <h2 id="witnesses-title" data-i18n="witnessesTitle">Every one of us can be an instrument</h2>
+        <p data-i18n="witnessesBody1">After Pentecost, people from many nations heard the wonderful works of God in their own languages. Ordinary visitors, workers, traders, and believers carried the good news home. Before apostles reached some places, Christians were already there because unnamed witnesses had been faithful.</p>
+        <p data-i18n="witnessesBody2">You do not need to be famous, ordained, or in public ministry to take part in the Great Commission. Young or old, woman or man, student or professional—every disciple who can speak can share. The Lord knows hidden witnesses and rewards their faithfulness.</p>
+        <p data-i18n="witnessesBody3">Begin with people nearby: family, friends, classmates, coworkers, neighbors, and those you chat with. Instead of gossip or empty talk, bring good news, encouragement, and your testimony of what Jesus has done.</p>
+        <blockquote class="verse-card"><span data-i18n="keyVerse">Key verse · ESV</span><p lang="en" data-i18n="actsNationsVerse" data-i18n-lang><sup>11</sup> “We hear them telling in our own tongues the mighty works of God.” <sup>12</sup> And all were amazed and perplexed, saying to one another, “What does this mean?”</p><cite lang="en" data-i18n="actsNationsCitation" data-i18n-lang>Acts 2:11–12 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss6Label">Discuss · 6</span><p data-i18n="discuss6">What ordinary conversation or relationship could God use as a doorway for the gospel this week?</p></div>
+      </section>
+
+      <section class="response-section" aria-labelledby="response-title">
+        <p class="section-number" data-i18n="section08">08 · Respond</p>
+        <h2 id="response-title" data-i18n="responseTitle">Continue the mission Jesus left us</h2>
+        <p data-i18n="responseBody1">The Great Commission is not only a church program or special event. It is every disciple’s daily assignment. We go because Jesus has authority, make disciples because he loves the nations, and continue because he is always with us.</p>
+        <p data-i18n="responseBody2">Choose one concrete response. Do not wait to become an expert. Share what you know Jesus has done, help someone take a step of obedience, and remain available to the Holy Spirit.</p>
+        <ol class="response-steps">
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responsePray">Pray for one person who needs to know Jesus.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseShare">Share God’s goodness and your own testimony.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseDisciple">Help a believer learn and obey the Word.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseGo">Go into the home, school, workplace, or community where God placed you.</p></li>
+        </ol>
+        <div class="key-statement dark"><span data-i18n="declarationLabel">Our declaration</span><p data-i18n="declaration">“I will take part in the Great Commission. I will follow Jesus, let him transform me, and help others become his disciples. I go in his authority and presence.”</p></div>
+      </section>
+
+      <section class="closing-prayer" aria-labelledby="prayer-title">
+        <p class="section-number" data-i18n="section09">09 · Pray</p>
+        <h2 id="prayer-title" data-i18n="prayerTitle">A sent disciple’s prayer</h2>
+        <p data-i18n="prayer1">Father, thank You for the privilege and opportunity to take part in Jesus’ final charge—to share the good news and make disciples of all nations.</p>
+        <p data-i18n="prayer2">Make us instruments of Your good news. Place on our hearts family, friends, neighbors, and people who need encouragement. Make us light and salt, especially to those who are lost and whose faith is growing weak.</p>
+        <p data-i18n="prayer3">Move through us. Let our lives display Your greatness, love, forgiveness, mercy, and goodness. Give us courage to go and hearts ready to obey. In Jesus’ name, Amen.</p>
+      </section>
+
+      <section class="takeaway" aria-label="Study takeaway" data-i18n-aria-label="takeawayAria"><span data-i18n="takeawayLabel">Take this with you</span><p data-i18n="takeaway">Follow Jesus. Learn from him. Let him transform you. Go and make disciples. We are not alone—he is with us always.</p></section>
+
+      <section class="qr-section" aria-labelledby="share-title">
+        <div><p class="section-number" data-i18n="shareLabel">Share the study</p><h2 id="share-title" data-i18n="shareTitle">Open on another device</h2><p data-i18n="shareBody">Scan or download this QR code to return directly to this Bible study.</p><a class="text-link" href={qrPath} download="dmi-taking-part-in-the-great-commission-qr.png" data-i18n="downloadQr">Download QR code</a></div>
+        <a class="qr-card" href={pageURL} aria-label="Open this Bible study" data-i18n-aria-label="qrLinkAria"><img src={qrPath} width="720" height="720" alt="QR code for Taking Part in the Great Commission Bible study" data-i18n-alt="qrImageAlt" /></a>
+      </section>
+
+      <p class="scripture-notice" lang="en" data-i18n="scriptureNotice" data-i18n-lang>Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer"><a href={base}>DMI Calamba City</a><div class="site-footer-actions"><span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span><SocialLinks /></div></footer>
+</BaseLayout>
