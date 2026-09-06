@@ -6,6 +6,8 @@ import SocialLinks from '../../components/SocialLinks.astro';
 const base = import.meta.env.BASE_URL;
 const qrPath = `${base}qr/2026-09-06-altar-of-our-church.png`;
 const coverPath = `${base}2026-09-06-altar-of-our-church-cover.jpg`;
+const coverWebp1280 = `${base}2026-09-06-altar-of-our-church-cover-1280.webp`;
+const coverWebp2400 = `${base}2026-09-06-altar-of-our-church-cover-2400.webp`;
 const pageURL = 'https://dmicalambacity.org/2026-09-06-altar-of-our-church/';
 const logoPath = `${base}dmi-logo.jpg`;
 
@@ -127,7 +129,10 @@ const translations = {
   socialImageHeight={1350}
 >
   <a class="study-cover" href="#study" aria-label="Begin The Altar of Our Church Bible study" data-i18n-aria-label="coverLinkAria">
-    <img src={coverPath} width="2400" height="1350" alt="Bible Study Guide: The Altar of Our Church — The church that God desires, Acts 2" data-i18n-alt="coverImageAlt" fetchpriority="high" />
+    <picture>
+      <source srcset={`${coverWebp1280} 1280w, ${coverWebp2400} 2400w`} sizes="100vw" type="image/webp" />
+      <img src={coverPath} width="2400" height="1350" alt="Bible Study Guide: The Altar of Our Church — The church that God desires, Acts 2" data-i18n-alt="coverImageAlt" decoding="async" fetchpriority="high" />
+    </picture>
   </a>
 
   <header class="study-hero" id="study">
