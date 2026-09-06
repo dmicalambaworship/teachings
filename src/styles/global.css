@@ -450,6 +450,10 @@ strong {
   line-height: 0;
 }
 
+.study-cover picture {
+  display: block;
+}
+
 .study-cover img {
   width: 100%;
   height: auto;
