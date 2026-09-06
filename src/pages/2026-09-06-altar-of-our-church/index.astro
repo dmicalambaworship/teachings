@@ -5,6 +5,7 @@ import SocialLinks from '../../components/SocialLinks.astro';
 
 const base = import.meta.env.BASE_URL;
 const qrPath = `${base}qr/2026-09-06-altar-of-our-church.png`;
+const coverPath = `${base}2026-09-06-altar-of-our-church-cover.jpg`;
 const pageURL = 'https://dmicalambacity.org/2026-09-06-altar-of-our-church/';
 const logoPath = `${base}dmi-logo.jpg`;
 
@@ -17,6 +18,8 @@ const translations = {
   takeawayAria: 'Pangunahing takeaway ng study',
   qrLinkAria: 'Buksan ang Bible study na ito',
   qrImageAlt: 'QR code para sa The Altar of Our Church Bible study',
+  coverLinkAria: 'Simulan ang The Altar of Our Church Bible study',
+  coverImageAlt: 'Bible Study Guide: Ang Altar ng Ating Simbahan — Ang iglesyang ninanais ng Diyos, Gawa 2',
   eyebrow: 'Bible Study · Gawa 2:42–47',
   title: 'Ang Altar ng Ating Simbahan',
   subtitle: 'Ang Iglesyang Ninanais ng Diyos',
@@ -33,6 +36,8 @@ const translations = {
   presentationLink: 'Buksan sa Canva <span aria-hidden="true">↗</span>',
   serviceLabel: 'Sunday service',
   serviceLink: 'Panoorin sa YouTube <span aria-hidden="true">↗</span>',
+  facebookLabel: 'Facebook Live',
+  facebookLink: 'Panoorin sa Facebook <span aria-hidden="true">↗</span>',
   section01: '01 · Magsimula rito',
   openingTitle: 'Ang simbahan ay hindi ang gusali—tayo ang simbahan',
   openingLead: 'Ang altar ay hindi lamang isang physical place. Ito ay disposition ng pusong sumusuko sa Diyos. Kaya ang altar ng ating church ay nagsisimula sa tanong: bilang people of God, namumuhay ba tayo ayon sa nais Niya?',
@@ -116,8 +121,16 @@ const translations = {
   title="The Altar of Our Church: The Church That God Desires | DMI Calamba City"
   description="A Bible study from Acts 2:42–47 about becoming a Spirit-filled church united in love and faithful to proclaim Christ."
   bodyClass="study-page"
+  socialImage={coverPath}
+  socialImageAlt="Bible Study Guide: The Altar of Our Church — The church that God desires, Acts 2"
+  socialImageWidth={2400}
+  socialImageHeight={1350}
 >
-  <header class="study-hero">
+  <a class="study-cover" href="#study" aria-label="Begin The Altar of Our Church Bible study" data-i18n-aria-label="coverLinkAria">
+    <img src={coverPath} width="2400" height="1350" alt="Bible Study Guide: The Altar of Our Church — The church that God desires, Acts 2" data-i18n-alt="coverImageAlt" fetchpriority="high" />
+  </a>
+
+  <header class="study-hero" id="study">
     <nav class="study-nav" aria-label="Primary navigation" data-i18n-aria-label="navAria">
       <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria">
         <img src={logoPath} width="900" height="900" alt="" />
@@ -146,6 +159,7 @@ const translations = {
       <div><span class="aside-label" data-i18n="timeLabel">Time</span><p data-i18n="time">30–35 minutes</p></div>
       <div><span class="aside-label" data-i18n="presentationLabel">Presentation</span><a class="aside-action" href="https://www.canva.com/design/DAHUXr_nCu0/_6U-DsT_u8WPZzo2aAYlfg/edit" target="_blank" rel="noreferrer" data-i18n="presentationLink">Open in Canva <span aria-hidden="true">↗</span></a></div>
       <div><span class="aside-label" data-i18n="serviceLabel">Sunday service</span><a class="aside-action" href="https://www.youtube.com/live/iANRJKYjYxM" target="_blank" rel="noreferrer" data-i18n="serviceLink">Watch on YouTube <span aria-hidden="true">↗</span></a></div>
+      <div><span class="aside-label" data-i18n="facebookLabel">Facebook Live</span><a class="aside-action" href="https://www.facebook.com/DMICalamba/videos/1099580092572802" target="_blank" rel="noreferrer" data-i18n="facebookLink">Watch on Facebook <span aria-hidden="true">↗</span></a></div>
     </aside>
 
     <article class="study-article">

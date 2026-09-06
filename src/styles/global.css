@@ -444,6 +444,18 @@ strong {
   transform: translate(0.14rem, -0.14rem);
 }
 
+.study-cover {
+  display: block;
+  background: #191815;
+  line-height: 0;
+}
+
+.study-cover img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .study-hero {
   min-height: 94svh;
   display: grid;
