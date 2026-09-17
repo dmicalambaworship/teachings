@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const logoPath = `${base}dmi-logo.jpg`;
+const digDeepPath = `${base}specials/20260912-dig-deep-wrestling-with-god/`;
+---
+
+<BaseLayout
+  title="Specials | DMI Calamba City"
+  description="Special resources from DMI Calamba City."
+  bodyClass="specials-index-page"
+  socialImage={`${base}dmi-calamba-social-preview.jpg`}
+  socialImageAlt="DMI Calamba City special resources"
+  socialImageWidth={1280}
+  socialImageHeight={720}
+>
+  <header class="songs-hero specials-index-hero">
+    <nav class="study-nav" aria-label="Primary navigation">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home"><img src={logoPath} width="900" height="900" alt="DMI church logo" /><span>Calamba City</span></a>
+    </nav>
+    <div class="songs-hero-copy">
+      <p class="eyebrow">Resources for the journey</p>
+      <h1>Specials</h1>
+      <p>Messages and guides for deeper reflection, prayer, and shared formation.</p>
+    </div>
+  </header>
+
+  <main class="specials-index-content">
+    <header class="specials-index-intro">
+      <div><p class="section-number">Featured resource</p><h2>Read and return to what God is saying.</h2></div>
+      <p>Explore special resources from DMI Calamba City, prepared to be read slowly, shared with others, and brought into prayer.</p>
+    </header>
+
+    <ol class="specials-list">
+      <li>
+        <a href={digDeepPath}>
+          <span class="specials-list-meta">12 September 2026 · Leaders Retreat</span>
+          <h2>Dig Deep: Wrestling with God</h2>
+          <p>A condensed study guide from Senior Pastor Paul Yadao on surrender, identity, holiness, reconciliation, and generational grace.</p>
+          <span class="specials-list-action">Open resource <span aria-hidden="true">↗</span></span>
+        </a>
+      </li>
+    </ol>
+  </main>
+
+  <footer class="site-footer"><a href={base}>DMI Calamba City</a><div class="site-footer-actions"><span>Gathered around Jesus. Formed by his Word.</span><SocialLinks /></div></footer>
+</BaseLayout>

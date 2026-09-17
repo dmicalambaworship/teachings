@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../../components/LanguageToggle.astro';
+import SocialLinks from '../../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const logoPath = `${base}dmi-logo.jpg`;
+const downloadUrl = 'https://drive.google.com/file/d/1xOFw1oF6A6WcCNJn7MU_R1cCbFn4j3S7/view?usp=drive_link';
+
+const translations = {
+  languageLabel: 'Wika',
+  languageAriaLabel: 'Wika ng pagbabasa',
+  homeAria: 'Bumalik sa DMI Calamba City home',
+  resourceAria: 'Buod ng resource',
+  eyebrow: 'Special resource · Leaders Retreat',
+  title: 'Humukay Nang Malalim',
+  subtitle: 'Pakikipagbuno sa Diyos',
+  heroScripture: '“Hindi kita bibitawan hangga’t hindi mo ako binabasbasan.”',
+  heroCitation: 'Genesis 32:26 · NIV',
+  resourceLabel: 'I-download',
+  resourceTitle: 'Condensed Study Guide',
+  resourceDescription: '25-page PDF · Paul Yadao · 12 Setyembre 2026',
+  download: 'I-download ang PDF <span aria-hidden="true">↗</span>',
+  downloadAria: 'I-download ang Dig Deep: Wrestling with God PDF sa Google Drive',
+  section01: '01 · Tungkol sa resource na ito',
+  summaryTitle: 'Isang tawag na manatili sa presensya ng Diyos',
+  summaryLead: 'Ang condensed study guide na ito ay hinango mula sa pangangaral ni DMI Senior Pastor Paul Yadao sa unang araw ng Leaders Retreat para sa ika-18 anibersaryo ng DMI Calamba City.',
+  summaryBody: 'Sa pamamagitan ng pakikipagbuno ni Jacob sa Diyos sa Peniel, inaanyayahan tayo nitong iwan ang self-reliance at hanapin ang mukha ng Diyos. Ang pakikipagbuno ay hindi paraan para pilitin ang Diyos sa gusto natin; ito ay pananatili sa Kanya hanggang ang ating puso ay sumang-ayon sa Kanya.',
+  section02: '02 · Sa loob ng guide',
+  themesTitle: 'Surrender. Identity. Reconciliation.',
+  themeOneTitle: 'Christ formed in us',
+  themeOne: 'Hindi pagiging impressive ang goal, kundi ang mahubog si Cristo sa atin sa pamamagitan ng surrendered life.',
+  themeTwoTitle: 'A new name and posture',
+  themeTwo: 'Sa harap ng Diyos, iniwan ni Jacob ang dating pagkakakilanlan at tumanggap ng bagong pangalan—at lumakad nang may humility.',
+  themeThreeTitle: 'Grace for generations',
+  themeThree: 'Ang encounter sa Diyos ay nagbubukas ng daan para sa forgiveness, reconciliation, at grace na umaabot sa mga susunod.',
+  section03: '03 · Maglaan ng panahon',
+  reflectionTitle: 'Magbasa, huminto, at manalangin',
+  reflectionBody: 'May Scripture studies, reflection questions, personal inventory, at guided prayer ang guide. Basahin ito nang dahan-dahan nang mag-isa o kasama ang leadership group, at gawing sariling tugon sa Diyos ang mga panalangin.',
+  takeawayLabel: 'Dalhin mo ito',
+  takeaway: 'Ang pinakamalalim na pagpapala ay ang mukha ng Diyos. Sa pagsuko, tumatanggap tayo ng pagkakakilanlan, bagong posture, at biyayang maipapasa sa iba.',
+  footerTagline: 'Nakalap sa paligid ni Jesus. Hinuhubog ng Kanyang Salita.',
+};
+---
+
+<BaseLayout
+  title="Dig Deep: Wrestling with God | DMI Calamba City"
+  description="Download Dig Deep: Wrestling with God, a condensed study guide from Paul Yadao for DMI Calamba City's 18th Anniversary Leaders Retreat."
+  bodyClass="specials-page"
+  socialImage={`${base}dmi-calamba-social-preview.jpg`}
+  socialImageAlt="DMI Calamba City special resource: Dig Deep - Wrestling with God"
+  socialImageWidth={1280}
+  socialImageHeight={720}
+>
+  <header class="study-hero specials-hero">
+    <nav class="study-nav" aria-label="Primary navigation">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria"><img src={logoPath} width="900" height="900" alt="DMI church logo" /><span>Calamba City</span></a>
+      <LanguageToggle translations={translations} />
+    </nav>
+    <div class="study-hero-copy">
+      <p class="eyebrow" data-i18n="eyebrow">Special resource · Leaders Retreat</p>
+      <h1 data-i18n="title">Dig Deep</h1>
+      <p class="study-subtitle" data-i18n="subtitle">Wrestling with God</p>
+    </div>
+    <blockquote class="hero-scripture"><p data-i18n="heroScripture">“I will not let you go unless you bless me.”</p><cite data-i18n="heroCitation">Genesis 32:26 · NIV</cite></blockquote>
+  </header>
+
+  <main class="study-content specials-content">
+    <aside class="study-aside" aria-label="Resource summary" data-i18n-aria-label="resourceAria">
+      <div><span class="aside-label" data-i18n="resourceLabel">Download</span><p><strong data-i18n="resourceTitle">Condensed Study Guide</strong></p><p data-i18n="resourceDescription">25-page PDF · Paul Yadao · September 12, 2026</p></div>
+      <a class="aside-action" href={downloadUrl} target="_blank" rel="noreferrer" aria-label="Download Dig Deep: Wrestling with God PDF from Google Drive" data-i18n-aria-label="downloadAria"><span data-i18n="download">Download PDF <span aria-hidden="true">↗</span></span></a>
+    </aside>
+
+    <article class="study-article">
+      <section aria-labelledby="summary-title">
+        <p class="section-number" data-i18n="section01">01 · About this resource</p>
+        <h2 id="summary-title" data-i18n="summaryTitle">A call to stay in God’s presence</h2>
+        <p class="lead" data-i18n="summaryLead">This condensed study guide comes from a preaching shared by DMI Senior Pastor Paul Yadao on the first day of the DMI Calamba City 18th Anniversary Leaders Retreat.</p>
+        <p data-i18n="summaryBody">Through Jacob’s wrestling with God at Peniel, it invites us to leave self-reliance behind and seek God’s face. Wrestling is not a way to force God into our desires; it is staying before him until our hearts come into agreement with his.</p>
+      </section>
+
+      <section aria-labelledby="themes-title">
+        <p class="section-number" data-i18n="section02">02 · Inside the guide</p>
+        <h2 id="themes-title" data-i18n="themesTitle">Surrender. Identity. Reconciliation.</h2>
+        <div class="practice-grid specials-theme-grid">
+          <div><span data-i18n="themeOneTitle">Christ formed in us</span><p data-i18n="themeOne">The goal is not becoming impressive, but allowing Christ to be formed in us through a surrendered life.</p></div>
+          <div><span data-i18n="themeTwoTitle">A new name and posture</span><p data-i18n="themeTwo">Before God, Jacob leaves behind his old identity and receives a new name—and a humbler way of walking.</p></div>
+          <div><span data-i18n="themeThreeTitle">Grace for generations</span><p data-i18n="themeThree">An encounter with God opens a way for forgiveness, reconciliation, and grace that reaches those who come after us.</p></div>
+        </div>
+      </section>
+
+      <section class="response-section" aria-labelledby="reflection-title">
+        <p class="section-number" data-i18n="section03">03 · Make time for it</p>
+        <h2 id="reflection-title" data-i18n="reflectionTitle">Read, pause, and pray</h2>
+        <p data-i18n="reflectionBody">The guide includes Scripture studies, reflection questions, a personal inventory, and a guided prayer. Read it slowly on your own or with a leadership group, allowing its prayers to become your own response before God.</p>
+        <a class="resource-download-button" href={downloadUrl} target="_blank" rel="noreferrer" aria-label="Download Dig Deep: Wrestling with God PDF from Google Drive" data-i18n-aria-label="downloadAria" data-i18n="download">Download PDF <span aria-hidden="true">↗</span></a>
+      </section>
+
+      <section class="takeaway" aria-label="Resource takeaway"><span data-i18n="takeawayLabel">Take this with you</span><p data-i18n="takeaway">The deepest blessing is the face of God. In surrender, we receive identity, a new posture, and grace to pass on to others.</p></section>
+    </article>
+  </main>
+
+  <footer class="site-footer"><a href={base}>DMI Calamba City</a><div class="site-footer-actions"><span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span><SocialLinks /></div></footer>
+</BaseLayout>
