@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../../components/LanguageToggle.astro';
+import SocialLinks from '../../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const logoPath = `${base}dmi-logo.jpg`;
+const youtubeWatchUrl = 'https://youtu.be/MoJ4ld2k02M';
+const youtubeEmbedUrl = 'https://www.youtube-nocookie.com/embed/MoJ4ld2k02M';
+const facebookVideoUrl = ''; // pending: exact Facebook video link from the church
+
+const translations = {
+  languageLabel: 'Wika',
+  languageAriaLabel: 'Wika ng pagbabasa',
+  homeAria: 'Bumalik sa DMI Calamba City home',
+  videoAria: 'Manood ng pagdiriwang ng ika-18 anibersaryo ng DMI Calamba City',
+  videoTitle: 'DMI Calamba City 18th Anniversary celebration',
+  videoLinkLabel: 'Panoorin sa YouTube',
+  facebookLinkLabel: 'Panoorin sa Facebook',
+  eyebrow: 'Special · 18th Anniversary',
+  title: '18 Years of God’s Faithfulness',
+  subtitle: 'A two-day celebration',
+  lead: 'On September 12–13, 2026, DMI Calamba City gathered to celebrate 18 years of God’s faithfulness—a Leaders Retreat, a church service, and a day of team building. All glory to Jesus!',
+  watchLabel: 'Watch the celebration',
+  watchTitle: 'The 18th anniversary in video',
+  watchBody: 'Relive the two-day celebration—from the Leaders Retreat to worship and team building—in this video from DMI Calamba City.',
+  dayOneMeta: 'Day 1 · September 12, 2026',
+  dayOneTitle: 'Leaders Retreat: Wrestling with God',
+  dayOneBody: 'The celebration opened with a Leaders Retreat led by Senior Pastor Paul Yadao, opening Genesis 32 to look at Jacob’s wrestling with God at Peniel—a call to leave self-reliance and stay in God’s presence until our hearts agree with his.',
+  dayOneLink: 'Read the companion study guide',
+  dayTwoMeta: 'Day 2 · September 13, 2026',
+  dayTwoTitle: 'Church service and team building',
+  dayTwoBody: 'The second day brought the church family together in a thanksgiving service, followed by team building activities—time to serve, play, and grow closer as the DMI Calamba City family.',
+  takeawayLabel: 'Take this with you',
+  takeaway: 'Eighteen years of God’s faithfulness. All glory to Jesus.',
+  footerTagline: 'Nakalap sa paligid ni Jesus. Hinuhubog ng Kanyang Salita.',
+};
+
+const digDeepPath = `${base}specials/20260912-dig-deep-wrestling-with-god/`;
+---
+
+<BaseLayout
+  title="DMI Calamba City 18th Anniversary Celebration | DMI Calamba City"
+  description="Watch the two-day 18th anniversary celebration of DMI Calamba City: Leaders Retreat, church service, and team building. All glory to Jesus!"
+  bodyClass="events-page"
+  socialImage={`${base}dmi-calamba-social-preview.jpg`}
+  socialImageAlt="DMI Calamba City 18th Anniversary celebration"
+  socialImageWidth={1280}
+  socialImageHeight={720}
+>
+  <header class="study-hero events-hero">
+    <nav class="study-nav" aria-label="Primary navigation">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria"><img src={logoPath} width="900" height="900" alt="DMI church logo" /><span>Calamba City</span></a>
+      <LanguageToggle translations={translations} />
+    </nav>
+    <div class="study-hero-copy">
+      <p class="eyebrow" data-i18n="eyebrow">Special · 18th Anniversary</p>
+      <h1 data-i18n="title">18 Years of God’s Faithfulness</h1>
+      <p class="study-subtitle" data-i18n="subtitle">A two-day celebration</p>
+    </div>
+  </header>
+
+  <main class="study-content events-content">
+    <aside class="study-aside">
+      <div><span class="aside-label" data-i18n="watchLabel">Watch the celebration</span><p><strong data-i18n="watchTitle">The 18th anniversary in video</strong></p><p data-i18n="watchBody">Relive the two-day celebration from the Leaders Retreat to worship and team building.</p></div>
+      <a class="aside-action" href={youtubeWatchUrl} target="_blank" rel="noreferrer" aria-label="Watch the DMI Calamba City 18th Anniversary celebration on YouTube" data-i18n-aria-label="videoAria"><span data-i18n="videoLinkLabel">Watch on YouTube <span aria-hidden="true">↗</span></span></a>
+    </aside>
+
+    <article class="study-article">
+      <p class="lead" data-i18n="lead">On September 12–13, 2026, DMI Calamba City gathered to celebrate 18 years of God’s faithfulness—a Leaders Retreat, a church service, and a day of team building. All glory to Jesus!</p>
+
+      <section aria-labelledby="video-title">
+        <p class="section-number" data-i18n="watchLabel">Watch the celebration</p>
+        <h2 id="video-title" data-i18n="videoTitle">DMI Calamba City 18th Anniversary celebration</h2>
+        <div class="video-embed">
+          <iframe src={youtubeEmbedUrl} title="DMI Calamba City 18th Anniversary celebration" data-i18n-aria-label="videoTitle" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="video-links">
+          <a href={youtubeWatchUrl} target="_blank" rel="noreferrer" aria-label="Watch the DMI Calamba City 18th Anniversary celebration on YouTube" data-i18n-aria-label="videoAria"><span data-i18n="videoLinkLabel">Watch on YouTube <span aria-hidden="true">↗</span></span></a>
+          <a class="video-link-facebook" href={facebookVideoUrl || youtubeWatchUrl} target="_blank" rel="noreferrer" aria-label="Watch the DMI Calamba City 18th Anniversary celebration on Facebook" data-i18n-aria-label="videoAria"><span data-i18n="facebookLinkLabel">Watch on Facebook <span aria-hidden="true">↗</span></span></a>
+        </div>
+      </section>
+
+      <section aria-labelledby="day-one-title">
+        <p class="section-number" data-i18n="dayOneMeta">Day 1 · September 12, 2026</p>
+        <h2 id="day-one-title" data-i18n="dayOneTitle">Leaders Retreat: Wrestling with God</h2>
+        <p data-i18n="dayOneBody">The celebration opened with a Leaders Retreat led by Senior Pastor Paul Yadao, opening Genesis 32 to look at Jacob’s wrestling with God at Peniel—a call to leave self-reliance and stay in God’s presence until our hearts agree with his.</p>
+        <a class="video-link-facebook" href={digDeepPath}><span data-i18n="dayOneLink">Read the companion study guide <span aria-hidden="true">↗</span></span></a>
+      </section>
+
+      <section aria-labelledby="day-two-title">
+        <p class="section-number" data-i18n="dayTwoMeta">Day 2 · September 13, 2026</p>
+        <h2 id="day-two-title" data-i18n="dayTwoTitle">Church service and team building</h2>
+        <p data-i18n="dayTwoBody">The second day brought the church family together in a thanksgiving service, followed by team building activities—time to serve, play, and grow closer as the DMI Calamba City family.</p>
+      </section>
+
+      <section class="takeaway" aria-label="Resource takeaway"><span data-i18n="takeawayLabel">Take this with you</span><p data-i18n="takeaway">Eighteen years of God’s faithfulness. All glory to Jesus.</p></section>
+    </article>
+  </main>
+
+  <footer class="site-footer"><a href={base}>DMI Calamba City</a><div class="site-footer-actions"><span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span><SocialLinks /></div></footer>
+</BaseLayout>
