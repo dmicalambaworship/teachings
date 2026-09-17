@@ -9,6 +9,7 @@ interface Props {
   socialImageAlt?: string;
   socialImageWidth?: number;
   socialImageHeight?: number;
+  socialVideo?: string;
 }
 
 const {
@@ -19,6 +20,7 @@ const {
   socialImageAlt = 'DMI church logo',
   socialImageWidth = 900,
   socialImageHeight = 900,
+  socialVideo,
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImageURL = new URL(socialImage, Astro.site);
@@ -47,6 +49,21 @@ const twitterCard = socialImageWidth / socialImageHeight >= 1.5 ? 'summary_large
     <meta name="twitter:card" content={twitterCard} />
     <meta name="twitter:image" content={socialImageURL} />
     <meta name="twitter:image:alt" content={socialImageAlt} />
+    {
+      socialVideo && (
+        <>
+          <meta property="og:video" content={socialVideo} />
+          <meta property="og:video:url" content={socialVideo} />
+          <meta property="og:video:secure_url" content={socialVideo} />
+          <meta property="og:video:type" content="text/html" />
+          <meta property="og:video:width" content="1280" />
+          <meta property="og:video:height" content="720" />
+          <meta name="twitter:player" content={socialVideo} />
+          <meta name="twitter:player:width" content="1280" />
+          <meta name="twitter:player:height" content="720" />
+        </>
+      )
+    }
     <link rel="icon" type="image/jpeg" href={`${import.meta.env.BASE_URL}dmi-logo.jpg`} />
     <title>{title}</title>
   </head>
