@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../../components/LanguageToggle.astro';
+import SocialLinks from '../../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const logoPath = `${base}dmi-logo.jpg`;
+const posterPath = `${base}specials-altar-of-our-home-1920.webp`;
+const downloadUrl = 'https://drive.google.com/file/d/1xOFw1oF6A6WcCNJn7MU_R1cCbFn4j3S7/view?usp=drive_link';
+
+const translations = {
+  languageLabel: 'Wika',
+  languageAriaLabel: 'Wika ng pagbabasa',
+  homeAria: 'Bumalik sa DMI Calamba City home',
+  resourceAria: 'Buod ng resource',
+  posterAlt: 'Altar of Our Home graphic na may pamilyang magkakahawak-kamay sa paglubog ng araw',
+  eyebrow: 'Special resource · Leaders Retreat',
+  title: 'Dig Deep',
+  subtitle: 'Altar of Our Home',
+  heroScripture: '“Ngunit para sa akin at sa aking sambahayan, paglilingkuran namin ang Panginoon.”',
+  heroCitation: 'Joshua 24:15 · ESV',
+  resourceLabel: 'I-download',
+  resourceTitle: 'Condensed Study Guide',
+  resourceDescription: '24-page PDF · Paul Yadao · 12 Setyembre 2026',
+  download: 'I-download ang PDF <span aria-hidden="true">↗</span>',
+  downloadAria: 'I-download ang Dig Deep: Altar of Our Home PDF sa Google Drive',
+  section01: '01 · Tungkol sa resource na ito',
+  summaryTitle: 'Bumuo ng altar na umaabot sa mga henerasyon',
+  summaryLead: 'Ang condensed study guide na ito ay mula sa ikalawang session ni DMI Senior Pastor Paul Yadao sa unang araw ng Leaders Retreat para sa ika-18 anibersaryo ng DMI Calamba City.',
+  summaryBody: 'Ipinapakita nito na ang altar ng tahanan ay nagsisimula sa pusong sumusuko at nagiging kultura sa araw-araw—sa ating pananalita, pagpapatawad, pagsamba, pagdidisiplina, at mga salitang binibigkas natin sa susunod na henerasyon. Hindi perpektong larawan ng pamilya ang layunin, kundi isang tahanang nagpaparangal sa presensya at Salita ng Diyos.',
+  section02: '02 · Sa loob ng guide',
+  themesTitle: 'Surrender. Presence. Blessing.',
+  themeOneTitle: 'The altar begins in the heart',
+  themeOne: 'Tayo ang handog. Ang buhay na isinuko sa Diyos ang unang family altar at pinagmumulan ng tunay na pagsamba sa tahanan.',
+  themeTwoTitle: 'The home hosts God’s presence',
+  themeTwo: 'Ang Salitang nakatanim sa puso ang humuhubog sa kultura ng tahanan. Tulad ng sambahayan ni Obed-edom, tinatawag tayong dalhin at parangalan ang presensya ng Diyos ayon sa Kanyang paraan.',
+  themeThreeTitle: 'Blessing reaches generations',
+  themeThree: 'Ang matibay na altar ay nagbubunga ng mga salitang nagpapatibay ng identity, value, calling, at belonging—para sa biological family at spiritual children.',
+  section03: '03 · Isabuhay ito',
+  reflectionTitle: 'Bumalik sa altar bilang isang tahanan',
+  reflectionBody: 'May Scripture studies, heart questions, altar inventory, household declaration, five-part family blessing practice, at guided prayer ang guide. Basahin ito nang mag-isa, kasama ang pamilya, o sa leadership group, at pumili ng isang ordinaryong rhythm kung saan sama-sama ninyong maisasabuhay ang Salita at panalangin.',
+  takeawayLabel: 'Dalhin mo ito',
+  takeaway: 'Ang altar ng tahanan ay binubuo sa ordinaryong sandali: sa mabilis na pagsisisi, tapat na pananalita, bukas-palad na pagpapatawad, panalangin, mapagmahal na pagdidisiplina, at pagpapala sa bawat isa ayon sa pangalan.',
+  footerTagline: 'Nakalap sa paligid ni Jesus. Hinuhubog ng Kanyang Salita.',
+};
+---
+
+<BaseLayout
+  title="Dig Deep: Altar of Our Home | DMI Calamba City"
+  description="Download Dig Deep: Altar of Our Home, a condensed study guide from Paul Yadao for DMI Calamba City's 18th Anniversary Leaders Retreat."
+  bodyClass="specials-page"
+  socialImage={`${base}specials-altar-of-our-home-og.jpg`}
+  socialImageAlt="DMI Calamba City special resource: Dig Deep - Altar of Our Home"
+  socialImageWidth={1280}
+  socialImageHeight={720}
+>
+  <header class="study-hero specials-hero">
+    <nav class="study-nav" aria-label="Primary navigation">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria"><img src={logoPath} width="900" height="900" alt="DMI church logo" /><span>Calamba City</span></a>
+      <LanguageToggle translations={translations} />
+    </nav>
+    <div class="study-hero-copy">
+      <p class="eyebrow" data-i18n="eyebrow">Special resource · Leaders Retreat</p>
+      <h1 data-i18n="title">Dig Deep</h1>
+      <p class="study-subtitle" data-i18n="subtitle">Altar of Our Home</p>
+    </div>
+    <blockquote class="hero-scripture"><p data-i18n="heroScripture">“But as for me and my house, we will serve the Lord.”</p><cite data-i18n="heroCitation">Joshua 24:15 · ESV</cite></blockquote>
+  </header>
+
+  <main class="study-content specials-content">
+    <aside class="study-aside" aria-label="Resource summary" data-i18n-aria-label="resourceAria">
+      <a class="specials-resource-figure-link" href={downloadUrl} target="_blank" rel="noreferrer" aria-label="Download Dig Deep: Altar of Our Home PDF from Google Drive" data-i18n-aria-label="downloadAria"><img class="specials-resource-figure" src={posterPath} width="1920" height="1080" alt="Altar of Our Home graphic with a family holding hands at sunset" data-i18n-alt="posterAlt" loading="lazy" /></a>
+      <div><span class="aside-label" data-i18n="resourceLabel">Download</span><p><strong data-i18n="resourceTitle">Condensed Study Guide</strong></p><p data-i18n="resourceDescription">24-page PDF · Paul Yadao · September 12, 2026</p></div>
+      <a class="aside-action" href={downloadUrl} target="_blank" rel="noreferrer" aria-label="Download Dig Deep: Altar of Our Home PDF from Google Drive" data-i18n-aria-label="downloadAria"><span data-i18n="download">Download PDF <span aria-hidden="true">↗</span></span></a>
+    </aside>
+
+    <article class="study-article">
+      <section aria-labelledby="summary-title">
+        <p class="section-number" data-i18n="section01">01 · About this resource</p>
+        <h2 id="summary-title" data-i18n="summaryTitle">Build an altar that reaches generations</h2>
+        <p class="lead" data-i18n="summaryLead">This condensed study guide comes from DMI Senior Pastor Paul Yadao’s second session on the first day of the DMI Calamba City 18th Anniversary Leaders Retreat.</p>
+        <p data-i18n="summaryBody">It shows how the altar of the home begins with a surrendered heart and becomes a daily culture—shaping our speech, forgiveness, worship, discipline, and the words we speak over the next generation. The goal is not a perfect family image, but a home that honors the presence and Word of God.</p>
+      </section>
+
+      <section aria-labelledby="themes-title">
+        <p class="section-number" data-i18n="section02">02 · Inside the guide</p>
+        <h2 id="themes-title" data-i18n="themesTitle">Surrender. Presence. Blessing.</h2>
+        <div class="practice-grid specials-theme-grid">
+          <div><span data-i18n="themeOneTitle">The altar begins in the heart</span><p data-i18n="themeOne">We are the sacrifice. A life surrendered to God is the first family altar and the source of genuine worship in the home.</p></div>
+          <div><span data-i18n="themeTwoTitle">The home hosts God’s presence</span><p data-i18n="themeTwo">The Word treasured in the heart shapes the culture of the home. Like Obed-edom’s household, we are called to carry and honor God’s presence according to his ways.</p></div>
+          <div><span data-i18n="themeThreeTitle">Blessing reaches generations</span><p data-i18n="themeThree">Strong altars release words that affirm identity, value, calling, and belonging—for biological family and spiritual children alike.</p></div>
+        </div>
+      </section>
+
+      <section class="response-section" aria-labelledby="reflection-title">
+        <p class="section-number" data-i18n="section03">03 · Put it into practice</p>
+        <h2 id="reflection-title" data-i18n="reflectionTitle">Return to the altar as a household</h2>
+        <p data-i18n="reflectionBody">The guide includes Scripture studies, heart questions, an altar inventory, a household declaration, a five-part family blessing practice, and a guided prayer. Read it alone, with your family, or in a leadership group, then choose one ordinary rhythm where you can practice the Word and prayer together.</p>
+        <a class="resource-download-button" href={downloadUrl} target="_blank" rel="noreferrer" aria-label="Download Dig Deep: Altar of Our Home PDF from Google Drive" data-i18n-aria-label="downloadAria" data-i18n="download">Download PDF <span aria-hidden="true">↗</span></a>
+      </section>
+
+      <section class="takeaway" aria-label="Resource takeaway"><span data-i18n="takeawayLabel">Take this with you</span><p data-i18n="takeaway">The altar of the home is built in ordinary moments: repenting quickly, speaking truthfully, forgiving generously, praying through tears, disciplining with love, and blessing people by name.</p></section>
+    </article>
+  </main>
+
+  <footer class="site-footer"><a href={base}>DMI Calamba City</a><div class="site-footer-actions"><span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span><SocialLinks /></div></footer>
+</BaseLayout>

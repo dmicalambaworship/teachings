@@ -5,6 +5,7 @@ import SocialLinks from '../../components/SocialLinks.astro';
 const base = import.meta.env.BASE_URL;
 const logoPath = `${base}dmi-logo.jpg`;
 const digDeepPath = `${base}specials/20260912-dig-deep-wrestling-with-god/`;
+const altarOfOurHomePath = `${base}specials/20260912-dig-deep-altar-of-our-home/`;
 ---
 
 <BaseLayout
@@ -35,8 +36,16 @@ const digDeepPath = `${base}specials/20260912-dig-deep-wrestling-with-god/`;
 
     <ol class="specials-list">
       <li>
+        <a href={altarOfOurHomePath}>
+          <span class="specials-list-meta">12 September 2026 · Leaders Retreat · Part 2</span>
+          <h2>Dig Deep: Altar of Our Home</h2>
+          <p>A condensed study guide from Senior Pastor Paul Yadao on surrendered hearts, the presence of God in the home, household discipleship, and blessing future generations.</p>
+          <span class="specials-list-action">Open resource <span aria-hidden="true">↗</span></span>
+        </a>
+      </li>
+      <li>
         <a href={digDeepPath}>
-          <span class="specials-list-meta">12 September 2026 · Leaders Retreat</span>
+          <span class="specials-list-meta">12 September 2026 · Leaders Retreat · Part 1</span>
           <h2>Dig Deep: Wrestling with God</h2>
           <p>A condensed study guide from Senior Pastor Paul Yadao on surrender, identity, holiness, reconciliation, and generational grace.</p>
           <span class="specials-list-action">Open resource <span aria-hidden="true">↗</span></span>
