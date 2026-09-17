@@ -5,6 +5,7 @@ import SocialLinks from '../../../components/SocialLinks.astro';
 
 const base = import.meta.env.BASE_URL;
 const logoPath = `${base}dmi-logo.jpg`;
+const heroBgPath = `${base}specials-dig-deep-leaders-retreat-1920.webp`;
 const downloadUrl = 'https://drive.google.com/file/d/1xOFw1oF6A6WcCNJn7MU_R1cCbFn4j3S7/view?usp=drive_link';
 
 const translations = {
@@ -52,7 +53,7 @@ const translations = {
   socialImageWidth={1280}
   socialImageHeight={720}
 >
-  <header class="study-hero specials-hero">
+  <header class="study-hero specials-hero" style={`--hero-bg: url('${heroBgPath}')`}>
     <nav class="study-nav" aria-label="Primary navigation">
       <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria"><img src={logoPath} width="900" height="900" alt="DMI church logo" /><span>Calamba City</span></a>
       <LanguageToggle translations={translations} />
