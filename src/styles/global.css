@@ -474,11 +474,16 @@ strong {
 .specials-hero {
   min-height: 82svh;
   background:
-    linear-gradient(rgba(3, 47, 65, 0.55), rgba(3, 47, 65, 0.72)),
-    var(--hero-bg, none) center / cover no-repeat,
     radial-gradient(circle at 22% 25%, rgba(215, 170, 94, 0.15), transparent 26%),
     radial-gradient(circle at 78% 30%, rgba(184, 236, 234, 0.16), transparent 28%),
     linear-gradient(145deg, #07536b 0%, #043f55 62%, #032f41 100%);
+}
+
+.specials-resource-figure {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
 }
 
 .specials-content .study-aside > a {

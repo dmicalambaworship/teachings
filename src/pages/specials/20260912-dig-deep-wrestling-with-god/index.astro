@@ -5,7 +5,7 @@ import SocialLinks from '../../../components/SocialLinks.astro';
 
 const base = import.meta.env.BASE_URL;
 const logoPath = `${base}dmi-logo.jpg`;
-const heroBgPath = `${base}specials-dig-deep-leaders-retreat-1920.webp`;
+const posterPath = `${base}specials-dig-deep-leaders-retreat-1920.webp`;
 const downloadUrl = 'https://drive.google.com/file/d/1xOFw1oF6A6WcCNJn7MU_R1cCbFn4j3S7/view?usp=drive_link';
 
 const translations = {
@@ -13,8 +13,9 @@ const translations = {
   languageAriaLabel: 'Wika ng pagbabasa',
   homeAria: 'Bumalik sa DMI Calamba City home',
   resourceAria: 'Buod ng resource',
+  posterAlt: 'DMI Calamba City 18th Anniversary Leaders Retreat poster',
   eyebrow: 'Special resource · Leaders Retreat',
-  title: 'Humukay Nang Malalim',
+  title: 'Dig Deep',
   subtitle: 'Pakikipagbuno sa Diyos',
   heroScripture: '“Hindi kita bibitawan hangga’t hindi mo ako binabasbasan.”',
   heroCitation: 'Genesis 32:26 · NIV',
@@ -53,7 +54,7 @@ const translations = {
   socialImageWidth={1280}
   socialImageHeight={720}
 >
-  <header class="study-hero specials-hero" style={`--hero-bg: url('${heroBgPath}')`}>
+  <header class="study-hero specials-hero">
     <nav class="study-nav" aria-label="Primary navigation">
       <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria"><img src={logoPath} width="900" height="900" alt="DMI church logo" /><span>Calamba City</span></a>
       <LanguageToggle translations={translations} />
@@ -68,6 +69,7 @@ const translations = {
 
   <main class="study-content specials-content">
     <aside class="study-aside" aria-label="Resource summary" data-i18n-aria-label="resourceAria">
+      <img class="specials-resource-figure" src={posterPath} width="1920" height="1080" alt="DMI Calamba City 18th Anniversary Leaders Retreat poster" data-i18n-alt="posterAlt" loading="lazy" />
       <div><span class="aside-label" data-i18n="resourceLabel">Download</span><p><strong data-i18n="resourceTitle">Condensed Study Guide</strong></p><p data-i18n="resourceDescription">25-page PDF · Paul Yadao · September 12, 2026</p></div>
       <a class="aside-action" href={downloadUrl} target="_blank" rel="noreferrer" aria-label="Download Dig Deep: Wrestling with God PDF from Google Drive" data-i18n-aria-label="downloadAria"><span data-i18n="download">Download PDF <span aria-hidden="true">↗</span></span></a>
     </aside>
