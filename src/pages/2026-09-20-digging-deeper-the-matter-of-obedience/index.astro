@@ -1,0 +1,271 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const pagePath = `${base}2026-09-20-digging-deeper-the-matter-of-obedience/`;
+const pageURL = new URL(pagePath, Astro.site ?? Astro.url).toString();
+const coverPath = `${base}2026-09-20-digging-deeper-the-matter-of-obedience-cover.jpg`;
+const coverWebp1280 = `${base}2026-09-20-digging-deeper-the-matter-of-obedience-cover-1280.webp`;
+const coverWebp2400 = `${base}2026-09-20-digging-deeper-the-matter-of-obedience-cover-2400.webp`;
+const logoPath = `${base}dmi-logo.jpg`;
+const qrPath = `${base}qr/2026-09-20-digging-deeper-the-matter-of-obedience.png`;
+
+const translations = {
+  languageLabel: `Wika`,
+  languageAriaLabel: `Wika ng pagbabasa`,
+  navAria: `Pangunahing navigation`,
+  homeAria: `Bumalik sa DMI Calamba City home`,
+  summaryAria: `Buod ng study`,
+  takeawayAria: `Pangunahing takeaway ng study`,
+  qrLinkAria: `Buksan ang Bible study na ito`,
+  qrImageAlt: `QR code para sa Digging Deeper: The Matter of Obedience Bible study`,
+  coverLinkAria: `Simulan ang Digging Deeper: The Matter of Obedience Bible study`,
+  coverImageAlt: `Bible Study Guide: Digging Deeper — The Matter of Obedience, Lucas 6`,
+  eyebrow: `Bible Study · Lucas 6:46–49`,
+  title: `Digging Deeper`,
+  subtitle: `The Matter of Obedience`,
+  heroScripture: `<sup>46</sup> “Bakit ninyo ako tinatawag na ‘Panginoon, Panginoon,’ pero hindi naman ninyo ginagawa ang sinasabi ko? <sup>47</sup> Ipapakita ko sa inyo kung sino ang katulad ng bawat lumalapit sa akin, nakikinig sa aking mga salita, at sumusunod sa mga ito: <sup>48</sup> tulad siya ng taong nagtayo ng bahay, humukay nang malalim, at naglatag ng pundasyon sa bato. Nang bumaha, humampas ang agos sa bahay na iyon ngunit hindi ito nayanig, sapagkat matibay ang pagkakatayo nito. <sup>49</sup> Ngunit ang nakikinig at hindi sumusunod ay tulad ng taong nagtayo ng bahay sa lupa nang walang pundasyon. Nang humampas dito ang agos, agad itong bumagsak, at napakalaki ng pagkawasak ng bahay na iyon.”`,
+  heroCitation: `Lucas 6:46–49 · salin para sa study`,
+  themeLabel: `Tema`,
+  theme: `Ang tunay na pakikinig kay Jesus ay humahantong sa intentional obedience—isang buhay na nakaugat sa Kanya at binabago mula puso hanggang gawa.`,
+  keyTextsLabel: `Mga susing talata`,
+  keyTexts: `Lucas 6:46–49<br />2 Corinto 5:21<br />Juan 4:24<br />1 Pedro 4:1–2<br />Efeso 1:18<br />Jeremias 29:12–13`,
+  timeLabel: `Oras`,
+  time: `35–40 minuto`,
+  presentationLabel: `Presentation`,
+  presentationLink: `Buksan sa Canva <span aria-hidden="true">↗</span>`,
+  serviceLabel: `Sunday service`,
+  serviceUnavailable: `Walang video para sa study na ito`,
+  facebookLabel: `Facebook Live`,
+  facebookUnavailable: `Walang video para sa study na ito`,
+  section01: `01 · Magsimula rito`,
+  openingTitle: `Hindi kapalit ng pagbabago ang spiritual experience`,
+  openingLead: `Nagtatapos ang Sermon on the Plain ni Jesus sa isang tuwirang tanong: “Bakit ninyo ako tinatawag na ‘Panginoon, Panginoon,’ pero hindi ninyo ginagawa ang sinasabi ko?”`,
+  openingBody1: `Maraming tao ang lumapit kay Jesus upang makinig at gumaling. Ngunit hindi sapat ang manatili sa crowd, maging pamilyar sa religious language, o makinabang sa spiritual association. Tinatawag tayo ni Jesus mula sa pakikinig tungo sa pagsunod.`,
+  openingBody2: `Nagiging tunay tayong spiritual habang gumagawa ang Diyos sa atin mula sa loob palabas—sa puso, character, at conduct. Nagbibigay ang Banal na Espiritu ng liwanag at conviction; tumutugon tayo sa pamamagitan ng patuloy at sadyang pagpili na isabuhay ang inilalantad ng Salita.`,
+  keyTruthLabel: `Susing katotohanan`,
+  keyTruth: `Ang digging deeper ay patuloy na paglalagak ng tiwala sa Salita ng Diyos, pag-asa sa Kanyang saving grace, at pagsunod sa anumang dinadala Niya sa liwanag.`,
+  discuss1Label: `Pag-usapan · 1`,
+  discuss1: `Saan ka posibleng nagiging pamilyar kay Jesus ngunit hindi sumusunod sa Kanya? Anong malinaw na utos ang kailangan mong isabuhay?`,
+  section02: `02 · Tingnan ang dalawang pundasyon`,
+  foundationsTitle: `Parehong nakarinig; isa lamang ang humukay`,
+  foundationsBody1: `Sa tuyong panahon, ang clay topsoil sa Mediterranean ay nabibilad sa araw hanggang magmukhang matigas na parang bakal. Para sa taong hindi pa nakakita ng pagpapalit ng seasons, tila sapat na itong pagtayuan. Ngunit alam ng may karanasan na pansamantala lamang ang tibay nito.`,
+  foundationsBody2: `Kaya ang wise builder ay “humukay at nagpalalim”—<em>eskapsen kai ebathunen</em>—hanggang marating ang <em>themelion</em>, ang tunay na foundation. Nang dumating ang malakas na ulan at ang mga tuyong daluyan ay naging rumaragasang baha, lumambot at nawala ang mababaw na lupa.`,
+  foundationsBody3: `Ang bahay na walang foundation ay “agad” bumagsak. Walang mabagal na decline. Samantalang ang bahay na nakaangkla sa bato ay hindi man lamang nayanig. Ang kaibahan ay hindi ang lakas ng baha kundi ang pundasyong pinili bago dumating ang baha.`,
+  keyVerse: `Susing talata · salin para sa study`,
+  builderVerse: `<sup>48</sup> “Tulad siya ng taong nagtayo ng bahay, humukay nang malalim, at naglatag ng pundasyon sa bato. Nang bumaha, humampas ang agos sa bahay na iyon ngunit hindi ito nayanig, sapagkat matibay ang pagkakatayo nito.”`,
+  builderCitation: `Lucas 6:48 · salin para sa study`,
+  discuss2Label: `Pag-usapan · 2`,
+  discuss2: `Anong “matigas na topsoil”—comfort, success, reputation, o religious routine—ang maaari mong napagkakamalang matibay na foundation?`,
+  section03: `03 · Piliin ang intentional obedience`,
+  intentionalTitle: `Ang digging deeper ang dividing line`,
+  intentionalBody1: `Inilalarawan ni Jesus ang tunay na follower bilang taong lumalapit, nakikinig, at sumusunod. Hindi siya kuntento sa pagtawag ng “Lord, Lord” habang pinangangalagaan ang sariling comfort, convenience, o pride.`,
+  intentionalBody2: `Madaling magtago sa familiarity—alam natin ang tamang salita, kasama tayo sa gatherings, at mukhang religious. Ngunit tinatagos ni Jesus ang crowd at tinatanong ang bawat isa: Makikinig ka ba at susunod? Huhukay ka ba nang malalim o mananatili sa mababaw na association?`,
+  intentionalBody3: `Hindi natin matatamasa ang tunay na fellowship sa Panginoon at sa Kanyang people kung tatanggihan natin ang costly obedience na humahantong sa tuloy-tuloy na transformation.`,
+  keyTruth2: `Digging deeper is a choice—intentional.`,
+  discuss3Label: `Pag-usapan · 3`,
+  discuss3: `Kapag nagbanggaan ang Salita ng Diyos at ang comfort mo, alin ang karaniwang nasusunod? Ano ang isang intentional choice na magbabago nito ngayong linggo?`,
+  section04: `04 · Yakapin ang labor-intensive na pagsamba`,
+  worshipTitle: `Ang reverence ay nagbubunga ng service at obedience`,
+  worshipBody1: `Ang obedience ay araw-araw na choice. Ang aktibong paghahanap sa kalooban ng Diyos at pagdadala ng isip, puso, at kamay sa ilalim ng Kanyang pamamahala ay nangangailangan ng moral exertion at perseverance.`,
+  worshipBody2: `Sa Lumang Tipan, ang <em>shachah</em> ay pagyuko o pagpapatirapa bilang submission, habang ang <em>abad</em> ay paggawa o paglilingkod. Sa Bagong Tipan, ang <em>proskuneo</em> ay reverent bowing, at ang <em>latreuo</em> ay sacred service. Sa biblical worship, nauuna ang humility at sumusunod ang paglilingkod.`,
+  worshipBody3: `Higit sa kanta ang worship. Ito ay pusong yumuyuko sa Diyos at buhay na kumikilos ayon sa Kanyang kalooban. Ang tunay na reverence ay nakikita sa obedience.`,
+  worshipVerse: `<sup>24</sup> “Ang Diyos ay espiritu, at ang mga sumasamba sa kanya ay dapat sumamba sa espiritu at katotohanan.”`,
+  worshipCitation: `Juan 4:24 · salin para sa study`,
+  keyTruth3: `Digging deeper is work—labor-intensive.`,
+  discuss4Label: `Pag-usapan · 4`,
+  discuss4: `Paano magiging worship ang ordinaryong gawain mo sa bahay, trabaho, school, o ministry sa pamamagitan ng obedience?`,
+  section05: `05 · Mamuhay mula sa biyayang tinanggap`,
+  righteousnessTitle: `Ang imputed righteousness ay humahantong sa practical holiness`,
+  righteousnessBody1: `Namatay si Jesus para sa ating kasalanan. Sa Kanya, ginawa tayong katanggap-tanggap sa Diyos at inilagay sa tamang relationship sa Kanya—hindi dahil deserve natin ito kundi dahil sa Kanyang gracious lovingkindness.`,
+  righteousnessBody2: `<em>Imputed</em> means credited legally—parang inilagay sa ating account ang righteousness ni Cristo. Hindi natin kinikita ang salvation sa pamamagitan ng obedience. Ngunit ang grace na nagliligtas ay siya ring grace na humuhubog sa atin upang mamuhay nang banal sa kapangyarihan ng Espiritu.`,
+  righteousnessBody3: `Dahil ginawa tayong matuwid kay Cristo, wala tayong dahilan upang piliing manatili sa kasalanan. Hindi bayad ang holiness para sa grace; ito ang bunga ng pusong nakakita sa halaga ng krus.`,
+  righteousnessVerse: `<sup>21</sup> Para sa atin, ginawa niyang kasalanan ang hindi nakakilala ng kasalanan, upang sa kanya ay maging katuwiran tayo ng Diyos.`,
+  righteousnessCitation: `2 Corinto 5:21 · salin para sa study`,
+  discuss5Label: `Pag-usapan · 5`,
+  discuss5: `Paano ka inilalayo ng grace sa dalawang panganib—ang pagsisikap na kitain ang pagtanggap ng Diyos at ang paggamit ng grace bilang dahilan upang hindi sumunod?`,
+  section06: `06 · Magpatuloy hanggang sa bedrock`,
+  purposeTitle: `Ang digging deeper ay purpose-driven pursuit`,
+  purposeBody1: `Walang quitting halfway. Kapag nakita natin ang kahulugan at kapangyarihan ng krus, nauunawaan natin na ang purchased freedom ay pribilehiyong mamuhay sa holiness—hindi kalayaang bumalik sa dating pagkaalipin.`,
+  purposeBody2: `Kung hindi pa malinaw sa puso natin ang pag-ibig na ipinakita sa krus at ang kapangyarihan ng resurrection, maghukay pa tayo. Hilingin sa Panginoon na liwanagan ang mata ng ating puso upang makilala natin ang hope ng Kanyang calling at ang riches ng Kanyang inheritance sa Kanyang people.`,
+  purposeBody3: `Dig deeper in His presence. Dig deeper into His Word. Dig deeper through a prayerful life. Magpatuloy hanggang ang paniniwala, desire, at habit ay nakaangkla kay Cristo na ating Rock.`,
+  peterVerse: `<sup>1</sup> Yamang nagdusa si Cristo sa laman, taglayin din ninyo ang gayunding layunin, sapagkat ang nagdusa sa laman ay tumigil na sa kasalanan, <sup>2</sup> upang ang nalalabing panahon niya sa laman ay hindi na ipamuhay para sa pagnanasa ng tao kundi para sa kalooban ng Diyos.`,
+  peterCitation: `1 Pedro 4:1–2 · salin para sa study`,
+  keyTruth4: `Digging deeper means never quitting until you hit bedrock—purpose-driven.`,
+  discuss6Label: `Pag-usapan · 6`,
+  discuss6: `Saan ka natutuksong tumigil sa gitna ng proseso? Anong practice sa presence, Word, o prayer ang kailangan mong ipagpatuloy?`,
+  section07: `07 · Tumugon`,
+  responseTitle: `Lumapit. Makinig. Sumunod.`,
+  responseBody1: `May balon ng kabutihan at favor ng Diyos na narito sa season na ito. Hindi natin kailangang gumawa ng bago; kailangan nating maghukay nang mas malalim sa ibinigay na Niya.`,
+  responseBody2: `Malinaw ang pangako: kapag tumawag tayo, makikinig Siya; kapag hinanap natin Siya nang buong puso, matatagpuan natin Siya. Kaya iangkla natin ang faith at buhay kay Cristo at ialay ang sarili para sa glory ng Kanyang name.`,
+  responseStepLabel: `Tumugon`,
+  responseHear: `Pangalanan ang isang katotohanang malinaw nang sinabi ni Jesus sa iyo.`,
+  responseObey: `Gumawa ng isang konkretong hakbang ng obedience sa loob ng 24 oras.`,
+  responsePractice: `Magtakda ng araw-araw na oras para sa Salita, prayer, at honest surrender.`,
+  responseCommunity: `Lumapit sa isang mature believer na makakasama mong humukay at manindigan.`,
+  promiseLabel: `Ang pangako`,
+  promise: `“Tatawag kayo sa akin at lalapit at mananalangin sa akin, at pakikinggan ko kayo. Hahanapin ninyo ako at matatagpuan kapag hinanap ninyo ako nang buong puso.” — Jeremias 29:12–13`,
+  section08: `08 · Manalangin`,
+  prayerTitle: `Isang panalangin para sa pusong sumusunod`,
+  prayer1: `Panginoong Jesus, patawarin Mo kami sa mga pagkakataong tinawag Ka naming Lord ngunit pinili naming hindi sundin ang Iyong salita. Ilantad Mo ang mababaw na pundasyong pinagkakatiwalaan namin at ilayo Mo kami sa pagkukunwaring sapat na ang familiarity.`,
+  prayer2: `Salamat sa krus, kung saan tinanggap namin ang righteousness na hindi namin kayang kitain. Sa Iyong grace at sa kapangyarihan ng Banal na Espiritu, baguhin Mo ang aming puso, character, at conduct. Turuan Mo kaming yumuko sa reverence at bumangon upang maglingkod.`,
+  prayer3: `Bigyan Mo kami ng lakas na humukay nang malalim, sumunod kahit costly, at magpatuloy hanggang ang aming buhay ay matatag na nakaangkla sa Iyo. Sa bawat season at bawat bagyo, nawa’y matagpuan Mo kaming nakikinig at sumusunod. Sa pangalan ni Jesus, Amen.`,
+  takeawayLabel: `Dalhin mo ito`,
+  takeaway: `Ang faith na nakikinig ngunit hindi sumusunod ay walang pundasyon. Humukay nang malalim—intentional sa obedience, masipag sa worship, at matatag sa purpose—hanggang ang buong buhay ay nakaangkla kay Cristo.`,
+  shareLabel: `Ibahagi ang study`,
+  shareTitle: `Buksan sa ibang device`,
+  shareBody: `I-scan o i-download ang QR code para direktang makabalik sa Bible study na ito.`,
+  downloadQr: `I-download ang QR code`,
+  scriptureNotice: `Ang English Scripture quotations na may markang ESV ay mula sa ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, isang publishing ministry ng Good News Publishers. Ginamit nang may pahintulot. All rights reserved. Ang Taglish quotations ay mga salin para sa study.`,
+  footerTagline: `Nagkakatipon kay Jesus. Hinuhubog ng Kanyang Salita.`,
+};
+---
+
+<BaseLayout
+  title="Digging Deeper: The Matter of Obedience | DMI Calamba City"
+  description="A Bible study from Luke 6:46–49 about hearing Jesus, obeying his words, and building a transformed life on Christ the Rock."
+  bodyClass="study-page"
+  socialImage={coverPath}
+  socialImageAlt="Bible Study Guide: Digging Deeper — The Matter of Obedience, Luke 6"
+  socialImageWidth={2400}
+  socialImageHeight={1350}
+>
+  <a class="study-cover" href="#study" aria-label="Begin the Digging Deeper Bible study" data-i18n-aria-label="coverLinkAria">
+    <picture>
+      <source srcset={`${coverWebp1280} 1280w, ${coverWebp2400} 2400w`} sizes="100vw" type="image/webp" />
+      <img src={coverPath} width="2400" height="1350" alt="Bible Study Guide: Digging Deeper — The Matter of Obedience, Luke 6" data-i18n-alt="coverImageAlt" decoding="async" fetchpriority="high" />
+    </picture>
+  </a>
+
+  <header class="study-hero" id="study">
+    <nav class="study-nav" aria-label="Primary navigation" data-i18n-aria-label="navAria">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria">
+        <img src={logoPath} width="900" height="900" alt="" />
+        <span>DMI · Calamba City</span>
+      </a>
+      <LanguageToggle translations={translations} />
+      <span>20 September 2026</span>
+    </nav>
+
+    <div class="study-hero-copy">
+      <p class="eyebrow" data-i18n="eyebrow">Bible Study · Luke 6:46–49</p>
+      <h1 data-i18n="title">Digging Deeper</h1>
+      <p class="study-subtitle" data-i18n="subtitle">The Matter of Obedience</p>
+    </div>
+
+    <blockquote class="hero-scripture">
+      <p lang="en" data-i18n="heroScripture" data-i18n-lang><sup>46</sup> “Why do you call me ‘Lord, Lord,’ and not do what I tell you? <sup>47</sup> Everyone who comes to me and hears my words and does them, I will show you what he is like: <sup>48</sup> he is like a man building a house, who dug deep and laid the foundation on the rock. And when a flood arose, the stream broke against that house and could not shake it, because it had been well built. <sup>49</sup> But the one who hears and does not do them is like a man who built a house on the ground without a foundation. When the stream broke against it, immediately it fell, and the ruin of that house was great.”</p>
+      <cite lang="en" data-i18n="heroCitation" data-i18n-lang>Luke 6:46–49 · ESV</cite>
+    </blockquote>
+  </header>
+
+  <main class="study-content">
+    <aside class="study-aside" aria-label="Study summary" data-i18n-aria-label="summaryAria">
+      <div><span class="aside-label" data-i18n="themeLabel">Theme</span><p data-i18n="theme">Truly hearing Jesus leads to intentional obedience—a life rooted in him and transformed from the heart to our conduct.</p></div>
+      <div><span class="aside-label" data-i18n="keyTextsLabel">Key texts</span><p data-i18n="keyTexts">Luke 6:46–49<br />2 Corinthians 5:21<br />John 4:24<br />1 Peter 4:1–2<br />Ephesians 1:18<br />Jeremiah 29:12–13</p></div>
+      <div><span class="aside-label" data-i18n="timeLabel">Time</span><p data-i18n="time">35–40 minutes</p></div>
+      <div><span class="aside-label" data-i18n="presentationLabel">Presentation</span><a class="aside-action" href="https://canva.link/d3syrbldshdvt2h" target="_blank" rel="noreferrer" data-i18n="presentationLink">Open in Canva <span aria-hidden="true">↗</span></a></div>
+      <div><span class="aside-label" data-i18n="serviceLabel">Sunday service</span><p data-i18n="serviceUnavailable">No video available for this study</p></div>
+      <div><span class="aside-label" data-i18n="facebookLabel">Facebook Live</span><p data-i18n="facebookUnavailable">No video available for this study</p></div>
+    </aside>
+
+    <article class="study-article">
+      <section class="opening" aria-labelledby="opening-title">
+        <p class="section-number" data-i18n="section01">01 · Begin here</p>
+        <h2 id="opening-title" data-i18n="openingTitle">Spiritual experience is no substitute for transformation</h2>
+        <p class="lead" data-i18n="openingLead">Jesus closes the Sermon on the Plain with a searching question: “Why do you call me ‘Lord, Lord,’ and not do what I tell you?”</p>
+        <p data-i18n="openingBody1">A vast crowd came to hear Jesus and to be healed. Yet standing in the crowd, knowing religious language, or benefiting from spiritual association was not enough. Jesus called people beyond hearing and into obedience.</p>
+        <p data-i18n="openingBody2">We become truly spiritual as God renews us from the inside out—in heart, character, and conduct. The Holy Spirit brings light and conviction; we respond through the constant, intentional choice to obey what the Word exposes.</p>
+        <div class="key-statement"><span data-i18n="keyTruthLabel">Key truth</span><p data-i18n="keyTruth">Digging deeper is continually placing our faith in God’s Word, relying on his saving grace, and obeying whatever he brings into the light.</p></div>
+        <div class="discussion-prompt"><span data-i18n="discuss1Label">Discuss · 1</span><p data-i18n="discuss1">Where might you be familiar with Jesus but not obedient to him? What clear command do you need to put into practice?</p></div>
+      </section>
+
+      <section aria-labelledby="foundations-title">
+        <p class="section-number" data-i18n="section02">02 · See the two foundations</p>
+        <h2 id="foundations-title" data-i18n="foundationsTitle">Both heard; only one dug deep</h2>
+        <p data-i18n="foundationsBody1">In the dry season, Mediterranean clay topsoil bakes beneath the sun until it can appear hard as iron. To someone who has never watched the seasons change, it looks firm enough to build on. But an experienced builder knows its strength is temporary.</p>
+        <p data-i18n="foundationsBody2">So the wise builder “dug and went deep”—<em>eskapsen kai ebathunen</em>—until he reached the <em>themelion</em>, the true foundation. When torrential rain came and dry channels became raging floods, the shallow soil softened and shifted.</p>
+        <p data-i18n="foundationsBody3">The house without a foundation fell “immediately.” There was no gradual decline. The house anchored to rock did not even shake. The difference was not the force of the flood but the foundation chosen before it came.</p>
+        <blockquote class="verse-card"><span data-i18n="keyVerse">Key verse · study translation</span><p lang="en" data-i18n="builderVerse" data-i18n-lang><sup>48</sup> “He is like a man building a house, who dug deep and laid the foundation on the rock. And when a flood arose, the stream broke against that house and could not shake it, because it had been well built.”</p><cite lang="en" data-i18n="builderCitation" data-i18n-lang>Luke 6:48 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss2Label">Discuss · 2</span><p data-i18n="discuss2">What “hard topsoil”—comfort, success, reputation, or religious routine—might you be mistaking for a firm foundation?</p></div>
+      </section>
+
+      <section aria-labelledby="intentional-title">
+        <p class="section-number" data-i18n="section03">03 · Choose intentional obedience</p>
+        <h2 id="intentional-title" data-i18n="intentionalTitle">Digging deeper is the dividing line</h2>
+        <p data-i18n="intentionalBody1">Jesus describes a true follower as one who comes, hears, and obeys. This person is not content to say “Lord, Lord” while protecting personal comfort, convenience, or pride.</p>
+        <p data-i18n="intentionalBody2">Familiarity can become a hiding place—we know the right words, attend the gatherings, and appear religious. But Jesus cuts through the crowd and asks each person: Will you hear and obey? Will you dig deep or settle for superficial association?</p>
+        <p data-i18n="intentionalBody3">We cannot enjoy genuine fellowship with the Lord and his people while refusing the costly obedience that leads to ongoing transformation.</p>
+        <div class="key-statement"><span data-i18n="keyTruthLabel">Key truth</span><p data-i18n="keyTruth2">Digging deeper is a choice—intentional.</p></div>
+        <div class="discussion-prompt"><span data-i18n="discuss3Label">Discuss · 3</span><p data-i18n="discuss3">When God’s Word and your comfort conflict, which one usually wins? What intentional choice would change that this week?</p></div>
+      </section>
+
+      <section aria-labelledby="worship-title">
+        <p class="section-number" data-i18n="section04">04 · Embrace labor-intensive worship</p>
+        <h2 id="worship-title" data-i18n="worshipTitle">Reverence becomes service and obedience</h2>
+        <p data-i18n="worshipBody1">Obedience is a daily choice. Actively seeking God’s will and bringing mind, heart, and hands under his rule requires moral exertion and perseverance.</p>
+        <p data-i18n="worshipBody2">In the Old Testament, <em>shachah</em> means bowing low in submission, while <em>abad</em> means working or serving. In the New Testament, <em>proskuneo</em> speaks of reverent bowing, and <em>latreuo</em> of sacred service. In biblical worship, humility comes first and service follows.</p>
+        <p data-i18n="worshipBody3">Worship is more than singing. It is a heart bowed before God and a life moving according to his will. True reverence becomes visible through obedience.</p>
+        <blockquote class="verse-card"><span data-i18n="keyVerse">Key verse · study translation</span><p lang="en" data-i18n="worshipVerse" data-i18n-lang><sup>24</sup> “God is spirit, and those who worship him must worship in spirit and truth.”</p><cite lang="en" data-i18n="worshipCitation" data-i18n-lang>John 4:24 · ESV</cite></blockquote>
+        <div class="key-statement"><span data-i18n="keyTruthLabel">Key truth</span><p data-i18n="keyTruth3">Digging deeper is work—labor-intensive.</p></div>
+        <div class="discussion-prompt"><span data-i18n="discuss4Label">Discuss · 4</span><p data-i18n="discuss4">How can your ordinary work at home, at work, at school, or in ministry become worship through obedience?</p></div>
+      </section>
+
+      <section aria-labelledby="righteousness-title">
+        <p class="section-number" data-i18n="section05">05 · Live from grace received</p>
+        <h2 id="righteousness-title" data-i18n="righteousnessTitle">Imputed righteousness leads to practical holiness</h2>
+        <p data-i18n="righteousnessBody1">Jesus died for our sins. In him, we are made acceptable to God and placed in right relationship with him—not because we deserved it, but because of his gracious lovingkindness.</p>
+        <p data-i18n="righteousnessBody2"><em>Imputed</em> means legally credited—Christ’s righteousness is placed on our account. We do not earn salvation through obedience. Yet the grace that saves is also the grace that forms us to live holy lives through the power of the Spirit.</p>
+        <p data-i18n="righteousnessBody3">Because we have been made righteous in Christ, we have no excuse to choose a life of sin. Holiness is not payment for grace; it is the fruit of a heart that has seen the worth of the cross.</p>
+        <blockquote class="verse-card"><span data-i18n="keyVerse">Key verse · study translation</span><p lang="en" data-i18n="righteousnessVerse" data-i18n-lang><sup>21</sup> “For our sake he made him to be sin who knew no sin, so that in him we might become the righteousness of God.”</p><cite lang="en" data-i18n="righteousnessCitation" data-i18n-lang>2 Corinthians 5:21 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss5Label">Discuss · 5</span><p data-i18n="discuss5">How does grace free you from both trying to earn God’s acceptance and using grace as a reason not to obey?</p></div>
+      </section>
+
+      <section aria-labelledby="purpose-title">
+        <p class="section-number" data-i18n="section06">06 · Keep going until bedrock</p>
+        <h2 id="purpose-title" data-i18n="purposeTitle">Digging deeper is a purpose-driven pursuit</h2>
+        <p data-i18n="purposeBody1">There is no quitting halfway. When we see the meaning and power of the cross, we understand that purchased freedom is a privilege to live in holiness—not permission to return to former slavery.</p>
+        <p data-i18n="purposeBody2">If the love displayed at the cross and the power of the resurrection are not yet clear in our hearts, let us dig deeper still. Ask the Lord to enlighten the eyes of your heart so you may know the hope of his calling and the riches of his inheritance among his people.</p>
+        <p data-i18n="purposeBody3">Dig deeper in his presence. Dig deeper into his Word. Dig deeper through a prayerful life. Continue until belief, desire, and habit are anchored in Christ our Rock.</p>
+        <blockquote class="verse-card"><span data-i18n="keyVerse">Key verse · study translation</span><p lang="en" data-i18n="peterVerse" data-i18n-lang><sup>1</sup> Since therefore Christ suffered in the flesh, arm yourselves with the same way of thinking, for whoever has suffered in the flesh has ceased from sin, <sup>2</sup> so as to live for the rest of the time in the flesh no longer for human passions but for the will of God.</p><cite lang="en" data-i18n="peterCitation" data-i18n-lang>1 Peter 4:1–2 · ESV</cite></blockquote>
+        <div class="key-statement"><span data-i18n="keyTruthLabel">Key truth</span><p data-i18n="keyTruth4">Digging deeper means never quitting until you hit bedrock—purpose-driven.</p></div>
+        <div class="discussion-prompt"><span data-i18n="discuss6Label">Discuss · 6</span><p data-i18n="discuss6">Where are you tempted to quit halfway? What practice of presence, Scripture, or prayer do you need to continue?</p></div>
+      </section>
+
+      <section class="response-section" aria-labelledby="response-title">
+        <p class="section-number" data-i18n="section07">07 · Respond</p>
+        <h2 id="response-title" data-i18n="responseTitle">Come. Hear. Obey.</h2>
+        <p data-i18n="responseBody1">There is a well of God’s goodness and favor present in this season. We do not need to manufacture a new one; we need to dig deeper into what he has already given.</p>
+        <p data-i18n="responseBody2">The promise is clear: when we call, he listens; when we seek him with all our heart, we find him. So let us anchor faith and life in Christ and devote ourselves to the glory of his name.</p>
+        <ol class="response-steps">
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseHear">Name one truth Jesus has already made clear to you.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseObey">Take one concrete step of obedience within the next 24 hours.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responsePractice">Set a daily time for Scripture, prayer, and honest surrender.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseCommunity">Invite a mature believer to dig and stand with you.</p></li>
+        </ol>
+        <div class="key-statement dark"><span data-i18n="promiseLabel">The promise</span><p data-i18n="promise">“Then you will call upon me and come and pray to me, and I will hear you. You will seek me and find me, when you seek me with all your heart.” — Jeremiah 29:12–13</p></div>
+      </section>
+
+      <section class="closing-prayer" aria-labelledby="prayer-title">
+        <p class="section-number" data-i18n="section08">08 · Pray</p>
+        <h2 id="prayer-title" data-i18n="prayerTitle">A prayer for an obedient heart</h2>
+        <p data-i18n="prayer1">Lord Jesus, forgive us for the times we have called You Lord while choosing not to follow Your Word. Expose the shallow foundations we trust and free us from pretending that familiarity is enough.</p>
+        <p data-i18n="prayer2">Thank You for the cross, where we received a righteousness we could never earn. By Your grace and through the power of the Holy Spirit, transform our hearts, character, and conduct. Teach us to bow in reverence and rise to serve.</p>
+        <p data-i18n="prayer3">Give us strength to dig deep, obey when it is costly, and continue until our lives are firmly anchored in You. Through every season and every storm, may You find us hearing and obeying. In Jesus’ name, Amen.</p>
+      </section>
+
+      <section class="takeaway" aria-label="Study takeaway" data-i18n-aria-label="takeawayAria"><span data-i18n="takeawayLabel">Take this with you</span><p data-i18n="takeaway">Faith that hears but does not obey has no foundation. Dig deep—intentional in obedience, diligent in worship, and steadfast in purpose—until your whole life is anchored in Christ.</p></section>
+
+      <section class="qr-section" aria-labelledby="share-title">
+        <div><p class="section-number" data-i18n="shareLabel">Share the study</p><h2 id="share-title" data-i18n="shareTitle">Open on another device</h2><p data-i18n="shareBody">Scan or download this QR code to return directly to this Bible study.</p><a class="text-link" href={qrPath} download="dmi-digging-deeper-obedience-qr.png" data-i18n="downloadQr">Download QR code</a></div>
+        <a class="qr-card" href={pageURL} aria-label="Open this Bible study" data-i18n-aria-label="qrLinkAria"><img src={qrPath} width="720" height="720" alt="QR code for the Digging Deeper: The Matter of Obedience Bible study" data-i18n-alt="qrImageAlt" /></a>
+      </section>
+
+      <p class="scripture-notice" lang="en" data-i18n="scriptureNotice" data-i18n-lang>Scripture quotations marked ESV are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. Taglish quotations are study translations.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer"><a href={base}>DMI Calamba City</a><div class="site-footer-actions"><span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span><SocialLinks /></div></footer>
+</BaseLayout>
