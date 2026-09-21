@@ -31,12 +31,14 @@ const translations = {
   dayTwoMeta: 'Day 2 · September 13, 2026',
   dayTwoTitle: 'Church service and team building',
   dayTwoBody: 'The second day brought the church family together in a thanksgiving service, followed by team building activities—time to serve, play, and grow closer as the DMI Calamba City family.',
+  dayTwoLink: 'Basahin ang Bible study mula sa Sunday preaching',
   takeawayLabel: 'Take this with you',
   takeaway: 'Eighteen years of God’s faithfulness. All glory to Jesus.',
   footerTagline: 'Nakalap sa paligid ni Jesus. Hinuhubog ng Kanyang Salita.',
 };
 
 const digDeepPath = `${base}specials/20260912-dig-deep-wrestling-with-god/`;
+const dayTwoStudyPath = `${base}2026-09-14-dig-deep-in-his-presence-into-the-overflow/`;
 ---
 
 <BaseLayout
@@ -93,6 +95,7 @@ const digDeepPath = `${base}specials/20260912-dig-deep-wrestling-with-god/`;
         <p class="section-number" data-i18n="dayTwoMeta">Day 2 · September 13, 2026</p>
         <h2 id="day-two-title" data-i18n="dayTwoTitle">Church service and team building</h2>
         <p data-i18n="dayTwoBody">The second day brought the church family together in a thanksgiving service, followed by team building activities—time to serve, play, and grow closer as the DMI Calamba City family.</p>
+        <a class="video-link-facebook" href={dayTwoStudyPath}><span data-i18n="dayTwoLink">Read the Bible study from the Sunday preaching <span aria-hidden="true">↗</span></span></a>
       </section>
 
       <section class="takeaway" aria-label="Resource takeaway"><span data-i18n="takeawayLabel">Take this with you</span><p data-i18n="takeaway">Eighteen years of God’s faithfulness. All glory to Jesus.</p></section>
