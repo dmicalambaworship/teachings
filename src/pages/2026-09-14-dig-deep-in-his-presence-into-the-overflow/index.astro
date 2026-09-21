@@ -1,0 +1,256 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const pagePath = `${base}2026-09-14-dig-deep-in-his-presence-into-the-overflow/`;
+const pageURL = new URL(pagePath, Astro.site ?? Astro.url).toString();
+const coverPath = `${base}2026-09-14-dig-deep-in-his-presence-into-the-overflow-cover.jpg`;
+const coverWebp1280 = `${base}2026-09-14-dig-deep-in-his-presence-into-the-overflow-cover-1280.webp`;
+const coverWebp2400 = `${base}2026-09-14-dig-deep-in-his-presence-into-the-overflow-cover-2400.webp`;
+const logoPath = `${base}dmi-logo.jpg`;
+const qrPath = `${base}qr/2026-09-14-dig-deep-in-his-presence-into-the-overflow.png`;
+
+const translations = {
+  languageLabel: `Wika`,
+  languageAriaLabel: `Wika ng pagbabasa`,
+  navAria: `Pangunahing navigation`,
+  homeAria: `Bumalik sa DMI Calamba City home`,
+  summaryAria: `Buod ng study`,
+  takeawayAria: `Pangunahing takeaway ng study`,
+  qrLinkAria: `Buksan ang Bible study na ito`,
+  qrImageAlt: `QR code para sa Dig Deep: In His Presence, Into the Overflow Bible study`,
+  coverLinkAria: `Simulan ang Dig Deep: In His Presence, Into the Overflow Bible study`,
+  coverImageAlt: `Dig Deep: In His Presence, Into the Overflow, 18th Anniversary Message`,
+  eyebrow: `Bible Study · Lucas 6:48`,
+  title: `Dig Deep`,
+  subtitle: `In His Presence, Into the Overflow`,
+  heroScripture: `<sup>48</sup> “Tulad siya ng taong nagtayo ng bahay, humukay nang malalim, at naglatag ng pundasyon sa bato. Nang bumaha, humampas ang agos sa bahay na iyon ngunit hindi ito nayanig, sapagkat matibay ang pagkakatayo nito.”`,
+  heroCitation: `Lucas 6:48 · salin para sa study`,
+  themeLabel: `Tema`,
+  theme: `Tinatawag tayo ng katapatan ng Diyos na lumalim sa Kanyang presensya, magpatuloy sa kabila ng opposition, at hayaang umapaw sa iba ang Kanyang buhay.`,
+  keyTextsLabel: `Mga susing talata`,
+  keyTexts: `Lucas 6:48<br />Genesis 26:17–22<br />Juan 4:14`,
+  timeLabel: `Oras`,
+  time: `30–35 minuto`,
+  presentationLabel: `Presentation`,
+  presentationLink: `Buksan sa Canva <span aria-hidden="true">↗</span>`,
+  serviceLabel: `Sunday service`,
+  serviceUnavailable: `Walang video na ibinigay para sa study na ito`,
+  facebookLabel: `Facebook Live`,
+  facebookUnavailable: `Walang video na ibinigay para sa study na ito`,
+  section01: `01 · Tanggapin ang paanyaya`,
+  invitationTitle: `Ang anniversary ay hindi lang paglingon`,
+  invitationLead: `Ang labing-walong taon ng katapatan ng Diyos ay dahilan upang magpasalamat—at paanyaya ring lumalim.`,
+  invitationBody1: `Maganda ang alalahanin ang ginawa ng Diyos, ngunit hindi tayo tinatawag na manatili sa nakaraan. Ang bawat patotoo ng Kanyang faithfulness ay nagtuturo sa susunod na hakbang: kilalanin Siya nang mas malalim, magtiwala nang mas buo, at sumunod nang mas matatag.`,
+  invitationBody2: `Hindi accessory si Cristo sa buhay ng church. Siya ang Rock, ang hindi natitinag na pundasyon ng bawat season. Ang future na kayang tumayo sa pressure ay itinatayo ngayon sa lihim at tuloy-tuloy na buhay kasama Siya.`,
+  keyTruthLabel: `Susing katotohanan`,
+  invitationTruth: `Ang pasasalamat sa nakaraan ay nagiging faithfulness sa hinaharap kapag lalo tayong lumalalim kay Cristo.`,
+  discuss1Label: `Pag-usapan · 1`,
+  discuss1: `Anong ginawa ng Diyos sa nakaraang season ang humihikayat sa iyo na magtiwala at lumalim sa Kanya ngayon?`,
+  section02: `02 · Magtayo sa Bato`,
+  foundationTitle: `Humukay hanggang maging pundasyon si Cristo`,
+  foundationBody1: `Sa Lucas 6, hindi lamang pinuri ni Jesus ang taong nagtayo. Pinuri Niya ang taong humukay nang malalim bago nagtayo. Nakinig siya sa salita ni Jesus at isinabuhay ito, kaya nakaugat ang kanyang bahay sa bato.`,
+  foundationBody2: `Ang lalim ay nabubuo sa paulit-ulit na pagtatagpo ng presence at obedience: lumalapit tayo sa Diyos, nakikinig sa Kanyang Salita, at inaayos ang buhay ayon dito. Hindi nito inaalis ang baha, ngunit inihahanda tayo na manatiling matatag kapag dumating ito.`,
+  foundationVerseLabel: `Pundasyon`,
+  foundationVerse: `“Humukay siya nang malalim at naglatag ng pundasyon sa bato.”`,
+  foundationCitation: `Lucas 6:48 · salin para sa study`,
+  discuss2Label: `Pag-usapan · 2`,
+  discuss2: `Ano ang hinihiling ng Diyos na itayo mo nang mas malalim—prayer life, character, relationships, calling, o service?`,
+  section03: `03 · Magpatuloy sa paghuhukay`,
+  oppositionTitle: `Hindi laging ibig sabihin ng opposition na mali ang calling`,
+  oppositionBody1: `Sa Genesis 26, muling hinukay ni Isaac ang mga balon ng kanyang ama. Nang pag-awayan ang unang balon, tinawag niya itong Esek—contention. Nang tutulan ang sumunod, tinawag niya itong Sitnah—opposition. Ngunit hindi siya tumigil. Lumipat siya, nag-refocus, at nagpatuloy sa paghuhukay.`,
+  oppositionBody2: `Sa huli, nakarating siya sa Rehoboth—room to flourish. Hindi niya inabandona ang calling dahil may resistance. Nanatili siyang faithful hanggang gumawa ang Diyos ng espasyo. Ang perseverance ay hindi kawalan ng wisdom; ito ay refusal na sumuko sa ipinagawa ng Diyos.`,
+  oppositionVerse: `“Ngayon ay binigyan tayo ng Panginoon ng maluwang na lugar, at tayo ay mamumunga sa lupain.”`,
+  oppositionCitation: `Genesis 26:22 · salin para sa study`,
+  discuss3Label: `Pag-usapan · 3`,
+  discuss3: `Saan ka nakaranas ng contention o opposition? Ano ang faithful next step—magpatuloy, mag-refocus, o humanap ng bagong paraan nang hindi iniiwan ang calling?`,
+  section04: `04 · Muling hukayin ang mga balon`,
+  wellsTitle: `Ibalik ang mga practice na nagpapanatili ng revival`,
+  wellsBody1: `May mga balong kailangang muling hukayin: prayer, worship, holiness, God’s Word, evangelism, discipleship, at unity. Hindi bagong novelty ang kailangan natin kundi renewed devotion sa mga daang matagal nang ginagamit ng Diyos upang humubog at bumuhay ng Kanyang people.`,
+  wellsBody2: `Maaaring natabunan ng busyness, disappointment, comfort, o neglect ang isang balon. Ang redigging ay honest return—inaalis natin ang nakaharang, binabalikan ang unang commitment, at gumagawa ulit ng space para sa Diyos.`,
+  wellsTruth: `Ang revival ay pinangangalagaan ng church na patuloy na bumabalik sa presensya, Salita, at gawain ng Diyos.`,
+  discuss4Label: `Pag-usapan · 4`,
+  discuss4: `Aling balon—prayer, worship, holiness, Word, evangelism, discipleship, o unity—ang hinihiling ng Diyos na muli mong hukayin ngayong linggo? Ano ang unang konkretong hakbang?`,
+  section05: `05 · Tumanggap, mapuspos, umapaw`,
+  overflowTitle: `Ang living water ay hindi dapat magtapos sa atin`,
+  overflowBody1: `Nangako si Jesus ng tubig na nagiging bukal sa loob natin at umaagos tungo sa eternal life. Lumalapit tayo sa Source, tumatanggap ng Kanyang grace, at napupuspos ng Kanyang Spirit—hindi upang sarilinin ang blessing kundi upang magbigay-buhay sa iba.`,
+  overflowBody2: `May anyo ang overflow: prayer para sa nangangailangan, service na walang hinahanap na kapalit, generosity, encouragement, at witness tungkol kay Jesus. Ang natanggap sa presensya ng Diyos ay nagiging biyayang umaabot sa bahay, kalye, workplace, school, at city.`,
+  overflowVerse: `“Ang tubig na ibibigay ko ay magiging bukal sa loob niya na bumubukal tungo sa buhay na walang hanggan.”`,
+  overflowCitation: `Juan 4:14 · salin para sa study`,
+  discuss5Label: `Pag-usapan · 5`,
+  discuss5: `Ano ang ipinupuno ng Diyos sa iyo ngayon, at sino ang dapat makatanggap ng overflow nito sa linggong ito?`,
+  section06: `06 · Piliin ang outlet kaysa stagnation`,
+  outletTitle: `Ang blessing na walang outlet ay nagiging stagnant`,
+  outletBody1: `Ang Dead Sea ay tumatanggap ngunit walang outlet; kaya maalat at walang buhay ang tubig nito. Ang living water naman ay sariwa dahil patuloy itong umaagos at umaabot sa iba. Sa parehong paraan, ang pagtanggap nang walang releasing ay nagbubunga ng stagnation.`,
+  outletBody2: `Ang Rehoboth—room for growth, blessing, at influence—ay hindi lamang personal comfort. Ito ay stewardship. Kapag gumawa ang Diyos ng room, tinatanong natin: Paano magiging lugar ng buhay ang espasyong ito para sa ibang tao?`,
+  outletTruth: `Bawat biyayang tinanggap ay maaaring maging biyayang ibinabahagi.`,
+  discuss6Label: `Pag-usapan · 6`,
+  discuss6: `Umaagos ba palabas ang tubig ng Diyos o humihinto sa iyo? Anong gift, opportunity, o testimony ang kailangan mong ibahagi?`,
+  section07: `07 · Magsimulang muli`,
+  responseTitle: `Bumalik sa Balon`,
+  responseBody1: `Kung tumigil ka nang maghukay, hindi pa huli upang magsimulang muli. Bumalik sa daily prayer. Itayong muli ang altar. Bumalik sa gawain. Hindi mo kailangang gumawa ng tubig; kailangan mong bumalik sa Source.`,
+  responseBody2: `Tugunan ang paanyaya ng Diyos sa tatlong commitment: lumalim sa Kanyang presence, patuloy na maghukay sa gitna ng opposition, at hayaang umapaw ang living water sa ating city.`,
+  responseStepLabel: `Ngayong linggo`,
+  responsePresence: `Maglaan ng 30 focused minutes kasama ang Diyos bawat araw.`,
+  responsePersevere: `Tukuyin ang isang bahagi ng calling kung saan hindi ka susuko.`,
+  responseOverflow: `Mag-encourage, maglingkod, manalangin kasama, o mag-imbita ng isang tao.`,
+  responseReflect: `Isulat kung ano ang ipinabuo, ipinahukay, at ipinadaloy ng Diyos sa iyo.`,
+  commitmentLabel: `Ang ating commitment`,
+  commitment: `Dig deep. Keep digging. Into the overflow.`,
+  section08: `08 · Manalangin`,
+  prayerTitle: `Isang panalangin para sa lalim at overflow`,
+  prayer1: `Panginoong Jesus, salamat sa Iyong katapatan sa bawat season. Ikaw ang aming Rock at Source. Patawarin Mo kami kapag ginawa Ka naming accessory sa halip na foundation, at kapag hinayaan naming matabunan ang mga balon ng prayer, worship, holiness, at Iyong Salita.`,
+  prayer2: `Bigyan Mo kami ng grace na magpatuloy sa gitna ng contention at opposition. Bigyan Mo kami ng wisdom na mag-refocus nang hindi sumusuko. Muli Mong hukayin sa amin ang malalim na devotion, at gumawa Ka ng room para sa paglago na nagbibigay-luwalhati sa Iyo.`,
+  prayer3: `Puspusin Mo kami ng Iyong living water. Huwag Mong hayaang huminto sa amin ang Iyong biyaya. Gawin Mong outlet ang aming buhay, tahanan, at church upang ang Calamba at ang bawat lugar na padadalhan Mo sa amin ay makaranas ng buhay ni Cristo. Sa pangalan ni Jesus, Amen.`,
+  takeawayLabel: `Dalhin mo ito`,
+  takeaway: `Ang katapatan ng Diyos ay paanyayang lumalim: itayo ang buhay kay Cristo, patuloy na humukay sa gitna ng opposition, muling buksan ang mga balon ng devotion, at hayaang umapaw sa iba ang Kanyang living water.`,
+  shareLabel: `Ibahagi ang study`,
+  shareTitle: `Buksan sa ibang device`,
+  shareBody: `I-scan o i-download ang QR code para direktang makabalik sa Bible study na ito.`,
+  downloadQr: `I-download ang QR code`,
+  scriptureNotice: `Ang English Scripture quotations na may markang ESV ay mula sa ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, isang publishing ministry ng Good News Publishers. Ginamit nang may pahintulot. All rights reserved. Ang Taglish quotations ay mga salin para sa study.`,
+  footerTagline: `Nagkakatipon kay Jesus. Hinuhubog ng Kanyang Salita.`,
+};
+---
+
+<BaseLayout
+  title="Dig Deep: In His Presence, Into the Overflow | DMI Calamba City"
+  description="A Bible study about building on Christ, persevering through opposition, restoring the wells of devotion, and letting God’s living water overflow to others."
+  bodyClass="study-page"
+  socialImage={coverPath}
+  socialImageAlt="Dig Deep: In His Presence, Into the Overflow, 18th Anniversary Message"
+  socialImageWidth={2400}
+  socialImageHeight={1350}
+>
+  <a class="study-cover" href="#study" aria-label="Begin the Dig Deep Bible study" data-i18n-aria-label="coverLinkAria">
+    <picture>
+      <source srcset={`${coverWebp1280} 1280w, ${coverWebp2400} 2400w`} sizes="100vw" type="image/webp" />
+      <img src={coverPath} width="2400" height="1350" alt="Dig Deep: In His Presence, Into the Overflow, 18th Anniversary Message" data-i18n-alt="coverImageAlt" decoding="async" fetchpriority="high" />
+    </picture>
+  </a>
+
+  <header class="study-hero" id="study">
+    <nav class="study-nav" aria-label="Primary navigation" data-i18n-aria-label="navAria">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria">
+        <img src={logoPath} width="900" height="900" alt="" />
+        <span>DMI · Calamba City</span>
+      </a>
+      <LanguageToggle translations={translations} />
+      <span>14 September 2026</span>
+    </nav>
+
+    <div class="study-hero-copy">
+      <p class="eyebrow" data-i18n="eyebrow">Bible Study · Luke 6:48</p>
+      <h1 data-i18n="title">Dig Deep</h1>
+      <p class="study-subtitle" data-i18n="subtitle">In His Presence, Into the Overflow</p>
+    </div>
+
+    <blockquote class="hero-scripture">
+      <p lang="en" data-i18n="heroScripture" data-i18n-lang><sup>48</sup> “He is like a man building a house, who dug deep and laid the foundation on the rock. And when a flood arose, the stream broke against that house and could not shake it, because it had been well built.”</p>
+      <cite lang="en" data-i18n="heroCitation" data-i18n-lang>Luke 6:48 · ESV</cite>
+    </blockquote>
+  </header>
+
+  <main class="study-content">
+    <aside class="study-aside" aria-label="Study summary" data-i18n-aria-label="summaryAria">
+      <div><span class="aside-label" data-i18n="themeLabel">Theme</span><p data-i18n="theme">God’s faithfulness calls us to go deeper in his presence, keep digging through opposition, and let his life overflow to others.</p></div>
+      <div><span class="aside-label" data-i18n="keyTextsLabel">Key texts</span><p data-i18n="keyTexts">Luke 6:48<br />Genesis 26:17–22<br />John 4:14</p></div>
+      <div><span class="aside-label" data-i18n="timeLabel">Time</span><p data-i18n="time">30–35 minutes</p></div>
+      <div><span class="aside-label" data-i18n="presentationLabel">Presentation</span><a class="aside-action" href="https://canva.link/75909oxk64ppkgs" target="_blank" rel="noreferrer" data-i18n="presentationLink">Open in Canva <span aria-hidden="true">↗</span></a></div>
+      <div><span class="aside-label" data-i18n="serviceLabel">Sunday service</span><p data-i18n="serviceUnavailable">No video was provided for this study</p></div>
+      <div><span class="aside-label" data-i18n="facebookLabel">Facebook Live</span><p data-i18n="facebookUnavailable">No video was provided for this study</p></div>
+    </aside>
+
+    <article class="study-article">
+      <section class="opening" aria-labelledby="invitation-title">
+        <p class="section-number" data-i18n="section01">01 · Receive the invitation</p>
+        <h2 id="invitation-title" data-i18n="invitationTitle">An anniversary is more than a look back</h2>
+        <p class="lead" data-i18n="invitationLead">Eighteen years of God’s faithfulness gives us reason to celebrate—and an invitation to go deeper.</p>
+        <p data-i18n="invitationBody1">It is good to remember what God has done, but we are not called to live in the past. Every testimony of his faithfulness points toward a next step: know him more deeply, trust him more fully, and obey him more steadily.</p>
+        <p data-i18n="invitationBody2">Christ is not an accessory to the life of the church. He is the Rock, the unshakable foundation for every season. A future that can stand under pressure is built now through a quiet, consistent life with him.</p>
+        <div class="key-statement"><span data-i18n="keyTruthLabel">Key truth</span><p data-i18n="invitationTruth">Gratitude for the past becomes faithfulness for the future when we go deeper in Christ.</p></div>
+        <div class="discussion-prompt"><span data-i18n="discuss1Label">Discuss · 1</span><p data-i18n="discuss1">What has God done in a past season that encourages you to trust him and go deeper now?</p></div>
+      </section>
+
+      <section aria-labelledby="foundation-title">
+        <p class="section-number" data-i18n="section02">02 · Build on the Rock</p>
+        <h2 id="foundation-title" data-i18n="foundationTitle">Dig until Christ becomes the foundation</h2>
+        <p data-i18n="foundationBody1">In Luke 6, Jesus did not simply commend a man who built. He commended the man who dug deep before building. He heard Jesus’ words and put them into practice, so his house was anchored to rock.</p>
+        <p data-i18n="foundationBody2">Depth grows where presence and obedience repeatedly meet: we come to God, listen to his Word, and bring our lives into alignment with it. This does not prevent the flood, but it prepares us to remain steady when it comes.</p>
+        <blockquote class="verse-card"><span data-i18n="foundationVerseLabel">Foundation</span><p lang="en" data-i18n="foundationVerse" data-i18n-lang>“He dug deep and laid the foundation on the rock.”</p><cite lang="en" data-i18n="foundationCitation" data-i18n-lang>Luke 6:48 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss2Label">Discuss · 2</span><p data-i18n="discuss2">What is God asking you to build more deeply—your prayer life, character, relationships, calling, or service?</p></div>
+      </section>
+
+      <section aria-labelledby="opposition-title">
+        <p class="section-number" data-i18n="section03">03 · Keep digging</p>
+        <h2 id="opposition-title" data-i18n="oppositionTitle">Opposition does not always mean the calling is wrong</h2>
+        <p data-i18n="oppositionBody1">In Genesis 26, Isaac reopened the wells of his father. When the first was disputed, he named it Esek—contention. When the next was opposed, he named it Sitnah—opposition. Yet he did not stop. He moved, refocused, and kept digging.</p>
+        <p data-i18n="oppositionBody2">At last he reached Rehoboth—room to flourish. He did not abandon the calling because resistance appeared. He remained faithful until God made room. Perseverance is not the absence of wisdom; it is refusing to surrender what God has asked us to do.</p>
+        <blockquote class="verse-card"><span data-i18n="keyTruthLabel">Key truth</span><p lang="en" data-i18n="oppositionVerse" data-i18n-lang>“For now the Lord has made room for us, and we shall be fruitful in the land.”</p><cite lang="en" data-i18n="oppositionCitation" data-i18n-lang>Genesis 26:22 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss3Label">Discuss · 3</span><p data-i18n="discuss3">Where have you met contention or opposition? What is the faithful next step—continue, refocus, or find a new way without abandoning the calling?</p></div>
+      </section>
+
+      <section aria-labelledby="wells-title">
+        <p class="section-number" data-i18n="section04">04 · Redig the wells</p>
+        <h2 id="wells-title" data-i18n="wellsTitle">Restore the practices that sustain revival</h2>
+        <p data-i18n="wellsBody1">There are wells we must redig: prayer, worship, holiness, God’s Word, evangelism, discipleship, and unity. We do not need novelty as much as renewed devotion to the paths God has long used to form and revive his people.</p>
+        <p data-i18n="wellsBody2">Busyness, disappointment, comfort, or neglect may have filled in a well. Redigging is an honest return—we remove what blocks it, recover our first commitment, and make room for God again.</p>
+        <div class="key-statement"><span data-i18n="keyTruthLabel">Key truth</span><p data-i18n="wellsTruth">Revival is sustained by a church that keeps returning to God’s presence, Word, and work.</p></div>
+        <div class="discussion-prompt"><span data-i18n="discuss4Label">Discuss · 4</span><p data-i18n="discuss4">Which well—prayer, worship, holiness, Scripture, evangelism, discipleship, or unity—is God asking you to redig this week? What is the first concrete step?</p></div>
+      </section>
+
+      <section aria-labelledby="overflow-title">
+        <p class="section-number" data-i18n="section05">05 · Receive, be filled, overflow</p>
+        <h2 id="overflow-title" data-i18n="overflowTitle">Living water was never meant to end with us</h2>
+        <p data-i18n="overflowBody1">Jesus promises water that becomes a spring within us, rising into eternal life. We come to the Source, receive his grace, and are filled by his Spirit—not to keep the blessing to ourselves, but to carry life to others.</p>
+        <p data-i18n="overflowBody2">Overflow takes visible form: prayer for someone in need, service without seeking return, generosity, encouragement, and witness about Jesus. What is received in God’s presence becomes blessing in our homes, streets, workplaces, schools, and city.</p>
+        <blockquote class="verse-card"><span data-i18n="keyTruthLabel">Key truth</span><p lang="en" data-i18n="overflowVerse" data-i18n-lang>“The water that I will give him will become in him a spring of water welling up to eternal life.”</p><cite lang="en" data-i18n="overflowCitation" data-i18n-lang>John 4:14 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss5Label">Discuss · 5</span><p data-i18n="discuss5">What is God pouring into you now, and who should receive its overflow this week?</p></div>
+      </section>
+
+      <section aria-labelledby="outlet-title">
+        <p class="section-number" data-i18n="section06">06 · Choose an outlet over stagnation</p>
+        <h2 id="outlet-title" data-i18n="outletTitle">A blessing with no outlet becomes stagnant</h2>
+        <p data-i18n="outletBody1">The Dead Sea receives water but has no outlet, leaving it salty and lifeless. Living water stays fresh because it moves and reaches others. In the same way, receiving without releasing leads to stagnation.</p>
+        <p data-i18n="outletBody2">Rehoboth—room for growth, blessing, and influence—is not merely personal comfort. It is stewardship. When God makes room, we ask: How can this space become a place of life for someone else?</p>
+        <div class="key-statement"><span data-i18n="keyTruthLabel">Key truth</span><p data-i18n="outletTruth">Every blessing received can become a blessing shared.</p></div>
+        <div class="discussion-prompt"><span data-i18n="discuss6Label">Discuss · 6</span><p data-i18n="discuss6">Is God’s water flowing out or stopping with you? What gift, opportunity, or testimony do you need to share?</p></div>
+      </section>
+
+      <section class="response-section" aria-labelledby="response-title">
+        <p class="section-number" data-i18n="section07">07 · Begin again</p>
+        <h2 id="response-title" data-i18n="responseTitle">Come back to the Well</h2>
+        <p data-i18n="responseBody1">If you have stopped digging, it is not too late to begin again. Return to daily prayer. Rebuild the altar. Rejoin the work. You do not have to manufacture the water; you need to return to the Source.</p>
+        <p data-i18n="responseBody2">Answer God’s invitation with three commitments: go deeper in his presence, keep digging through opposition, and let his living water overflow into our city.</p>
+        <ol class="response-steps">
+          <li><span data-i18n="responseStepLabel">This week</span><p data-i18n="responsePresence">Spend 30 focused minutes with God each day.</p></li>
+          <li><span data-i18n="responseStepLabel">This week</span><p data-i18n="responsePersevere">Identify one area of your calling where you will not quit.</p></li>
+          <li><span data-i18n="responseStepLabel">This week</span><p data-i18n="responseOverflow">Encourage, serve, pray with, or invite one person.</p></li>
+          <li><span data-i18n="responseStepLabel">This week</span><p data-i18n="responseReflect">Write down what God is asking you to build, redig, and release.</p></li>
+        </ol>
+        <div class="key-statement dark"><span data-i18n="commitmentLabel">Our commitment</span><p data-i18n="commitment">Dig deep. Keep digging. Into the overflow.</p></div>
+      </section>
+
+      <section class="closing-prayer" aria-labelledby="prayer-title">
+        <p class="section-number" data-i18n="section08">08 · Pray</p>
+        <h2 id="prayer-title" data-i18n="prayerTitle">A prayer for depth and overflow</h2>
+        <p data-i18n="prayer1">Lord Jesus, thank You for Your faithfulness through every season. You are our Rock and our Source. Forgive us when we have treated You as an accessory instead of our foundation, and when we have allowed the wells of prayer, worship, holiness, and Your Word to be covered over.</p>
+        <p data-i18n="prayer2">Give us grace to keep digging through contention and opposition. Give us wisdom to refocus without quitting. Restore deep devotion in us, and make room for growth that brings You glory.</p>
+        <p data-i18n="prayer3">Fill us with Your living water. Do not let Your blessing stop with us. Make our lives, homes, and church an outlet so that Calamba and every place You send us may experience the life of Christ. In Jesus’ name, Amen.</p>
+      </section>
+
+      <section class="takeaway" aria-label="Study takeaway" data-i18n-aria-label="takeawayAria"><span data-i18n="takeawayLabel">Take this with you</span><p data-i18n="takeaway">God’s faithfulness is an invitation to depth: build your life on Christ, keep digging through opposition, reopen the wells of devotion, and let his living water overflow to others.</p></section>
+
+      <section class="qr-section" aria-labelledby="share-title">
+        <div><p class="section-number" data-i18n="shareLabel">Share the study</p><h2 id="share-title" data-i18n="shareTitle">Open on another device</h2><p data-i18n="shareBody">Scan or download this QR code to return directly to this Bible study.</p><a class="text-link" href={qrPath} download="dmi-dig-deep-overflow-qr.png" data-i18n="downloadQr">Download QR code</a></div>
+        <a class="qr-card" href={pageURL} aria-label="Open this Bible study" data-i18n-aria-label="qrLinkAria"><img src={qrPath} width="720" height="720" alt="QR code for the Dig Deep: In His Presence, Into the Overflow Bible study" data-i18n-alt="qrImageAlt" /></a>
+      </section>
+
+      <p class="scripture-notice" lang="en" data-i18n="scriptureNotice" data-i18n-lang>Scripture quotations marked ESV are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. Taglish quotations are study translations.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer"><a href={base}>DMI Calamba City</a><div class="site-footer-actions"><span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span><SocialLinks /></div></footer>
+</BaseLayout>
