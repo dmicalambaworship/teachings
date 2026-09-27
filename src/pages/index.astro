@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 
 const base = import.meta.env.BASE_URL;
+const latestStudyPath = `${base}2026-09-27-contending-for-jesus-in-our-lives/`;
 const studyPath = `${base}2026-09-20-digging-deeper-the-matter-of-obedience/`;
 const anniversaryStudyPath = `${base}2026-09-14-dig-deep-in-his-presence-into-the-overflow/`;
 const churchStudyPath = `${base}2026-09-06-altar-of-our-church/`;
@@ -46,9 +47,9 @@ const logoPath = `${base}dmi-logo.jpg`;
 
       <footer class="home-footer">
         <div class="home-feature-links">
-          <a class="study-link" href={studyPath}>
+          <a class="study-link" href={latestStudyPath}>
             <span class="study-link-label">Latest Bible Study</span>
-            <span class="study-link-title">Digging Deeper: The Matter of Obedience</span>
+            <span class="study-link-title">Dig Deep in God’s Presence: Contending for Jesus in Our Lives</span>
             <span class="arrow" aria-hidden="true">↗</span>
           </a>
           <a class="study-link" href={songsPath}>
@@ -104,6 +105,16 @@ const logoPath = `${base}dmi-logo.jpg`;
       </header>
 
       <ol class="home-study-list">
+        <li>
+          <a href={latestStudyPath}>
+            <time datetime="2026-09-27">27 September 2026</time>
+            <span class="home-study-copy">
+              <strong>Dig Deep in God’s Presence</strong>
+              <small>Contending for Jesus in Our Lives</small>
+            </span>
+            <span class="home-study-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
         <li>
           <a href={studyPath}>
             <time datetime="2026-09-20">20 September 2026</time>
