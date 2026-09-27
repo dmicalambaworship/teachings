@@ -1,0 +1,266 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const pagePath = `${base}2026-09-27-contending-for-jesus-in-our-lives/`;
+const pageURL = new URL(pagePath, Astro.site ?? Astro.url).toString();
+const coverPath = `${base}2026-09-27-contending-for-jesus-in-our-lives-cover.jpg`;
+const coverWebp1280 = `${base}2026-09-27-contending-for-jesus-in-our-lives-cover-1280.webp`;
+const coverWebp2400 = `${base}2026-09-27-contending-for-jesus-in-our-lives-cover-2400.webp`;
+const logoPath = `${base}dmi-logo.jpg`;
+const qrPath = `${base}qr/2026-09-27-contending-for-jesus-in-our-lives.png`;
+
+const translations = {
+  languageLabel: `Wika`,
+  languageAriaLabel: `Wika ng pagbabasa`,
+  navAria: `Pangunahing navigation`,
+  homeAria: `Bumalik sa DMI Calamba City home`,
+  summaryAria: `Buod ng study`,
+  takeawayAria: `Pangunahing takeaway ng study`,
+  qrLinkAria: `Buksan ang Bible study na ito`,
+  qrImageAlt: `QR code para sa Contending for Jesus in Our Lives Bible study`,
+  coverLinkAria: `Simulan ang Contending for Jesus in Our Lives Bible study`,
+  coverImageAlt: `Bible Study Guide: Dig Deep in God’s Presence — Contending for Jesus in Our Lives, Genesis 26`,
+  eyebrow: `Bible Study · Genesis 26:17–33`,
+  title: `Dig Deep in God’s Presence`,
+  subtitle: `Contending for Jesus in Our Lives`,
+  heroScripture: `<sup>17</sup> Kaya umalis doon si Isaac at nagkampo sa Valley of Gerar, at doon siya nanirahan. <sup>18</sup> Muling hinukay ni Isaac ang mga balon ng tubig na hinukay noong panahon ng kanyang amang si Abraham, na tinabunan ng mga Filisteo pagkamatay ni Abraham. Tinawag niya ang mga ito sa mga pangalang ibinigay ng kanyang ama. <sup>19</sup> Ngunit nang maghukay ang mga lingkod ni Isaac sa lambak at makakita roon ng balon ng bukal na tubig, <sup>20</sup> nakipagtalo ang mga pastol ng Gerar sa mga pastol ni Isaac at sinabi, “Amin ang tubig.” Kaya tinawag niya ang balon na Esek, dahil nakipagtalo sila sa kanya. <sup>21</sup> Naghukay sila ng isa pang balon, at pinag-awayan din iyon, kaya tinawag niya itong Sitnah. <sup>22</sup> Umalis siya roon at naghukay ng isa pang balon, at hindi na nila iyon pinag-awayan. Kaya tinawag niya itong Rehoboth at sinabi, “Ngayon ay binigyan tayo ng Panginoon ng maluwang na lugar, at mamumunga tayo sa lupain.”`,
+  heroCitation: `Genesis 26:17–22 · salin para sa study`,
+  themeLabel: `Tema`,
+  theme: `Dahil si Jesus ang tunay na bukal ng buhay, patuloy nating nililinis at pinalalalim ang paglapit sa Kanya hanggang ang Kanyang buhay na tubig ay umapaw sa ating buhay at komunidad.`,
+  keyTextsLabel: `Mga susing talata`,
+  keyTexts: `Genesis 26:17–33<br />Awit 42:1<br />Filipos 4:6–7<br />1 Corinto 10:13<br />Juan 7:37–38`,
+  timeLabel: `Oras`,
+  time: `35–40 minuto`,
+  presentationLabel: `Presentation`,
+  presentationLink: `Buksan sa Canva <span aria-hidden="true">↗</span>`,
+  serviceLabel: `Sunday service`,
+  serviceUnavailable: `Walang hiwalay na YouTube link na ibinigay`,
+  facebookLabel: `Facebook Live`,
+  facebookLink: `Panoorin sa Facebook <span aria-hidden="true">↗</span>`,
+  section01: `01 · Magsimula sa balon`,
+  openingTitle: `Hindi tayo mabubuhay nang hiwalay sa Bukal`,
+  openingLead: `Si Isaac ay dayuhan sa Gerar. Pinaalis siya sa sentro, ngunit saan man siya magpunta, naghukay siya—at muling hinukay ang mga balong tinabunan matapos mamatay si Abraham.`,
+  openingBody1: `Hindi luxury ang balon para sa sambahayan, mga lingkod, at mga kawan ni Isaac. Ito ang kanilang access sa tubig na kailangan nila upang mabuhay. Ganoon din ang larawan ng ating spiritual life: ang balon ay hindi ang bukal; ito ang lugar kung saan tayo patuloy na sumasalok sa Diyos.`,
+  openingBody2: `Si Jesus mismo ang tubig na nagbibigay-buhay. Ang personal na prayer, pagbabasa, pagninilay, pagsasaulo, at pagsunod sa Salita ang mga gawaing nagbubukas ng buhay natin sa Kanya. Kahit matagal na tayong Kristiyano, hindi tayo lalago sa lumang tubig lamang. Kailangan nating patuloy na lumapit sa Bukal.`,
+  keyTruthLabel: `Susing katotohanan`,
+  keyTruth: `Hindi si Jesus ang ipinaglalaban natin na parang kailangan Niya ng depensa; ipinaglalaban natin ang lugar Niya sa ating puso laban sa anumang gustong pumalit sa Kanya.`,
+  discuss1Label: `Pag-usapan · 1`,
+  discuss1: `Ano ang itinuturo ng larawan ng balon tungkol sa pagdepende kay Jesus? Sa kasalukuyan, saan ka aktuwal na sumasalok para sa lakas, satisfaction, at direction?`,
+  section02: `02 · Alisin ang tumabon sa balon`,
+  buriedTitle: `Ang uhaw kay Diyos ay humuhukay sa ilalim ng mga distraction`,
+  buriedBody1: `Ipinapakita ng Awit 42 ang matinding pagnanais: kung paanong nauuhaw ang usa sa umaagos na tubig, gayon nananabik ang kaluluwa sa Diyos. Hindi ito casual interest. Ito ay pusong nagsasabing, “Panginoon, hindi ako mabubuhay nang wala Ka.”`,
+  buriedBody2: `Ngunit maraming bagay ang maaaring tumabon sa ating paglapit kay Jesus: problemang paulit-ulit nating iniisip, kasalanang ayaw nating takasan, worldly desires, sobrang abala, mga ideolohiyang mas pinakikinggan kaysa Salita ng Diyos, at walang katapusang ingay mula sa social media at entertainment.`,
+  buriedBody3: `Kapag anxious tayo, inaanyayahan tayong manalangin nang may pasasalamat at tanggapin ang kapayapaan ng Diyos. Kapag tinutukso, nagbibigay Siya ng way of escape na dapat nating piliin. Kapag nalilito, ang Kanyang Salita ang ilaw sa ating daan. Ang paghuhukay ay hindi pag-iwas sa problema; ito ay pagdadala ng buong buhay pabalik kay Jesus.`,
+  keyVerse: `Susing talata · salin para sa study`,
+  hungerVerse: `“Kung paanong nananabik ang usa sa umaagos na batis, gayon nananabik ang kaluluwa ko sa Iyo, O Diyos.”`,
+  hungerCitation: `Awit 42:1 · salin para sa study`,
+  discuss2Label: `Pag-usapan · 2`,
+  discuss2: `Anong “lupa” ang kasalukuyang tumatabon sa balon mo—anxiety, kasalanan, busyness, maling boses, o distraction? Ano ang isang konkretong paraan para alisin ito ngayong linggo?`,
+  section03: `03 · Patuloy na maghukay sa gitna ng opposition`,
+  oppositionTitle: `Hindi huling salita ang Esek at Sitnah`,
+  oppositionBody1: `Tinawag ni Isaac ang unang pinag-awayan na balon na <em>Esek</em>—contention. Tinawag niya ang sumunod na <em>Sitnah</em>—hostility, opposition, at accusation. May mga pagkakataong ang pinaghirapan natin ay aangkinin ng iba, o ang tapat na pagsunod ay sasalubungin ng conflict.`,
+  oppositionBody2: `Hindi tumigil si Isaac, at hindi rin niya ginawang sentro ng buhay ang pakikipag-away. Nagpatuloy siyang humanap ng tubig. Sa parehong paraan, ang opposition ay hindi dahilan para putulin ang prayer, Salita, worship, at fellowship. Ito ang panahon para mas malalim na kumapit sa tunay na Bukal.`,
+  oppositionBody3: `Ikinuwento ng preacher ang pagkakataong hindi niya ipinilit ang karapatan niya sa harap ng isang pagod at masungit na pulis matapos ang aksidente. Hindi ibig sabihin na hindi kailanman ipinagtatanggol ang tama. Kailangan ng karunungan. Ngunit may mga pagkakataong mas mabigat ang ating testimony kaysa sa panalo sa argumento.`,
+  keyTruth2: `Keep digging—especially when opposition comes.`,
+  discuss3Label: `Pag-usapan · 3`,
+  discuss3: `Sa isang conflict na kinakaharap mo, ano ang mas pinangangalagaan mo—ang pagiging tama o ang testimony ni Jesus? Ano ang maaaring hitsura ng wisdom, truth, at restraint sa sitwasyong iyon?`,
+  section04: `04 · Tanggapin ang lawak na ibinibigay ng Diyos`,
+  provisionTitle: `Sa Rehoboth, Diyos ang binigyan ng papuri`,
+  provisionBody1: `Sa ikatlong balon ay walang nakipagtalo. Tinawag iyon ni Isaac na <em>Rehoboth</em>—malawak na lugar o spaciousness. Hindi niya sinabi, “Tingnan ninyo ang nagawa ko.” Sinabi niya, “Binigyan tayo ng Panginoon ng lugar.” Ang Diyos ang Provider; ang balon ay Kanyang biyaya.`,
+  provisionBody2: `Para tayong mga batang maraming laruan ngunit nag-aaway sa iisang hawak ng iba kapag iniisip nating kakaunti ang biyaya. Kumpara tayo, naiinggit, o ginagaya ang calling ng iba. Ngunit malawak ang biyaya ng Diyos. Hindi natin kailangang agawin ang gifting, ministry, o pagkilala ng kapwa.`,
+  provisionBody3: `Bawat isa ay tinatawag na humukay nang malalim at kumonekta sa iisang Bukal. Sapat ang biyaya ni Cristo upang hubugin ang natatanging calling na ibinigay Niya sa bawat isa at gawin tayong fruitful kung saan Niya tayo inilagay.`,
+  keyTruth3: `Hindi natin kailangang pag-awayan ang biyaya ng Diyos. May puwang Siya para sa bawat buhay na nakaugat kay Cristo.`,
+  discuss4Label: `Pag-usapan · 4`,
+  discuss4: `Saan ka natutuksong ikumpara ang calling o gifting mo sa iba? Paano ka inaanyayahan ng Rehoboth na magpasalamat, maghukay, at maging faithful sa puwang na ibinigay ng Diyos?`,
+  section05: `05 · Unahin ang encounter bago ang panibagong paghuhukay`,
+  beershebaTitle: `Altar, tent, at well`,
+  beershebaBody1: `Sa Beersheba, unang nagpakita ang Panginoon kay Isaac at sinabi, “Huwag kang matakot, sapagkat kasama mo Ako.” Sumagot si Isaac sa pamamagitan ng pagtatayo ng altar, pagtawag sa pangalan ng Panginoon, at pagtatayo ng tolda. Pagkatapos, naghukay muli ang kanyang mga lingkod.`,
+  beershebaBody2: `Mahalaga ang pagkakasunod: encounter, worship, settled presence, at pagkatapos ay work. Hindi tayo naghuhukay para pilitin ang Diyos na magbigay. Humuhukay tayo bilang tugon sa Diyos na lumapit, nagsalita, at nangakong sasama.`,
+  beershebaBody3: `Ang pangalang Beersheba ay nag-uugnay sa well at oath. Para sa atin, ang tiyak na covenant ay hindi nakasalalay sa ating good works kundi sa grace ng Diyos na tinatanggap sa pananampalataya kay Jesus. May access tayo sa Bukal dahil binuksan ni Cristo ang daan.`,
+  altarVerse: `<sup>24</sup> “Ako ang Diyos ni Abraham na iyong ama. Huwag kang matakot, sapagkat kasama mo Ako at pagpapalain kita.” <sup>25</sup> Kaya nagtayo siya roon ng altar, tumawag sa pangalan ng Panginoon, at nagtayo roon ng kanyang tolda. At doon naghukay ng balon ang mga lingkod ni Isaac.`,
+  altarCitation: `Genesis 26:24–25 · salin para sa study`,
+  discuss5Label: `Pag-usapan · 5`,
+  discuss5: `Alin ang madalas mauna sa buhay mo—striving o encounter with God? Anong ritmo ng altar, tent, at well ang makatutulong para mamuhay ka mula sa grace sa halip na subukang kitain ito?`,
+  section06: `06 · Hayaan ang balon na maging overflow`,
+  overflowTitle: `Ang buhay na tubig ay hindi natatapos sa atin`,
+  overflowBody1: `Ikinuwento sa sermon ang Moravian community—mga Christian refugee na hinati ng cultural at doctrinal differences. Sa halip na sumuko sa isa’t isa, hinanap nila ang Diyos sa prayer, Bible study, repentance, at renewed commitment na magmahal. Ang conflict ay humantong sa reconciliation at sama-samang pananalangin.`,
+  overflowBody2: `Hindi sa kanila nagtapos ang renewal. Umabot ito sa mga anak, sa mga komunidad, at sa mission sa iba’t ibang lugar. Ito ang larawan ng “dig deep in His presence, into the overflow”: kapag tayo ay muling nakakonekta kay Jesus, ang Kanyang buhay sa atin ay nagiging pagpapala sa iba.`,
+  overflowBody3: `Hindi lamang sinasabi ni Jesus na bibigyan Niya tayo ng sapat para makaraos. Inaanyayahan Niya ang nauuhaw na lumapit at uminom, at nangangako Siyang mula sa sumasampalataya ay dadaloy ang mga ilog ng buhay na tubig. Ang personal na well ay tinatawag na maging shared prayer, reconciliation, service, at mission.`,
+  livingWaterVerse: `<sup>37</sup> “Kung may nauuhaw, lumapit siya sa Akin at uminom. <sup>38</sup> Ang sumasampalataya sa Akin, gaya ng sinabi ng Kasulatan, ‘Mula sa kanyang puso ay dadaloy ang mga ilog ng buhay na tubig.’”`,
+  livingWaterCitation: `Juan 7:37–38 · salin para sa study`,
+  discuss6Label: `Pag-usapan · 6`,
+  discuss6: `Anong relasyon o grupo ang nangangailangan ng repentance, reconciliation, at sama-samang prayer? Sino ang maaaring abutin ng overflow kung magsisimula kayong muling sumalok kay Jesus nang sama-sama?`,
+  section07: `07 · Tumugon`,
+  responseTitle: `Alisin ang bara. Lumapit sa Bukal. Patuloy na maghukay.`,
+  responseBody1: `Tinatawag tayo ni Jesus na lumapit nang nauuhaw, hindi magkunwaring sapat na tayo. Maaari nating pangalanan ang tumabon sa balon at dalhin iyon sa Kanya nang may repentance, tiwala, at pag-asang tutulungan Niya tayo.`,
+  responseBody2: `Hindi kailangang manatiling pribado ang paghuhukay. Anyayahan ang iba sa rhythm ng prayer at Salita, ayusin ang kailangang ayusin, at hayaan ang natanggap na biyaya na dumaloy sa tahanan, church, school, workplace, at city.`,
+  responseStepLabel: `Tumugon`,
+  responseClear: `Pangalanan at isuko kay Jesus ang isang bagay na tumatabon sa balon mo.`,
+  responseDraw: `Magtakda ng araw-araw na oras ngayong linggo para sa prayer, Scripture, meditation, at obedience.`,
+  responseWitness: `Sa isang conflict, piliin ang truth at isang hakbang na magpoprotekta sa testimony ni Jesus.`,
+  responseOverflow: `Anyayahan ang dalawa o tatlong tao sa regular na prayer at isang konkretong gawain ng reconciliation, service, o mission.`,
+  promiseLabel: `Ang pangako`,
+  promise: `“Kung may nauuhaw, lumapit siya sa Akin at uminom. Ang sumasampalataya sa Akin… mula sa kanyang puso ay dadaloy ang mga ilog ng buhay na tubig.” — Juan 7:37–38`,
+  section08: `08 · Manalangin`,
+  prayerTitle: `Isang panalangin para sa muling binuksang balon`,
+  prayer1: `Panginoong Jesus, Ikaw lamang ang tunay na Bukal ng buhay. Patawarin Mo kami sa mga panahong hinayaan naming matabunan ng anxiety, kasalanan, busyness, maling boses, at distractions ang aming paglapit sa Iyo. Gisingin Mo muli ang aming hunger at thirst para sa Iyo.`,
+  prayer2: `Bigyan Mo kami ng grace na patuloy na maghukay kapag may contention, hostility, at accusation. Turuan Mo kaming magsalita ng katotohanan nang may karunungan, isuko ang karapatan kapag iyon ang tapat na tugon, at pahalagahan ang testimony Mo nang higit sa aming pride.`,
+  prayer3: `Salamat dahil sapat at malawak ang Iyong biyaya. Itatag Mo ang aming altar, tolda, at balon sa presensya Mo. Paglapitin Mo ang mga nahati, buuin Mo kami sa prayer at Salita, at hayaang dumaloy ang Iyong buhay na tubig mula sa amin patungo sa aming pamilya, church, city, at mga bansa. Sa pangalan ni Jesus, Amen.`,
+  takeawayLabel: `Dalhin mo ito`,
+  takeaway: `Si Jesus ang Bukal na hindi nauubos. Alisin ang tumabon, patuloy na maghukay sa gitna ng opposition, at sumalok hanggang ang Kanyang buhay sa iyo ay umapaw sa iba.`,
+  shareLabel: `Ibahagi ang study`,
+  shareTitle: `Buksan sa ibang device`,
+  shareBody: `I-scan o i-download ang QR code para direktang makabalik sa Bible study na ito.`,
+  downloadQr: `I-download ang QR code`,
+  scriptureNotice: `Ang English Scripture quotations na may markang ESV ay mula sa ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, isang publishing ministry ng Good News Publishers. Ginamit nang may pahintulot. All rights reserved. Ang Taglish quotations ay mga salin para sa study.`,
+  footerTagline: `Nagkakatipon kay Jesus. Hinuhubog ng Kanyang Salita.`,
+};
+---
+
+<BaseLayout
+  title="Dig Deep in God’s Presence: Contending for Jesus in Our Lives | DMI Calamba City"
+  description="A Bible study from Genesis 26 about reopening our spiritual wells, persevering through opposition, and drawing from Jesus until his living water overflows."
+  bodyClass="study-page"
+  socialImage={coverPath}
+  socialImageAlt="Bible Study Guide: Dig Deep in God’s Presence — Contending for Jesus in Our Lives, Genesis 26"
+  socialImageWidth={2400}
+  socialImageHeight={1350}
+>
+  <a class="study-cover" href="#study" aria-label="Begin the Contending for Jesus in Our Lives Bible study" data-i18n-aria-label="coverLinkAria">
+    <picture>
+      <source srcset={`${coverWebp1280} 1280w, ${coverWebp2400} 2400w`} sizes="100vw" type="image/webp" />
+      <img src={coverPath} width="2400" height="1350" alt="Bible Study Guide: Dig Deep in God’s Presence — Contending for Jesus in Our Lives, Genesis 26" data-i18n-alt="coverImageAlt" decoding="async" fetchpriority="high" />
+    </picture>
+  </a>
+
+  <header class="study-hero" id="study">
+    <nav class="study-nav" aria-label="Primary navigation" data-i18n-aria-label="navAria">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria">
+        <img src={logoPath} width="900" height="900" alt="" />
+        <span>DMI · Calamba City</span>
+      </a>
+      <LanguageToggle translations={translations} />
+      <span>27 September 2026</span>
+    </nav>
+
+    <div class="study-hero-copy">
+      <p class="eyebrow" data-i18n="eyebrow">Bible Study · Genesis 26:17–33</p>
+      <h1 data-i18n="title">Dig Deep in God’s Presence</h1>
+      <p class="study-subtitle" data-i18n="subtitle">Contending for Jesus in Our Lives</p>
+    </div>
+
+    <blockquote class="hero-scripture">
+      <p lang="en" data-i18n="heroScripture" data-i18n-lang><sup>17</sup> So Isaac departed from there and encamped in the Valley of Gerar and settled there. <sup>18</sup> And Isaac dug again the wells of water that they had dug in the days of Abraham his father, which the Philistines had stopped after the death of Abraham. And he gave them the names that his father had given them. <sup>19</sup> But when Isaac’s servants dug in the valley and found there a well of spring water, <sup>20</sup> the herdsmen of Gerar quarreled with Isaac’s herdsmen, saying, “The water is ours.” So he called the name of the well Esek, because they contended with him. <sup>21</sup> Then they dug another well, and they quarreled over that also, so he called its name Sitnah. <sup>22</sup> And he moved from there and dug another well, and they did not quarrel over it. So he called its name Rehoboth, saying, “For now the Lord has made room for us, and we shall be fruitful in the land.”</p>
+      <cite lang="en" data-i18n="heroCitation" data-i18n-lang>Genesis 26:17–22 · ESV</cite>
+    </blockquote>
+  </header>
+
+  <main class="study-content">
+    <aside class="study-aside" aria-label="Study summary" data-i18n-aria-label="summaryAria">
+      <div><span class="aside-label" data-i18n="themeLabel">Theme</span><p data-i18n="theme">Because Jesus is the true source of life, we keep clearing and deepening our access to him until his living water overflows through our lives and community.</p></div>
+      <div><span class="aside-label" data-i18n="keyTextsLabel">Key texts</span><p data-i18n="keyTexts">Genesis 26:17–33<br />Psalm 42:1<br />Philippians 4:6–7<br />1 Corinthians 10:13<br />John 7:37–38</p></div>
+      <div><span class="aside-label" data-i18n="timeLabel">Time</span><p data-i18n="time">35–40 minutes</p></div>
+      <div><span class="aside-label" data-i18n="presentationLabel">Presentation</span><a class="aside-action" href="https://www.canva.com/design/DAHWUYqvnOE/91F1TA1Fwpn4ALALRl8-jA/edit" target="_blank" rel="noreferrer" data-i18n="presentationLink">Open in Canva <span aria-hidden="true">↗</span></a></div>
+      <div><span class="aside-label" data-i18n="serviceLabel">Sunday service</span><p data-i18n="serviceUnavailable">No separate YouTube link was provided</p></div>
+      <div><span class="aside-label" data-i18n="facebookLabel">Facebook Live</span><a class="aside-action" href="https://www.facebook.com/DMICalamba/videos/1766143824591506" target="_blank" rel="noreferrer" data-i18n="facebookLink">Watch on Facebook <span aria-hidden="true">↗</span></a></div>
+    </aside>
+
+    <article class="study-article">
+      <section class="opening" aria-labelledby="opening-title">
+        <p class="section-number" data-i18n="section01">01 · Begin at the well</p>
+        <h2 id="opening-title" data-i18n="openingTitle">We cannot survive apart from the Source</h2>
+        <p class="lead" data-i18n="openingLead">Isaac was a sojourner in Gerar. He was pushed away from the center, yet wherever he went he dug—and reopened wells that had been buried after Abraham died.</p>
+        <p data-i18n="openingBody1">A well was not a luxury for Isaac’s household, servants, and livestock. It was their access to the water they needed to live. The picture reaches into our spiritual life: the well is not the source; it is the place where we continually draw from God.</p>
+        <p data-i18n="openingBody2">Jesus himself is the life-giving water. Personal prayer, reading, meditating on, memorizing, and obeying Scripture are practices that open our lives to him. No matter how long we have followed Christ, we cannot grow on yesterday’s water alone. We must keep coming to the Source.</p>
+        <div class="key-statement"><span data-i18n="keyTruthLabel">Key truth</span><p data-i18n="keyTruth">We are not contending for Jesus as though he needs our defense; we are contending for his place in our hearts against everything that would displace him.</p></div>
+        <div class="discussion-prompt"><span data-i18n="discuss1Label">Discuss · 1</span><p data-i18n="discuss1">What does the picture of a well teach us about dependence on Jesus? Where are you presently drawing strength, satisfaction, and direction in practice?</p></div>
+      </section>
+
+      <section aria-labelledby="buried-title">
+        <p class="section-number" data-i18n="section02">02 · Clear what has buried the well</p>
+        <h2 id="buried-title" data-i18n="buriedTitle">Hunger for God digs beneath distraction</h2>
+        <p data-i18n="buriedBody1">Psalm 42 gives us the language of intense desire: as a deer longs for flowing water, the soul longs for God. This is not casual interest. It is a heart saying, “Lord, I cannot live without You.”</p>
+        <p data-i18n="buriedBody2">Yet many things can bury our access to Jesus: problems we rehearse, sin we refuse to flee, worldly desires, constant busyness, ideologies we hear more readily than God’s Word, and the endless noise of social media and entertainment.</p>
+        <p data-i18n="buriedBody3">When anxious, we are invited to pray with thanksgiving and receive God’s peace. When tempted, he provides a way of escape that we must take. When confused, his Word lights our path. Digging is not escaping our problems; it is bringing our whole life back to Jesus.</p>
+        <blockquote class="verse-card"><span data-i18n="keyVerse">Key verse · study translation</span><p lang="en" data-i18n="hungerVerse" data-i18n-lang>“As a deer pants for flowing streams, so pants my soul for you, O God.”</p><cite lang="en" data-i18n="hungerCitation" data-i18n-lang>Psalm 42:1 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss2Label">Discuss · 2</span><p data-i18n="discuss2">What “soil” is presently covering your well—anxiety, sin, busyness, false voices, or distraction? What is one concrete way to clear it this week?</p></div>
+      </section>
+
+      <section aria-labelledby="opposition-title">
+        <p class="section-number" data-i18n="section03">03 · Keep digging through opposition</p>
+        <h2 id="opposition-title" data-i18n="oppositionTitle">Esek and Sitnah do not have the final word</h2>
+        <p data-i18n="oppositionBody1">Isaac named the first disputed well <em>Esek</em>—contention. He named the next one <em>Sitnah</em>—hostility, opposition, and accusation. At times, others may claim our work, or faithful obedience may be met with conflict.</p>
+        <p data-i18n="oppositionBody2">Isaac did not stop, and he did not make fighting the center of his life. He kept looking for water. In the same way, opposition is not a reason to abandon prayer, Scripture, worship, and fellowship. It is a season to hold more deeply to the true Source.</p>
+        <p data-i18n="oppositionBody3">The preacher recalled a moment when he did not assert his rights before an exhausted, harsh police officer after a road accident. This does not mean we never defend what is right; wisdom is essential. But there are times when our witness carries more weight than winning an argument.</p>
+        <div class="key-statement"><span data-i18n="keyTruthLabel">Key truth</span><p data-i18n="keyTruth2">Keep digging—especially when opposition comes.</p></div>
+        <div class="discussion-prompt"><span data-i18n="discuss3Label">Discuss · 3</span><p data-i18n="discuss3">In a conflict you are facing, what are you guarding most—being proved right or the witness of Jesus? What might wisdom, truth, and restraint look like there?</p></div>
+      </section>
+
+      <section aria-labelledby="provision-title">
+        <p class="section-number" data-i18n="section04">04 · Receive the room God provides</p>
+        <h2 id="provision-title" data-i18n="provisionTitle">At Rehoboth, God receives the credit</h2>
+        <p data-i18n="provisionBody1">No one quarreled over the third well. Isaac called it <em>Rehoboth</em>—a broad place or spaciousness. He did not say, “Look what I accomplished.” He said, “The Lord has made room for us.” God is the Provider; the well is his grace.</p>
+        <p data-i18n="provisionBody2">We can act like children surrounded by toys yet fighting over the one in another child’s hands when we believe grace is scarce. We compare, envy, or imitate another person’s calling. But God’s grace is spacious. We do not need to grasp for another person’s gift, ministry, or recognition.</p>
+        <p data-i18n="provisionBody3">Each of us is called to dig deeply and connect to the same Source. Christ’s grace is sufficient to form the calling he has entrusted to each person and to make us fruitful where he has placed us.</p>
+        <div class="key-statement"><span data-i18n="keyTruthLabel">Key truth</span><p data-i18n="keyTruth3">We do not need to fight over God’s blessing. He has room for every life rooted in Christ.</p></div>
+        <div class="discussion-prompt"><span data-i18n="discuss4Label">Discuss · 4</span><p data-i18n="discuss4">Where are you tempted to compare your calling or gifting with someone else’s? How does Rehoboth invite you to give thanks, dig, and be faithful in the room God has given you?</p></div>
+      </section>
+
+      <section aria-labelledby="beersheba-title">
+        <p class="section-number" data-i18n="section05">05 · Put encounter before the next excavation</p>
+        <h2 id="beersheba-title" data-i18n="beershebaTitle">Altar, tent, and well</h2>
+        <p data-i18n="beershebaBody1">At Beersheba, the Lord first appeared to Isaac and said, “Fear not, for I am with you.” Isaac responded by building an altar, calling on the Lord’s name, and pitching his tent. Then his servants dug again.</p>
+        <p data-i18n="beershebaBody2">The order matters: encounter, worship, settled presence, and then work. We do not dig to force God to provide. We dig in response to the God who has drawn near, spoken, and promised to be with us.</p>
+        <p data-i18n="beershebaBody3">The name Beersheba joins the well with an oath. For us, the sure covenant does not rest on our good works but on God’s grace received through faith in Jesus. We have access to the Source because Christ opened the way.</p>
+        <blockquote class="verse-card"><span data-i18n="keyVerse">Key verse · study translation</span><p lang="en" data-i18n="altarVerse" data-i18n-lang><sup>24</sup> “I am the God of Abraham your father. Fear not, for I am with you and will bless you.” <sup>25</sup> So he built an altar there and called upon the name of the Lord and pitched his tent there. And there Isaac’s servants dug a well.</p><cite lang="en" data-i18n="altarCitation" data-i18n-lang>Genesis 26:24–25 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss5Label">Discuss · 5</span><p data-i18n="discuss5">What usually comes first in your life—striving or encounter with God? What rhythm of altar, tent, and well would help you live from grace instead of trying to earn it?</p></div>
+      </section>
+
+      <section aria-labelledby="overflow-title">
+        <p class="section-number" data-i18n="section06">06 · Let the well become an overflow</p>
+        <h2 id="overflow-title" data-i18n="overflowTitle">Living water does not end with us</h2>
+        <p data-i18n="overflowBody1">The sermon recounted the Moravian community—Christian refugees divided by cultural and doctrinal differences. Instead of giving up on one another, they sought God through prayer, Bible study, repentance, and a renewed commitment to love. Conflict gave way to reconciliation and shared prayer.</p>
+        <p data-i18n="overflowBody2">Their renewal did not end with them. It reached children, communities, and mission beyond their home. This is the shape of “dig deep in His presence, into the overflow”: as we reconnect to Jesus, his life in us becomes blessing for others.</p>
+        <p data-i18n="overflowBody3">Jesus does not merely promise enough water to help us survive. He invites the thirsty to come and drink, then promises rivers of living water flowing from those who believe. A personal well is meant to become shared prayer, reconciliation, service, and mission.</p>
+        <blockquote class="verse-card"><span data-i18n="keyVerse">Key verse · study translation</span><p lang="en" data-i18n="livingWaterVerse" data-i18n-lang><sup>37</sup> “If anyone thirsts, let him come to me and drink. <sup>38</sup> Whoever believes in me, as the Scripture has said, ‘Out of his heart will flow rivers of living water.’”</p><cite lang="en" data-i18n="livingWaterCitation" data-i18n-lang>John 7:37–38 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss6Label">Discuss · 6</span><p data-i18n="discuss6">What relationship or group needs repentance, reconciliation, and shared prayer? Who might be reached by the overflow if you began drawing from Jesus together again?</p></div>
+      </section>
+
+      <section class="response-section" aria-labelledby="response-title">
+        <p class="section-number" data-i18n="section07">07 · Respond</p>
+        <h2 id="response-title" data-i18n="responseTitle">Clear the debris. Come to the Source. Keep digging.</h2>
+        <p data-i18n="responseBody1">Jesus calls us to come thirsty, not to pretend that we are self-sufficient. We can name what has buried the well and bring it to him with repentance, trust, and confidence that he will help us.</p>
+        <p data-i18n="responseBody2">Digging does not have to remain private. Invite others into a rhythm of prayer and Scripture, repair what needs reconciliation, and let the grace you receive flow toward your home, church, school, workplace, and city.</p>
+        <ol class="response-steps">
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseClear">Name and surrender to Jesus one thing that has buried your well.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseDraw">Set a daily time this week for prayer, Scripture, meditation, and obedience.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseWitness">In one conflict, choose truth and a step that protects the witness of Jesus.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseOverflow">Invite two or three people into regular prayer and one concrete act of reconciliation, service, or mission.</p></li>
+        </ol>
+        <div class="key-statement dark"><span data-i18n="promiseLabel">The promise</span><p data-i18n="promise">“If anyone thirsts, let him come to me and drink. Whoever believes in me… ‘Out of his heart will flow rivers of living water.’” — John 7:37–38</p></div>
+      </section>
+
+      <section class="closing-prayer" aria-labelledby="prayer-title">
+        <p class="section-number" data-i18n="section08">08 · Pray</p>
+        <h2 id="prayer-title" data-i18n="prayerTitle">A prayer for reopened wells</h2>
+        <p data-i18n="prayer1">Lord Jesus, You alone are the true Source of life. Forgive us for allowing anxiety, sin, busyness, false voices, and distractions to bury our access to You. Awaken our hunger and thirst for You again.</p>
+        <p data-i18n="prayer2">Give us grace to keep digging through contention, hostility, and accusation. Teach us to speak truth with wisdom, surrender our rights when that is the faithful response, and value Your witness above our pride.</p>
+        <p data-i18n="prayer3">Thank You that Your grace is sufficient and spacious. Establish our altar, tent, and well in Your presence. Reconcile those who are divided, form us through prayer and Your Word, and let Your living water flow from us toward our families, church, city, and the nations. In Jesus’ name, Amen.</p>
+      </section>
+
+      <section class="takeaway" aria-label="Study takeaway" data-i18n-aria-label="takeawayAria"><span data-i18n="takeawayLabel">Take this with you</span><p data-i18n="takeaway">Jesus is the Source that never runs dry. Clear what has buried the well, keep digging through opposition, and draw from him until his life in you overflows to others.</p></section>
+
+      <section class="qr-section" aria-labelledby="share-title">
+        <div><p class="section-number" data-i18n="shareLabel">Share the study</p><h2 id="share-title" data-i18n="shareTitle">Open on another device</h2><p data-i18n="shareBody">Scan or download this QR code to return directly to this Bible study.</p><a class="text-link" href={qrPath} download="dmi-contending-for-jesus-qr.png" data-i18n="downloadQr">Download QR code</a></div>
+        <a class="qr-card" href={pageURL} aria-label="Open this Bible study" data-i18n-aria-label="qrLinkAria"><img src={qrPath} width="720" height="720" alt="QR code for the Contending for Jesus in Our Lives Bible study" data-i18n-alt="qrImageAlt" /></a>
+      </section>
+
+      <p class="scripture-notice" lang="en" data-i18n="scriptureNotice" data-i18n-lang>Scripture quotations marked ESV are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. Taglish quotations are study translations.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer"><a href={base}>DMI Calamba City</a><div class="site-footer-actions"><span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span><SocialLinks /></div></footer>
+</BaseLayout>
