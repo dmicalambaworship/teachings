@@ -1,0 +1,251 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const pagePath = `${base}2026-10-04-digging-deeper-living-water/`;
+const pageURL = new URL(pagePath, Astro.site ?? Astro.url).toString();
+const coverPath = `${base}2026-10-04-digging-deeper-living-water-cover.jpg`;
+const coverWebp1280 = `${base}2026-10-04-digging-deeper-living-water-cover-1280.webp`;
+const coverWebp2400 = `${base}2026-10-04-digging-deeper-living-water-cover-2400.webp`;
+const logoPath = `${base}dmi-logo.jpg`;
+const qrPath = `${base}qr/2026-10-04-digging-deeper-living-water.png`;
+
+const translations = {
+  languageLabel: `Wika`,
+  languageAriaLabel: `Wika ng pagbabasa`,
+  navAria: `Pangunahing navigation`,
+  homeAria: `Bumalik sa DMI Calamba City home`,
+  summaryAria: `Buod ng study`,
+  takeawayAria: `Pangunahing takeaway ng study`,
+  coverLinkAria: `Simulan ang Digging Deeper: Living Water Bible study`,
+  coverImageAlt: `Canva cover ng Digging Deeper: Living Water, na may balon at Juan 4:1–42`,
+  qrLinkAria: `Buksan ang Bible study na ito`,
+  qrImageAlt: `QR code para sa Digging Deeper: Living Water Bible study`,
+  eyebrow: `Bible Study · Juan 4:1–42`,
+  title: `Digging Deeper`,
+  subtitle: `Living Water · Ang tubig na nagbibigay-buhay`,
+  heroScripture: `“Kung alam mo lamang ang kaloob ng Diyos at kung sino ang nagsasabi sa iyo, ‘Painumin mo ako,’ ikaw sana ang humingi sa Kanya at binigyan ka sana Niya ng tubig na nagbibigay-buhay.”`,
+  heroCitation: `Juan 4:10 · salin para sa study`,
+  themeLabel: `Tema`,
+  theme: `Ibinibigay ni Jesus ang buhay na tubig na hindi natin kayang salukin para sa sarili. Habang tinatanggap natin ang Kanyang biyaya, nagiging patotoo ang ating buhay na nag-aanyaya sa iba na makilala Siya mismo.`,
+  keyTextsLabel: `Mga susing talata`,
+  keyTexts: `Juan 4:1–42<br />1 Corinto 11:23–26`,
+  timeLabel: `Oras`,
+  time: `35–40 minuto`,
+  presentationLabel: `Presentation`,
+  presentationLink: `Buksan sa Canva <span aria-hidden="true">↗</span>`,
+  serviceLabel: `Sunday service`,
+  serviceUnavailable: `Walang hiwalay na YouTube link na ibinigay`,
+  facebookLabel: `Facebook Live`,
+  facebookLink: `Panoorin sa Facebook <span aria-hidden="true">↗</span>`,
+  section01: `01 · Makipagtagpo sa balon`,
+  encounterTitle: `Si Jesus ang unang lumapit`,
+  encounterBody1: `Pagod sa paglalakbay, naupo si Jesus sa balon ni Jacob. Lumapit ang isang babaeng Samaritana upang umigib ng tubig, at kinausap siya ni Jesus. Nagulat siya: may pagitan ang mga Judio at Samaritano, at hindi karaniwang nangyayari ang ganitong pag-uusap sa publiko.`,
+  encounterBody2: `Hindi sinasabi ng Juan 4 kung bakit tanghaling tapat siyang pumunta sa balon. Hindi kailangang imbentuhin ang dahilan para makita ang mahalaga: nakita siya ni Jesus at nagsimula Siya ng pag-uusap. Sinabi ng preacher na walang ibinubukod ang Panginoon sa paanyaya Niyang lumapit sa Kanya.`,
+  encounterBody3: `Habang pinag-aaralan natin ang tagpong ito, isipin din ang taong inilalagay ng Diyos sa puso mo—kapamilya, kaklase, katrabaho, o kaibigang nanghihina. Ipanalangin siya habang nakikinig ka kay Jesus.`,
+  discuss1Label: `Pag-usapan · 1`,
+  discuss1: `Ano ang ipinapakita ng unang paglapit ni Jesus sa babae tungkol sa kung sino ang maaari Niyang kausapin? Sino ang maaari mong ipanalangin at lapitan nang may ganoong malasakit?`,
+  section02: `02 · Kilalanin ang kaloob`,
+  giftTitle: `Hindi kailangang tayo ang unang sumalok`,
+  giftBody1: `Nag-alok si Jesus ng “living water,” ngunit nakita muna ng babae ang malalim na balon at ang katotohanang walang pansalok si Jesus. Makatuwiran ang tanong niya: saan manggagaling ang tubig na iyon? Sa halip na pagsabihan siya, inakay ni Jesus ang usapan tungo sa kaloob na hindi kayang ibigay ng balon.`,
+  giftBody2: `Muling mauuhaw ang sinumang iinom ng karaniwang tubig. Ngunit ang tubig na ibinibigay ni Jesus ay magiging bukal na umaagos tungo sa buhay na walang hanggan. Inilarawan ng sermon ang tukso nating humanap ng agarang solusyon sa pangangailangan; mas malalim ang iniaalok ni Jesus kaysa sa panandaliang ginhawa.`,
+  giftBody3: `Humingi ang babae ng tubig na iyon, kahit iniisip pa niya ang araw-araw na pag-igib. Maaari rin tayong lumapit kay Jesus na may tanong at hindi pa lubos na nauunawaan ang Kanyang kaloob. Matiyaga Siyang nakikipag-usap.`,
+  keyVerseLabel: `Susing talata · salin para sa study`,
+  springVerse: `“Ang sinumang umiinom ng tubig na ito ay muling mauuhaw, ngunit ang iinom ng tubig na ibibigay Ko ay hindi na mauuhaw kailanman. Ang tubig na ibibigay Ko ay magiging bukal sa loob niya na umaagos tungo sa buhay na walang hanggan.”`,
+  springCitation: `Juan 4:13–14 · salin para sa study`,
+  discuss2Label: `Pag-usapan · 2`,
+  discuss2: `Anong tanong ng babae ang parang tanong mo rin sa paanyaya ni Jesus? Saan ka karaniwang naghahanap ng ginhawa na mabilis mawala, at ano ang ibig sabihin ng humingi sa Kanya ng buhay na tubig?`,
+  section03: `03 · Hayaang makita ang katotohanan`,
+  truthTitle: `Kilala tayo ni Jesus at hindi Niya binabawi ang paanyaya`,
+  truthBody1: `Nang sabihin ni Jesus na tawagin ng babae ang kanyang asawa, sumagot siyang wala siyang asawa. Alam ni Jesus ang tungkol sa lima niyang naging asawa at sa kasalukuyang kasama niyang hindi niya asawa. Sinabi Niya ang totoo nang hindi tinatapos ang pag-uusap o binabawi ang alok Niyang buhay.`,
+  truthBody2: `Hindi ibinigay ng teksto ang buong kasaysayan o mga motibo ng babae. Kaya makinig tayo sa sinasabi nito: kay Jesus, hindi natin kailangang itago ang buhay natin bago lumapit. Ang Kanyang katotohanan ay nagbubukas ng daan sa tapat na pagtugon.`,
+  truthBody3: `Sa sermon, inihalintulad ito sa payong mahirap tanggapin kapag hindi tayo sigurado kung may malasakit ang nagbibigay nito. Kay Jesus, magkasama ang katotohanan at malasakit. Kilala Niya tayo nang lubos at nananatili Siyang narito upang magbigay.`,
+  discuss3Label: `Pag-usapan · 3`,
+  discuss3: `Ano ang pinagkaiba ng pagsasabi ni Jesus ng katotohanan at ng mapanirang paghusga? Anong bahagi ng buhay mo ang maaari mong dalhin sa Kanya nang tapat ngayon?`,
+  section04: `04 · Sambahin ang Ama sa espiritu at katotohanan`,
+  worshipTitle: `Ang Ama ay naghahanap ng mga sasamba sa Kanya`,
+  worshipBody1: `Nagtanong ang babae tungkol sa tamang lugar ng pagsamba. Sumagot si Jesus sa mas malalim na usapin: dumarating ang panahon na sasambahin ang Ama sa espiritu at katotohanan. Hindi Siya umiiwas sa kanyang tanong; ipinakikita Niya kung ano ang tunay na mahalaga sa pagsamba.`,
+  worshipBody2: `Sa sermon, inalala ng preacher ang panahong pinanghinaan siya ng loob dahil sa problema sa trabaho. Naramdaman niyang mahirap sumabay sa masayang pagsamba ng iba. Ang paalala ng teksto: naghahanap ang Ama ng mga sasamba sa Kanya. Maaari tayong lumapit na may pasanin, takot, at pangangailangan, at maging tapat sa Kanya.`,
+  worshipBody3: `Hindi natin kinikita ang Kanyang paglapit sa pamamagitan ng perpektong linggo. Dumating si Jesus upang ibalik tayo sa Diyos. Ang pagtugon natin ay lumapit sa Kanya nang bukas ang puso at hayaan ang Kanyang katotohanan na humubog sa atin.`,
+  worshipVerse: `“Ang mga tunay na sumasamba ay sasamba sa Ama sa espiritu at katotohanan, sapagkat ang Ama ay naghahanap ng mga taong sasamba sa Kanya nang gayon.”`,
+  worshipCitation: `Juan 4:23 · salin para sa study`,
+  discuss4Label: `Pag-usapan · 4`,
+  discuss4: `Kapag pinanghihinaan ka ng loob o pakiramdam mo ay hindi ka karapat-dapat, paano binabago ng “ang Ama ay naghahanap” ang paraan ng paglapit mo sa Kanya? Ano ang isang tapat na panalangin na maaari mong sabihin ngayon?`,
+  section05: `05 · Kilalanin ang Mesiyas at mag-anyaya`,
+  witnessTitle: `“Come and see”`,
+  witnessBody1: `Sinabi ng babae na hinihintay niya ang Mesiyas. Sumagot si Jesus: Siya mismo ang kausap niya. Iniwan ng babae ang kanyang banga at sinabi sa bayan, “Come, see.” Hindi niya kailangang ipaliwanag ang lahat; ibinahagi niya ang nakita at narinig niya.`,
+  witnessBody2: `Dahil sa kanyang patotoo, lumabas ang mga tao upang makilala si Jesus. Nang marinig nila Siya, sinabi nilang naniniwala sila dahil narinig na nila Siya para sa sarili nila. Mahalagang pagkakaiba ito sa sermon: ang simpleng patotoo natin ay maaaring maging paanyaya, ngunit si Jesus ang magpapakilala sa tao.`,
+  witnessBody3: `Samantala, sinabi ni Jesus sa Kanyang mga alagad na ang Kanyang pagkain ay gawin ang kalooban ng nagsugo sa Kanya. Hindi na lamang tungkol sa tubig at pagkain ang tagpo. Pinakita Niya ang kasiyahan ng pag-abot sa mga taong naghihintay ng buhay.`,
+  witnessVerse: `“Hindi na dahil sa sinabi mo kaya kami naniniwala; narinig na namin Siya mismo, at alam naming Siya nga ang Tagapagligtas ng mundo.”`,
+  witnessCitation: `Juan 4:42 · salin para sa study`,
+  discuss5Label: `Pag-usapan · 5`,
+  discuss5: `Anong simpleng ginawa ni Jesus sa buhay mo ang maaari mong ikuwento nang tapat? Paano mo maaanyayahan ang isang tao na makinig at makilala si Jesus para sa sarili niya?`,
+  section06: `06 · Tanggapin at hayaang umapaw`,
+  overflowTitle: `Ang natanggap nating buhay ay dapat dumaloy`,
+  overflowBody1: `Sa pagtatapos ng sermon, tinanong tayo: ang presensya ba ng Panginoon ay para lamang sa Sunday worship o sa takdang oras ng panalangin? Maaari tayong bumalik sa Kanya sa gitna ng karaniwang araw—sa Kanyang Salita, panalangin, at pagsunod—at sumalok muli sa buhay na ibinigay Niya.`,
+  overflowBody2: `Bago ang panalangin para sa pamilya, mga paaralan, trabaho, at Calamba, pinangunahan ng preacher ang church sa pag-alaala sa ginawa ni Jesus sa krus sa pamamagitan ng communion. Umaapaw tayo dahil nakatanggap muna tayo. Hindi kailangang gumawa ng pagmamahal mula sa wala; bumabalik tayo sa biyaya ni Cristo.`,
+  overflowBody3: `Pumili ng isang taong ipapanalangin. Simulan sa malasakit: batiin siya, pakinggan siya, ipanalangin siya, at ibahagi ang isang totoong patotoo kapag may pagkakataon. Ang ating gawain ay mag-anyaya; hayaan nating marinig niya si Jesus para sa sarili niya.`,
+  discuss6Label: `Pag-usapan · 6`,
+  discuss6: `Ano ang tumutulong sa iyo na bumalik kay Jesus sa ordinaryong araw? Sino ang isang taong maaari mong ipanalangin, mahalin, at anyayahang makilala Siya ngayong linggo?`,
+  section07: `07 · Tumugon`,
+  responseTitle: `Lumapit. Tumanggap. Mag-anyaya.`,
+  responseBody1: `Hindi natin kailangang maging handa sa lahat ng sagot bago lumapit kay Jesus. Dalhin sa Kanya ang uhaw, tanong, at katotohanan ng ating buhay. Siya ang nag-aalok ng kaloob at Siya ang nagbibigay ng buhay.`,
+  responseBody2: `Pagkatapos, hayaan ang natanggap mong biyaya na maging malasakit sa ibang tao. Ang isang tapat na kuwento at simpleng “come and see” ay maaaring magbukas ng pagkakataong makilala nila si Jesus.`,
+  responseStepLabel: `Tumugon`,
+  responseAsk: `Basahin muli ang Juan 4:10–26 at sabihin kay Jesus ang isang tapat na tanong o pangangailangan.`,
+  responseDraw: `Magtakda ng oras ngayong linggo para sa Salita at panalangin sa gitna ng ordinaryong araw.`,
+  responsePray: `Isulat ang pangalan ng isang taong nais mong ipanalangin araw-araw.`,
+  responseInvite: `Magbahagi ng isang simpleng patotoo at mag-anyaya nang walang pamimilit: “Come and see.”`,
+  promiseLabel: `Ang paanyaya`,
+  promise: `“Kung alam mo lamang ang kaloob ng Diyos…” — Juan 4:10`,
+  section08: `08 · Manalangin`,
+  prayerTitle: `Isang panalangin para sa buhay na tubig`,
+  prayer1: `Panginoong Jesus, salamat dahil Ikaw ang unang lumapit at nag-alok ng buhay na tubig. Nakikita Mo ang aming uhaw, mga tanong, at buong katotohanan ng aming buhay. Turuan Mo kaming humingi at tumanggap ng biyayang hindi namin kayang ibigay sa sarili.`,
+  prayer2: `Ama, salamat dahil naghahanap Ka ng mga sasamba sa Iyo sa espiritu at katotohanan. Kapag nahihiya o nanghihina kami, ibalik Mo kami sa Iyong presensya. Ipaalala Mo sa amin ang krus ni Cristo at punuin Mo kami ng Iyong pag-ibig araw-araw.`,
+  prayer3: `Banal na Espiritu, gawin Mong daluyan ng Iyong buhay ang aming mga salita at gawa. Alalahanin Mo ang mga kapamilya, kaibigan, katrabaho, at kapitbahay naming ipinapanalangin. Bigyan Mo kami ng tapang na magpatotoo nang tapat at ng pag-ibig na mag-anyaya. Hayaang marinig nila si Jesus para sa sarili nila. Sa pangalan Niya, Amen.`,
+  takeawayLabel: `Dalhin mo ito`,
+  takeaway: `Si Jesus ang nagbibigay ng buhay na tubig. Lumapit sa Kanya nang tapat, tumanggap ng Kanyang biyaya, at mag-anyaya sa iba na marinig Siya para sa sarili nila.`,
+  shareLabel: `Ibahagi ang study`,
+  shareTitle: `Buksan sa ibang device`,
+  shareBody: `I-scan o i-download ang QR code para direktang makabalik sa Bible study na ito.`,
+  downloadQr: `I-download ang QR code`,
+  scriptureNotice: `Ang mga English Scripture quotations ay mula sa ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, isang publishing ministry ng Good News Publishers. Ginamit nang may pahintulot. All rights reserved. Ang Taglish quotations ay mga salin para sa study.`,
+  footerTagline: `Nagkakatipon kay Jesus. Hinuhubog ng Kanyang Salita.`,
+};
+---
+
+<BaseLayout
+  title="Digging Deeper: Living Water | DMI Calamba City"
+  description="A Bible study from John 4 on Jesus' gift of living water, worship in spirit and truth, and inviting others to hear him for themselves."
+  bodyClass="study-page"
+  socialImage={coverPath}
+  socialImageAlt="Digging Deeper: Living Water Canva cover with a stone well, John 4:1–42"
+  socialImageWidth={2400}
+  socialImageHeight={1350}
+>
+  <a class="study-cover" href="#study" aria-label="Begin the Digging Deeper: Living Water Bible study" data-i18n-aria-label="coverLinkAria">
+    <picture>
+      <source srcset={`${coverWebp1280} 1280w, ${coverWebp2400} 2400w`} sizes="100vw" type="image/webp" />
+      <img src={coverPath} width="2400" height="1350" alt="Digging Deeper: Living Water Canva cover with a stone well, John 4:1–42" data-i18n-alt="coverImageAlt" decoding="async" fetchpriority="high" />
+    </picture>
+  </a>
+
+  <header class="study-hero" id="study">
+    <nav class="study-nav" aria-label="Primary navigation" data-i18n-aria-label="navAria">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria"><img src={logoPath} width="900" height="900" alt="" /><span>DMI · Calamba City</span></a>
+      <LanguageToggle translations={translations} />
+      <span>04 October 2026</span>
+    </nav>
+    <div class="study-hero-copy">
+      <p class="eyebrow" data-i18n="eyebrow">Bible Study · John 4:1–42</p>
+      <h1 data-i18n="title">Digging Deeper</h1>
+      <p class="study-subtitle" data-i18n="subtitle">Living Water</p>
+    </div>
+    <blockquote class="hero-scripture"><p lang="en" data-i18n="heroScripture" data-i18n-lang>“If you knew the gift of God, and who it is that is saying to you, ‘Give me a drink,’ you would have asked him, and he would have given you living water.”</p><cite lang="en" data-i18n="heroCitation" data-i18n-lang>John 4:10 · ESV</cite></blockquote>
+  </header>
+
+  <main class="study-content">
+    <aside class="study-aside" aria-label="Study summary" data-i18n-aria-label="summaryAria">
+      <div><span class="aside-label" data-i18n="themeLabel">Theme</span><p data-i18n="theme">Jesus gives the living water we could never draw for ourselves. As we receive his grace, our lives become a testimony that invites others to meet him for themselves.</p></div>
+      <div><span class="aside-label" data-i18n="keyTextsLabel">Key texts</span><p data-i18n="keyTexts">John 4:1–42<br />1 Corinthians 11:23–26</p></div>
+      <div><span class="aside-label" data-i18n="timeLabel">Time</span><p data-i18n="time">35–40 minutes</p></div>
+      <div><span class="aside-label" data-i18n="presentationLabel">Presentation</span><a class="aside-action" href="https://canva.link/8e8jaquyjatmkzo" target="_blank" rel="noreferrer" data-i18n="presentationLink">Open in Canva <span aria-hidden="true">↗</span></a></div>
+      <div><span class="aside-label" data-i18n="serviceLabel">Sunday service</span><p data-i18n="serviceUnavailable">No separate YouTube link was provided</p></div>
+      <div><span class="aside-label" data-i18n="facebookLabel">Facebook Live</span><a class="aside-action" href="https://www.facebook.com/DMICalamba/videos/1846372013463714" target="_blank" rel="noreferrer" data-i18n="facebookLink">Watch on Facebook <span aria-hidden="true">↗</span></a></div>
+    </aside>
+
+    <article class="study-article">
+      <section aria-labelledby="encounter-title">
+        <p class="section-number" data-i18n="section01">01 · Meet at the well</p>
+        <h2 id="encounter-title" data-i18n="encounterTitle">Jesus begins the conversation</h2>
+        <p data-i18n="encounterBody1">Weary from his journey, Jesus sat beside Jacob’s well. A Samaritan woman came to draw water, and Jesus spoke to her. She was surprised: Jews and Samaritans lived with a social divide, and this public conversation was unexpected.</p>
+        <p data-i18n="encounterBody2">John 4 does not tell us why she came at noon. We do not need to invent a reason to see what matters: Jesus saw her and began a conversation. The preacher reminded the church that no one is excluded from the Lord’s invitation to come near.</p>
+        <p data-i18n="encounterBody3">As we study this meeting, hold in mind someone God has brought near to your heart—a family member, classmate, coworker, or discouraged friend. Pray for that person as you listen to Jesus.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss1Label">Discuss · 1</span><p data-i18n="discuss1">What does Jesus’ first approach to the woman show about whom he is willing to speak with? Who could you pray for and approach with that same care?</p></div>
+      </section>
+
+      <section aria-labelledby="gift-title">
+        <p class="section-number" data-i18n="section02">02 · Recognize the gift</p>
+        <h2 id="gift-title" data-i18n="giftTitle">We cannot draw it for ourselves</h2>
+        <p data-i18n="giftBody1">Jesus offered “living water,” but the woman first saw a deep well and a man with no vessel. Her question was honest: where would this water come from? Rather than scolding her, Jesus led the conversation toward a gift that the well could never provide.</p>
+        <p data-i18n="giftBody2">Everyone who drinks ordinary water will be thirsty again. The water Jesus gives becomes a spring welling up to eternal life. The sermon pictured our temptation to seek quick fixes for our needs; Jesus offers something deeper than temporary relief.</p>
+        <p data-i18n="giftBody3">The woman asked for this water, even while thinking of her daily trip to the well. We, too, may come to Jesus with questions and an incomplete grasp of his gift. He is patient with us.</p>
+        <blockquote class="verse-card"><span data-i18n="keyVerseLabel">Key verse · study translation</span><p lang="en" data-i18n="springVerse" data-i18n-lang>“Everyone who drinks of this water will be thirsty again, but whoever drinks of the water that I will give him will never be thirsty again. The water that I will give him will become in him a spring of water welling up to eternal life.”</p><cite lang="en" data-i18n="springCitation" data-i18n-lang>John 4:13–14 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss2Label">Discuss · 2</span><p data-i18n="discuss2">Which of the woman’s questions sounds like one you have about Jesus’ invitation? Where do you usually seek relief that quickly fades, and what would it mean to ask him for living water?</p></div>
+      </section>
+
+      <section aria-labelledby="truth-title">
+        <p class="section-number" data-i18n="section03">03 · Let the truth be seen</p>
+        <h2 id="truth-title" data-i18n="truthTitle">Jesus knows us without withdrawing his invitation</h2>
+        <p data-i18n="truthBody1">When Jesus told the woman to call her husband, she answered that she had none. Jesus knew about her five former husbands and the man now with her who was not her husband. He spoke truthfully without ending the conversation or taking back his offer of life.</p>
+        <p data-i18n="truthBody2">The text does not give her full history or motives. Let us stay with what it does say: with Jesus, we need not hide our lives before coming near. His truth opens a way to respond honestly.</p>
+        <p data-i18n="truthBody3">The sermon compared this with advice that is hard to receive when we do not know whether the speaker truly cares. In Jesus, truth and care belong together. He knows us fully and remains present to give.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss3Label">Discuss · 3</span><p data-i18n="discuss3">How is Jesus’ truthful speech different from destructive judgment? What part of your life could you bring to him honestly today?</p></div>
+      </section>
+
+      <section aria-labelledby="worship-title">
+        <p class="section-number" data-i18n="section04">04 · Worship the Father in spirit and truth</p>
+        <h2 id="worship-title" data-i18n="worshipTitle">The Father is seeking worshipers</h2>
+        <p data-i18n="worshipBody1">The woman asked about the right place to worship. Jesus answered the deeper issue: the hour was coming when people would worship the Father in spirit and truth. He did not ignore her question; he showed what matters most in worship.</p>
+        <p data-i18n="worshipBody2">The preacher remembered feeling discouraged during a difficult season at work and struggling to join others in joyful worship. The text’s reminder is that the Father is seeking worshipers. We may come carrying burdens, fear, and need, and be truthful before him.</p>
+        <p data-i18n="worshipBody3">We do not earn his nearness by having a perfect week. Jesus came to bring us back to God. Our response is to draw near with an open heart and let his truth shape us.</p>
+        <blockquote class="verse-card"><span data-i18n="keyVerseLabel">Key verse · study translation</span><p lang="en" data-i18n="worshipVerse" data-i18n-lang>“The true worshipers will worship the Father in spirit and truth, for the Father is seeking such people to worship him.”</p><cite lang="en" data-i18n="worshipCitation" data-i18n-lang>John 4:23 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss4Label">Discuss · 4</span><p data-i18n="discuss4">When you feel discouraged or unworthy, how does “the Father is seeking” change the way you approach him? What is one honest prayer you could speak now?</p></div>
+      </section>
+
+      <section aria-labelledby="witness-title">
+        <p class="section-number" data-i18n="section05">05 · Meet the Messiah and invite others</p>
+        <h2 id="witness-title" data-i18n="witnessTitle">“Come and see”</h2>
+        <p data-i18n="witnessBody1">The woman said she was waiting for the Messiah. Jesus answered that he was the one speaking with her. She left her water jar and told the town, “Come and see.” She did not need to explain everything; she shared what she had heard and seen.</p>
+        <p data-i18n="witnessBody2">Her testimony drew people out to meet Jesus. After hearing him, they said they believed because they had heard him for themselves. This distinction was central to the sermon: our simple testimony can open a door, but Jesus makes himself known to each person.</p>
+        <p data-i18n="witnessBody3">Meanwhile, Jesus told his disciples that his food was to do the will of the one who sent him. The scene had become about more than water and food. He showed the joy of reaching people who were waiting for life.</p>
+        <blockquote class="verse-card"><span data-i18n="keyVerseLabel">Key verse · study translation</span><p lang="en" data-i18n="witnessVerse" data-i18n-lang>“It is no longer because of what you said that we believe, for we have heard for ourselves, and we know that this is indeed the Savior of the world.”</p><cite lang="en" data-i18n="witnessCitation" data-i18n-lang>John 4:42 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss5Label">Discuss · 5</span><p data-i18n="discuss5">What simple thing has Jesus done in your life that you could share honestly? How could you invite someone to listen to and meet him for themselves?</p></div>
+      </section>
+
+      <section aria-labelledby="overflow-title">
+        <p class="section-number" data-i18n="section06">06 · Receive and overflow</p>
+        <h2 id="overflow-title" data-i18n="overflowTitle">The life we receive is meant to flow</h2>
+        <p data-i18n="overflowBody1">At the end of the sermon, we were asked whether the Lord’s presence belongs only to Sunday worship or a scheduled prayer time. We can return to him in an ordinary day—through his Word, prayer, and obedience—and draw again from the life he gives.</p>
+        <p data-i18n="overflowBody2">Before praying for families, schools, workplaces, and Calamba, the preacher led the church in remembering Jesus’ cross through communion. We overflow because we have first received. We need not manufacture love from an empty place; we return to Christ’s grace.</p>
+        <p data-i18n="overflowBody3">Choose one person to pray for. Begin with care: greet them, listen, pray, and share one true testimony when the time is right. Our part is to invite; let them hear Jesus for themselves.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss6Label">Discuss · 6</span><p data-i18n="discuss6">What helps you return to Jesus in an ordinary day? Who is one person you can pray for, love, and invite to meet him this week?</p></div>
+      </section>
+
+      <section class="response-section" aria-labelledby="response-title">
+        <p class="section-number" data-i18n="section07">07 · Respond</p>
+        <h2 id="response-title" data-i18n="responseTitle">Come near. Receive. Invite.</h2>
+        <p data-i18n="responseBody1">We do not need every answer before coming to Jesus. Bring him your thirst, questions, and the truth of your life. He offers the gift, and he gives the life.</p>
+        <p data-i18n="responseBody2">Then let the grace you have received become care for another person. One honest story and a simple “come and see” can open a way for them to meet Jesus.</p>
+        <ol class="response-steps">
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseAsk">Read John 4:10–26 again and tell Jesus one honest question or need.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseDraw">Set aside time this week for Scripture and prayer amid an ordinary day.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responsePray">Write down one person’s name and pray for them each day.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseInvite">Share one simple testimony and offer an invitation without pressure: “Come and see.”</p></li>
+        </ol>
+        <div class="key-statement dark"><span data-i18n="promiseLabel">The invitation</span><p data-i18n="promise">“If you knew the gift of God…” — John 4:10</p></div>
+      </section>
+
+      <section class="closing-prayer" aria-labelledby="prayer-title">
+        <p class="section-number" data-i18n="section08">08 · Pray</p>
+        <h2 id="prayer-title" data-i18n="prayerTitle">A prayer for living water</h2>
+        <p data-i18n="prayer1">Lord Jesus, thank You for coming near first and offering living water. You see our thirst, questions, and the whole truth of our lives. Teach us to ask for and receive the grace we cannot give ourselves.</p>
+        <p data-i18n="prayer2">Father, thank You for seeking people who worship You in spirit and truth. When we feel ashamed or discouraged, draw us back into Your presence. Remind us of Christ’s cross and fill us with Your love each day.</p>
+        <p data-i18n="prayer3">Holy Spirit, make our words and actions a channel of Your life. Remember the family, friends, coworkers, and neighbors we are praying for. Give us courage to testify honestly and love to invite them. Let them hear Jesus for themselves. In His name, Amen.</p>
+      </section>
+
+      <section class="takeaway" aria-label="Study takeaway" data-i18n-aria-label="takeawayAria"><span data-i18n="takeawayLabel">Take this with you</span><p data-i18n="takeaway">Jesus gives living water. Come to him honestly, receive his grace, and invite others to hear him for themselves.</p></section>
+
+      <section class="qr-section" aria-labelledby="share-title">
+        <div><p class="section-number" data-i18n="shareLabel">Share the study</p><h2 id="share-title" data-i18n="shareTitle">Open on another device</h2><p data-i18n="shareBody">Scan or download this QR code to return directly to this Bible study.</p><a class="text-link" href={qrPath} download="dmi-living-water-qr.png" data-i18n="downloadQr">Download QR code</a></div>
+        <a class="qr-card" href={pageURL} aria-label="Open this Bible study" data-i18n-aria-label="qrLinkAria"><img src={qrPath} width="720" height="720" alt="QR code for the Digging Deeper: Living Water Bible study" data-i18n-alt="qrImageAlt" /></a>
+      </section>
+
+      <p class="scripture-notice" lang="en" data-i18n="scriptureNotice" data-i18n-lang>Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. Taglish quotations are study translations.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer"><a href={base}>DMI Calamba City</a><div class="site-footer-actions"><span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span><SocialLinks /></div></footer>
+</BaseLayout>
