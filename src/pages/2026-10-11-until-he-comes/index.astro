@@ -1,0 +1,241 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const pagePath = `${base}2026-10-11-until-he-comes/`;
+const pageURL = new URL(pagePath, Astro.site ?? Astro.url).toString();
+const coverPath = `${base}2026-10-11-until-he-comes-cover.jpg`;
+const coverWebp1280 = `${base}2026-10-11-until-he-comes-cover-1280.webp`;
+const coverWebp2400 = `${base}2026-10-11-until-he-comes-cover-2400.webp`;
+const logoPath = `${base}dmi-logo.jpg`;
+const qrPath = `${base}qr/2026-10-11-until-he-comes.png`;
+
+const translations = {
+  languageLabel: `Wika`,
+  languageAriaLabel: `Wika ng pagbabasa`,
+  navAria: `Pangunahing navigation`,
+  homeAria: `Bumalik sa DMI Calamba City home`,
+  summaryAria: `Buod ng study`,
+  takeawayAria: `Pangunahing takeaway ng study`,
+  coverLinkAria: `Simulan ang Until He Comes Bible study`,
+  coverImageAlt: `Unang Canva slide ng Until He Comes, may pamagat na nakasulat sa madilim na background`,
+  qrLinkAria: `Buksan ang Bible study na ito`,
+  qrImageAlt: `QR code para sa Until He Comes Bible study`,
+  eyebrow: `Bible Study · Pahayag 1:1–20`,
+  title: `Until He Comes`,
+  subtitle: `Ang maluwalhating Cristo at ang ating buhay habang hinihintay Siya`,
+  heroScripture: `“Huwag kang matakot. Ako ang una at ang huli, at ang nabubuhay. Namatay Ako, ngunit tingnan mo: buhay Ako magpakailanman.”`,
+  heroCitation: `Pahayag 1:17–18 · salin para sa study`,
+  themeLabel: `Tema`,
+  theme: `Ipinakikilala ng Pahayag 1 ang nabuhay at matagumpay na Jesus: kasama Siya ng Kanyang mga iglesia, banal at nakakakita sa lahat, at may hawak ng huling salita. Dahil sa Kanyang biyaya, maaari tayong magtiwala, sumuko sa Kanya, at maging liwanag habang hinihintay ang Kanyang pagbabalik.`,
+  keyTextsLabel: `Mga susing talata`,
+  keyTexts: `Pahayag 1:1–20<br />Mateo 5:14–16`,
+  timeLabel: `Oras`,
+  time: `35–40 minuto`,
+  presentationLabel: `Presentation`,
+  presentationLink: `Buksan sa Canva <span aria-hidden="true">↗</span>`,
+  serviceLabel: `Sunday service`,
+  serviceUnavailable: `Wala pang YouTube link`,
+  facebookLabel: `Facebook Live`,
+  facebookLink: `Panoorin sa Facebook <span aria-hidden="true">↗</span>`,
+  section01: `01 · Tumingin sa inihayag`,
+  unveilingTitle: `Ang Pahayag ay nagpapakilala kay Jesus`,
+  unveilingBody1: `Maaari tayong umiwas sa Pahayag dahil sa mga simbolo nito at sa takot sa huling panahon. Sinimulan ng preacher ang seryeng “Until He Comes” sa ibang paanyaya: tingnan kung sino ang ipinakikilalang Jesus. Ang “apokalypsis” ay paghahayag o pag-aalis ng takip. Gaya ng telang inaalis sa isang larawan, binubuksan ng Diyos ang ating paningin sa maluwalhating Cristo.`,
+  unveilingBody2: `Isinulat ni Juan ang kanyang nakita para sa mga iglesia. Ang mensahe ay magpalakas at maghanda sa mga mananampalataya na haharap sa pagsubok. Hindi tayo binibigyan ng teksto ng petsang maaari nating itakda para sa pagbabalik ni Jesus. Sa halip, tinatawag tayong basahin, pakinggan, at sundin ang Salita habang naghihintay.`,
+  unveilingBody3: `Kung tila hindi tiyak ang magiging wakas ng ating kuwento, ipinapaalala ng kabanata kung sino ang may hawak nito. Ang unang tanong ng study ay hindi “Kailan eksakto?” kundi “Paano tayo mabubuhay habang darating Siya?”`,
+  blessingLabel: `Susing talata · salin para sa study`,
+  blessingVerse: `“Mapalad ang bumabasa nang malakas ng mga salita ng propesiyang ito, at mapalad ang mga nakikinig at tumutupad sa nakasulat dito.”`,
+  blessingCitation: `Pahayag 1:3 · salin para sa study`,
+  discuss1Label: `Pag-usapan · 1`,
+  discuss1: `Ano ang binabago ng Pahayag 1:1–3 sa paraan ng paglapit mo sa aklat na ito? Anong isang bagay ang maaari mong basahin, pakinggan, at isabuhay ngayong linggo?`,
+  section02: `02 · Makita Siyang nasa gitna`,
+  presentTitle: `Kasama ni Jesus ang Kanyang mga iglesia`,
+  presentBody1: `Nasa Patmos si Juan dahil sa salita ng Diyos at sa kanyang patotoo tungkol kay Jesus. Sa gitna ng hirap, nakita niya ang pitong gintong lampstand at si Jesus na nasa gitna ng mga ito. Ipinaliwanag mismo ng teksto na ang mga lampstand ay ang pitong iglesia at ang mga bituin ay ang kanilang mga anghel. Hindi malayo si Jesus sa Kanyang bayan; naroon Siya at may malasakit sa kanila.`,
+  presentBody2: `Binanggit ng sermon ang digmaan, katiwalian, sakit, alitan, at mga pamilyang sugatan. Kapag dumadaan tayo rito, madaling isipin na wala ang Diyos. Ngunit ang larawang ito ay paalala ng Kanyang presensya at pagkilos. May hawak Siyang mga bituin sa Kanyang kanang kamay, at nakikita Niya ang mga iglesia.`,
+  presentBody3: `Tinawag din ang iglesia na maging liwanag. Hindi lang ito para sa pagtitipon tuwing Linggo: nakikita ang liwanag sa ating salita at gawain sa bahay, opisina, paaralan, at komunidad. Hindi tayo lumiliwanag sa sariling lakas; umaasa tayo sa Banal na Espiritu habang isinusuko natin ang ating mga paraan sa Panginoon.`,
+  lampstandsLabel: `Larawan sa teksto`,
+  lampstandsVerse: `“Ang pitong lampstand ay ang pitong iglesia.”`,
+  lampstandsCitation: `Pahayag 1:20 · salin para sa study`,
+  discuss2Label: `Pag-usapan · 2`,
+  discuss2: `Paano ka tutulungan ng larawang si Jesus ay nasa gitna ng mga iglesia kapag may pagsubok? Sa anong ordinaryong lugar kailangang makita ang Kanyang liwanag sa iyong mga salita o gawa?`,
+  section03: `03 · Lumapit sa Banal na nakakakita`,
+  holyTitle: `Nakikita Niya ang buong katotohanan at lumalapit Siya`,
+  holyBody1: `Inilarawan ni Juan ang ningning ni Jesus: puting buhok, mga matang tulad ng apoy, tinig na gaya ng dagundong ng maraming tubig, at mukhang sumisikat na parang araw. Bumagsak si Juan sa Kanyang paanan. Banal si Jesus, at walang nakatago sa Kanyang paningin—kahit mga motibo, sakit, at kasalanang hindi nakikita ng iba.`,
+  holyBody2: `Hindi iniwan ni Jesus si Juan sa takot. Ipinatong Niya ang Kanyang kanang kamay at sinabing, “Fear not.” Nasa Pahayag 1:5–6 ang dahilan ng paglapit natin: mahal Niya tayo at pinalaya tayo sa kasalanan sa pamamagitan ng Kanyang dugo. Ang biyaya at awa Niya ang daan upang lumapit sa Kanyang kabanalan.`,
+  holyBody3: `Sa panalangin sa dulo ng sermon, inanyayahan tayong ilapag sa paanan ni Jesus ang pagpapanggap, sugat, pagdududa, at mga lihim na kasalanan. Nakikita Niya ang lahat, kaya maaari tayong maging tapat. Ang pagsuko ay hindi pagkunwaring maayos na tayo; paghingi ito ng tulong sa Kanya na kayang maglinis at magligtas.`,
+  fearLabel: `Pangako sa gitna ng takot`,
+  fearVerse: `“Huwag kang matakot. Ako ang una at ang huli, at ang nabubuhay.”`,
+  fearCitation: `Pahayag 1:17–18 · salin para sa study`,
+  discuss3Label: `Pag-usapan · 3`,
+  discuss3: `Ano ang ipinapakita ng paglapit ni Jesus kay Juan tungkol sa Kanyang kabanalan at awa? Anong katotohanan sa buhay mo ang maaari mong dalhin sa Kanya nang tapat?`,
+  section04: `04 · Magtiwala sa Panginoong nagtagumpay`,
+  victoryTitle: `Kay Jesus ang huling salita`,
+  victoryBody1: `Ipinakilala ng Panginoon ang Kanyang sarili bilang Alpha at Omega—ang una at ang huli. Si Jesus ang nabubuhay: namatay Siya, nabuhay, at may hawak ng mga susi ng Kamatayan at Hades. Kaya ang krus ay hindi ang huling tanawin ng Kanyang kuwento. Ipinakita sa Pahayag ang Cristo na maluwalhati at matagumpay.`,
+  victoryBody2: `Ginamit ng preacher ang larawan ng pagpili ng kakampi sa laro: gusto nating mapabilang sa panalong panig. Mas malalim dito ang katiyakan natin kay Jesus. Totoo ang laban sa kasamaan, ngunit hindi magkapantay ang kapangyarihan ng Diyos at ni Satanas. Nasa Panginoon ang kapangyarihan at ang wakas.`,
+  victoryBody3: `Kapag may malubhang karamdaman, kamatayan, o sariling pagkadapa, maaaring tila iyon na ang huling salita. Hindi minamaliit ng teksto ang bigat ng mga iyon. Ipinapaalala nito na nagtagumpay si Jesus laban sa kamatayan, at maaaring ilagak sa Kanya ang ating pag-asa. Ang paanyaya ng sermon ay manampalataya sa Kanya nang buong puso, hindi sa pangalan lamang o sa pagiging bahagi ng isang iglesia.`,
+  keysLabel: `Susing talata · salin para sa study`,
+  keysVerse: `“Namatay Ako, ngunit tingnan mo: buhay Ako magpakailanman, at nasa Akin ang mga susi ng Kamatayan at Hades.”`,
+  keysCitation: `Pahayag 1:18 · salin para sa study`,
+  discuss4Label: `Pag-usapan · 4`,
+  discuss4: `Saan sa buhay mo tila may ibang bagay na may huling salita—takot, karamdaman, kasalanan, o pagkawala? Paano ka aasa sa nagtagumpay na Jesus sa gitna nito?`,
+  section05: `05 · Mabuhay habang hinihintay Siya`,
+  waitingTitle: `Ang pananampalataya ay nakikita sa pagsuko`,
+  waitingBody1: `Kung si Jesus ay kasama natin, banal, at nagtagumpay na, may kinalaman ang pananampalataya sa bawat araw. Tinanong ng sermon kung paano tayo mabubuhay habang hinihintay ang Kanyang pagbabalik. Ang sagot ay hindi puro salita, pagsali sa iglesia, o paghula ng petsa. Ito ay pagtitiwala kay Cristo na humuhubog sa ating pagsunod.`,
+  waitingBody2: `Maaari nating isentro si Jesus sa paraan ng pag-aaral, pakikipagkaibigan, pagpapalaki ng anak, pagtatrabaho, at pakikipag-usap online. Sa bahay man o pampublikong buhay, may nakakakita man o wala, maaari nating itanong: anong tugon ang tumutugma sa Salita Niya?`,
+  waitingBody3: `Sa pagtatapos, nanalangin ang iglesia na maging liwanag sa pamilya, mga kaibigan, kapitbahay, paaralan, trabaho, at Calamba. Manatili tayong malapit sa Kanyang Salita, humingi ng lakas sa Espiritu, at magsama-samang magpatotoo. Ang ating liwanag ay nagmumula sa Kanya.`,
+  discuss5Label: `Pag-usapan · 5`,
+  discuss5: `Saan pinaka-kailangang makita ang paghahari ni Jesus sa linggong ito—sa bahay, trabaho, paaralan, o online? Anong isang kilos o salita ang maaari mong baguhin sa tulong Niya?`,
+  section06: `06 · Tumugon`,
+  responseTitle: `Makinig. Magtiwala. Sumuko. Lumiwanag.`,
+  responseBody1: `Ang Pahayag 1 ay nagpapakita ng Panginoong malapit sa Kanyang iglesia, banal at maawain, at may hawak ng huling salita. Lumapit tayo sa Kanya sa pananampalataya dahil una Niya tayong minahal at pinalaya sa kasalanan.`,
+  responseBody2: `Pumili ng isang tapat at nakikitang tugon ngayong linggo. Hindi natin kailangang patunayan ang sarili upang mahalin Niya tayo; ang pagsunod ay bunga ng Kanyang biyaya at pagkilos ng Espiritu.`,
+  responseStepLabel: `Tumugon`,
+  responseRead: `Basahin nang malakas ang Pahayag 1:1–20 at isulat kung ano ang ipinakikilala nito tungkol kay Jesus.`,
+  responseConfess: `Idalangin sa Kanya ang isang takot, sugat, o kasalanang matagal mong itinatago; humingi ng tulong at awa.`,
+  responseShine: `Pumili ng isang lugar at isang konkretong paraan upang maging liwanag sa iyong salita o gawa.`,
+  responsePray: `Manalangin kasama ang isa pang mananampalataya para sa inyong iglesia at sa mga taong inyong pinaglilingkuran.`,
+  promiseLabel: `Ang katiyakan`,
+  promise: `Buhay si Jesus magpakailanman; nasa Kanya ang huling salita. — Pahayag 1:17–18`,
+  section07: `07 · Manalangin`,
+  prayerTitle: `Isang panalangin habang hinihintay Siya`,
+  prayer1: `Panginoong Jesus, salamat dahil ipinakilala Mo sa amin ang Iyong sarili. Kapag natatakot kami sa hindi tiyak na hinaharap, ipaalaala Mong Ikaw ang una at ang huli, ang nabubuhay magpakailanman. Turuan Mo kaming basahin, pakinggan, at sundin ang Iyong Salita.`,
+  prayer2: `Banal Kang Panginoon at nakikita Mo ang lahat. Inilalapag namin sa Iyong paanan ang aming kasalanan, sakit, pagdududa, at pagpapanggap. Salamat sa Iyong pag-ibig at sa kalayaang ibinigay Mo sa pamamagitan ng Iyong dugo. Sa Iyong biyaya, turuan Mo kaming magtiwala at sumuko nang tapat.`,
+  prayer3: `Banal na Espiritu, bigyan Mo ng lakas ang aming iglesia na maging liwanag. Hubugin Mo ang aming mga salita at gawa sa bahay, paaralan, trabaho, at online. Ingatan Mo ang mga nahihirapan, at gamitin Mo kami upang magdala ng pag-asa sa Calamba at sa mga taong nakapaligid sa amin. Hanggang sa pagbabalik ni Jesus, manatili kaming tapat sa Kanya. Amen.`,
+  takeawayLabel: `Dalhin mo ito`,
+  takeaway: `Kasama natin ang banal at matagumpay na Jesus. Habang hinihintay Siya, magtiwala sa Kanyang biyaya, isuko ang buhay sa Kanya, at maging liwanag sa mundong kinabibilangan mo.`,
+  shareLabel: `Ibahagi ang study`,
+  shareTitle: `Buksan sa ibang device`,
+  shareBody: `I-scan o i-download ang QR code para direktang makabalik sa Bible study na ito.`,
+  downloadQr: `I-download ang QR code`,
+  scriptureNotice: `Ang mga English Scripture quotations ay mula sa ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, isang publishing ministry ng Good News Publishers. Ginamit nang may pahintulot. All rights reserved. Ang Taglish quotations ay mga salin para sa study.`,
+  footerTagline: `Nagkakatipon kay Jesus. Hinuhubog ng Kanyang Salita.`,
+};
+---
+
+<BaseLayout
+  title="Until He Comes: Revelation 1 | DMI Calamba City"
+  description="A Bible study on Revelation 1: the glorified Jesus among his churches, his holiness and mercy, and his victory that gives us hope until he comes."
+  bodyClass="study-page"
+  socialImage={coverPath}
+  socialImageAlt="Until He Comes Canva presentation cover, a preaching series on Revelation"
+  socialImageWidth={2400}
+  socialImageHeight={1350}
+>
+  <a class="study-cover" href="#study" aria-label="Begin the Until He Comes Bible study" data-i18n-aria-label="coverLinkAria">
+    <picture>
+      <source srcset={`${coverWebp1280} 1280w, ${coverWebp2400} 2400w`} sizes="100vw" type="image/webp" />
+      <img src={coverPath} width="2400" height="1350" alt="Until He Comes Canva cover with its title on a dark background" data-i18n-alt="coverImageAlt" decoding="async" fetchpriority="high" />
+    </picture>
+  </a>
+
+  <header class="study-hero" id="study">
+    <nav class="study-nav" aria-label="Primary navigation" data-i18n-aria-label="navAria">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria"><img src={logoPath} width="900" height="900" alt="" /><span>DMI · Calamba City</span></a>
+      <LanguageToggle translations={translations} />
+      <span>11 October 2026</span>
+    </nav>
+    <div class="study-hero-copy">
+      <p class="eyebrow" data-i18n="eyebrow">Bible Study · Revelation 1:1–20</p>
+      <h1 data-i18n="title">Until He Comes</h1>
+      <p class="study-subtitle" data-i18n="subtitle">The glorified Christ and our life while we wait</p>
+    </div>
+    <blockquote class="hero-scripture"><p lang="en" data-i18n="heroScripture" data-i18n-lang>“Fear not, I am the first and the last, and the living one. I died, and behold I am alive forevermore.”</p><cite lang="en" data-i18n="heroCitation" data-i18n-lang>Revelation 1:17–18 · ESV</cite></blockquote>
+  </header>
+
+  <main class="study-content">
+    <aside class="study-aside" aria-label="Study summary" data-i18n-aria-label="summaryAria">
+      <div><span class="aside-label" data-i18n="themeLabel">Theme</span><p data-i18n="theme">Revelation 1 unveils the risen and victorious Jesus: present among his churches, holy and all-seeing, and holding the final word. By his grace, we can trust him, surrender to him, and shine as his people while we await his return.</p></div>
+      <div><span class="aside-label" data-i18n="keyTextsLabel">Key texts</span><p data-i18n="keyTexts">Revelation 1:1–20<br />Matthew 5:14–16</p></div>
+      <div><span class="aside-label" data-i18n="timeLabel">Time</span><p data-i18n="time">35–40 minutes</p></div>
+      <div><span class="aside-label" data-i18n="presentationLabel">Presentation</span><a class="aside-action" href="https://www.canva.com/design/DAHXnv5ugnY/cgPS7hBqP7fWU7Wl251xpA/edit" target="_blank" rel="noreferrer" data-i18n="presentationLink">Open in Canva <span aria-hidden="true">↗</span></a></div>
+      <div><span class="aside-label" data-i18n="serviceLabel">Sunday service</span><p data-i18n="serviceUnavailable">YouTube link not available</p></div>
+      <div><span class="aside-label" data-i18n="facebookLabel">Facebook Live</span><a class="aside-action" href="https://www.facebook.com/DMICalamba/videos/2322467065233892" target="_blank" rel="noreferrer" data-i18n="facebookLink">Watch on Facebook <span aria-hidden="true">↗</span></a></div>
+    </aside>
+
+    <article class="study-article">
+      <section aria-labelledby="unveiling-title">
+        <p class="section-number" data-i18n="section01">01 · Look at what is unveiled</p>
+        <h2 id="unveiling-title" data-i18n="unveilingTitle">Revelation makes Jesus known</h2>
+        <p data-i18n="unveilingBody1">We may avoid Revelation because its symbols seem difficult and the last days sound frightening. The preacher began the “Until He Comes” series with a different invitation: look at the Jesus it reveals. “Apokalypsis” means an unveiling or disclosure. Like a covering lifted from a work of art, God opens our eyes to the glorified Christ.</p>
+        <p data-i18n="unveilingBody2">John wrote what he saw for the churches. This message was meant to encourage and prepare believers who would face trials. The text does not give us a date to set for Jesus’ return. Instead, it calls us to read, hear, and keep his Word as we wait.</p>
+        <p data-i18n="unveilingBody3">When the ending of our own story feels uncertain, this chapter reminds us who holds it. The study’s first question is not “When exactly?” but “How shall we live until he comes?”</p>
+        <blockquote class="verse-card"><span data-i18n="blessingLabel">Key verse · study translation</span><p lang="en" data-i18n="blessingVerse" data-i18n-lang>“Blessed is the one who reads aloud the words of this prophecy, and blessed are those who hear, and who keep what is written in it.”</p><cite lang="en" data-i18n="blessingCitation" data-i18n-lang>Revelation 1:3 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss1Label">Discuss · 1</span><p data-i18n="discuss1">How does Revelation 1:1–3 change the way you approach this book? What is one thing you can read, hear, and put into practice this week?</p></div>
+      </section>
+
+      <section aria-labelledby="present-title">
+        <p class="section-number" data-i18n="section02">02 · See him in the midst</p>
+        <h2 id="present-title" data-i18n="presentTitle">Jesus is present among his churches</h2>
+        <p data-i18n="presentBody1">John was on Patmos because of God’s Word and his testimony about Jesus. Amid hardship, he saw seven golden lampstands and Jesus among them. The text itself explains that the lampstands are the seven churches and the stars are their angels. Jesus is close to his people and cares about them.</p>
+        <p data-i18n="presentBody2">The sermon named wars, corruption, illness, disputes, and broken families. When we pass through these, it is easy to think God is absent. Yet this picture reminds us of his presence and involvement. He holds the stars in his right hand, and he sees his churches.</p>
+        <p data-i18n="presentBody3">The church is also called to be light. This reaches beyond Sunday gatherings: light is seen in our words and actions at home, work, school, and in the community. We do not shine by our own strength; we depend on the Holy Spirit as we surrender our own way to the Lord.</p>
+        <blockquote class="verse-card"><span data-i18n="lampstandsLabel">The image explained</span><p lang="en" data-i18n="lampstandsVerse" data-i18n-lang>“The seven lampstands are the seven churches.”</p><cite lang="en" data-i18n="lampstandsCitation" data-i18n-lang>Revelation 1:20 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss2Label">Discuss · 2</span><p data-i18n="discuss2">How might the picture of Jesus among the churches help you in a trial? In which ordinary place should his light be more visible in your words or actions?</p></div>
+      </section>
+
+      <section aria-labelledby="holy-title">
+        <p class="section-number" data-i18n="section03">03 · Come to the Holy One who sees</p>
+        <h2 id="holy-title" data-i18n="holyTitle">He sees the whole truth and draws near</h2>
+        <p data-i18n="holyBody1">John described Jesus’ radiance: hair white as snow, eyes like fire, a voice like many waters, and a face shining like the sun. John fell at his feet. Jesus is holy, and nothing is hidden from his sight—not even the motives, pain, and sins unseen by others.</p>
+        <p data-i18n="holyBody2">Jesus did not leave John in fear. He laid his right hand on him and said, “Fear not.” Revelation 1:5–6 gives us a reason to draw near: he loves us and has freed us from our sins by his blood. His grace and mercy make a way for us to approach his holiness.</p>
+        <p data-i18n="holyBody3">In the closing prayer, the preacher invited us to lay pretense, wounds, doubts, and hidden sins at Jesus’ feet. He sees them all, so we can be honest. Surrender is not pretending we have already become whole; it is asking for help from the One who can cleanse and save.</p>
+        <blockquote class="verse-card"><span data-i18n="fearLabel">A promise amid fear</span><p lang="en" data-i18n="fearVerse" data-i18n-lang>“Fear not, I am the first and the last, and the living one.”</p><cite lang="en" data-i18n="fearCitation" data-i18n-lang>Revelation 1:17–18 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss3Label">Discuss · 3</span><p data-i18n="discuss3">What does Jesus’ approach to John show about both his holiness and his mercy? What truth about your life could you bring to him honestly?</p></div>
+      </section>
+
+      <section aria-labelledby="victory-title">
+        <p class="section-number" data-i18n="section04">04 · Trust the victorious Lord</p>
+        <h2 id="victory-title" data-i18n="victoryTitle">Jesus has the final word</h2>
+        <p data-i18n="victoryBody1">The Lord names himself the Alpha and the Omega—the first and the last. Jesus is the living One: he died, rose, and holds the keys of Death and Hades. The cross is not the final scene of his story. Revelation shows the Christ who is glorified and victorious.</p>
+        <p data-i18n="victoryBody2">The preacher pictured choosing teammates for a game: we want to be on the winning side. Our confidence in Jesus goes much deeper. The struggle against evil is real, but God and Satan are not equal powers. The Lord holds power and the outcome.</p>
+        <p data-i18n="victoryBody3">Serious illness, death, or our own failures can feel like the final word. The text does not make these burdens small. It reminds us that Jesus has overcome death, and we may place our hope in him. The sermon invites us to trust him from the heart, beyond a name-only faith or church affiliation.</p>
+        <blockquote class="verse-card"><span data-i18n="keysLabel">Key verse · study translation</span><p lang="en" data-i18n="keysVerse" data-i18n-lang>“I died, and behold I am alive forevermore, and I have the keys of Death and Hades.”</p><cite lang="en" data-i18n="keysCitation" data-i18n-lang>Revelation 1:18 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss4Label">Discuss · 4</span><p data-i18n="discuss4">Where does something else seem to have the last word in your life—fear, illness, sin, or loss? How might you lean on the victorious Jesus amid it?</p></div>
+      </section>
+
+      <section aria-labelledby="waiting-title">
+        <p class="section-number" data-i18n="section05">05 · Live while we wait</p>
+        <h2 id="waiting-title" data-i18n="waitingTitle">Faith becomes visible in surrender</h2>
+        <p data-i18n="waitingBody1">If Jesus is with us, holy, and already victorious, faith touches every day. The sermon asked how we should live until he returns. The answer is more than words, joining a church, or guessing a date. It is trust in Christ that shapes our obedience.</p>
+        <p data-i18n="waitingBody2">We can center Jesus in how we study, make friends, raise children, work, and speak online. At home and in public, whether anyone is watching or not, we can ask: what response fits his Word?</p>
+        <p data-i18n="waitingBody3">At the close, the church prayed to be light to family, friends, neighbors, schools, workplaces, and Calamba. Let us stay near his Word, seek the Spirit’s strength, and bear witness together. Our light comes from him.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss5Label">Discuss · 5</span><p data-i18n="discuss5">Where should Jesus’ lordship be most visible this week—at home, work, school, or online? What one action or word could you change with his help?</p></div>
+      </section>
+
+      <section class="response-section" aria-labelledby="response-title">
+        <p class="section-number" data-i18n="section06">06 · Respond</p>
+        <h2 id="response-title" data-i18n="responseTitle">Listen. Trust. Surrender. Shine.</h2>
+        <p data-i18n="responseBody1">Revelation 1 shows a Lord who is near his church, holy and merciful, and holding the final word. We come to him in faith because he first loved us and freed us from sin.</p>
+        <p data-i18n="responseBody2">Choose one honest, visible response this week. We do not need to prove ourselves worthy of his love; obedience grows from his grace and the Spirit’s work.</p>
+        <ol class="response-steps">
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseRead">Read Revelation 1:1–20 aloud and write down what it reveals about Jesus.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseConfess">Bring a fear, wound, or hidden sin to him in prayer; ask for his help and mercy.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseShine">Choose one place and one concrete way to be light in your words or actions.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responsePray">Pray with another believer for your church and the people you serve.</p></li>
+        </ol>
+        <div class="key-statement dark"><span data-i18n="promiseLabel">Our assurance</span><p data-i18n="promise">Jesus lives forever; he has the final word. — Revelation 1:17–18</p></div>
+      </section>
+
+      <section class="closing-prayer" aria-labelledby="prayer-title">
+        <p class="section-number" data-i18n="section07">07 · Pray</p>
+        <h2 id="prayer-title" data-i18n="prayerTitle">A prayer while we wait</h2>
+        <p data-i18n="prayer1">Lord Jesus, thank You for making Yourself known to us. When the future feels uncertain, remind us that You are the first and the last, alive forevermore. Teach us to read, hear, and keep Your Word.</p>
+        <p data-i18n="prayer2">You are holy, and You see everything. We lay our sin, pain, doubt, and pretense at Your feet. Thank You for Your love and for the freedom You have given through Your blood. By Your grace, teach us to trust and surrender honestly.</p>
+        <p data-i18n="prayer3">Holy Spirit, strengthen our church to be a light. Shape our words and actions at home, school, work, and online. Care for those who are struggling, and use us to bring hope to Calamba and to those around us. Until Jesus comes, keep us faithful to him. Amen.</p>
+      </section>
+
+      <section class="takeaway" aria-label="Study takeaway" data-i18n-aria-label="takeawayAria"><span data-i18n="takeawayLabel">Take this with you</span><p data-i18n="takeaway">The holy and victorious Jesus is with us. While we wait for him, trust his grace, surrender your life to him, and be light in the world around you.</p></section>
+
+      <section class="qr-section" aria-labelledby="share-title">
+        <div><p class="section-number" data-i18n="shareLabel">Share the study</p><h2 id="share-title" data-i18n="shareTitle">Open on another device</h2><p data-i18n="shareBody">Scan or download this QR code to return directly to this Bible study.</p><a class="text-link" href={qrPath} download="dmi-until-he-comes-qr.png" data-i18n="downloadQr">Download QR code</a></div>
+        <a class="qr-card" href={pageURL} aria-label="Open this Bible study" data-i18n-aria-label="qrLinkAria"><img src={qrPath} width="720" height="720" alt="QR code for the Until He Comes Bible study" data-i18n-alt="qrImageAlt" /></a>
+      </section>
+
+      <p class="scripture-notice" lang="en" data-i18n="scriptureNotice" data-i18n-lang>Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. Taglish quotations are study translations.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer"><a href={base}>DMI Calamba City</a><div class="site-footer-actions"><span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span><SocialLinks /></div></footer>
+</BaseLayout>
