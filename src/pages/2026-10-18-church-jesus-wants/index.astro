@@ -1,0 +1,239 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const pagePath = `${base}2026-10-18-church-jesus-wants/`;
+const pageURL = new URL(pagePath, Astro.site ?? Astro.url).toString();
+const coverPath = `${base}2026-10-18-church-jesus-wants-cover.jpg`;
+const coverWebp1280 = `${base}2026-10-18-church-jesus-wants-cover-1280.webp`;
+const coverWebp2400 = `${base}2026-10-18-church-jesus-wants-cover-2400.webp`;
+const logoPath = `${base}dmi-logo.jpg`;
+const qrPath = `${base}qr/2026-10-18-church-jesus-wants.png`;
+
+const translations = {
+  languageLabel: `Wika`,
+  languageAriaLabel: `Wika ng pagbabasa`,
+  navAria: `Pangunahing navigation`,
+  homeAria: `Bumalik sa DMI Calamba City home`,
+  summaryAria: `Buod ng Bible study`,
+  takeawayAria: `Pangunahing takeaway ng Bible study`,
+  coverLinkAria: `Simulan ang The Church That Jesus Wants Bible study`,
+  coverImageAlt: `Unang Canva slide ng Until Jesus Comes: The Church That Jesus Wants, na may mapa ng pitong iglesia`,
+  qrLinkAria: `Buksan ang Bible study na ito`,
+  qrImageAlt: `QR code para sa The Church That Jesus Wants Bible study`,
+  eyebrow: `Bible Study · Pahayag 2:1–29`,
+  title: `The Church That Jesus Wants`,
+  subtitle: `Pag-ibig, katapatan, at katotohanan habang hinihintay ang Kanyang pagbabalik`,
+  heroScripture: `“Ang may pandinig ay makinig sa sinasabi ng Espiritu sa mga iglesia.”`,
+  heroCitation: `Pahayag 2:29 · salin para sa study`,
+  themeLabel: `Tema`,
+  theme: `Kasama ni Jesus ang Kanyang iglesia at nakikita Niya ang tunay nitong kalagayan. Tinatawag Niya tayong magmahal, manatiling tapat sa hirap, tumanggi sa kompromiso, at sumunod sa sinasabi ng Espiritu habang hinihintay Siya.`,
+  keyTextsLabel: `Mga susing talata`,
+  keyTexts: `Pahayag 2:1–29<br />Santiago 1:25`,
+  timeLabel: `Oras`,
+  time: `35–40 minuto`,
+  presentationLabel: `Presentation`,
+  presentationLink: `Buksan sa Canva <span aria-hidden="true">↗</span>`,
+  serviceLabel: `Sunday service`,
+  serviceUnavailable: `Wala pang YouTube link`,
+  facebookLabel: `Facebook Live`,
+  facebookUnavailable: `Wala pang Facebook Live link`,
+  section01: `01 · Pakinggan ang Panginoong nasa gitna`,
+  openingTitle: `Nagsasalita si Jesus sa Kanyang iglesia`,
+  openingBody1: `Sa Pahayag 1, nakita natin ang nabuhay na Jesus na nasa gitna ng mga lampstand—ang Kanyang mga iglesia. Sa Pahayag 2, Siya mismo ang nagsasalita sa Ephesus, Smyrna, Pergamum, at Thyatira. Kilala Niya ang kanilang gawa, paghihirap, pag-ibig, at mga kompromiso. Hindi Siya malayong tagamasid; Siya ang Panginoong kasama ng Kanyang bayan.`,
+  openingBody2: `May sariling kalagayan ang bawat iglesia, pero inuulit ang paanyaya: “Ang may pandinig ay makinig sa sinasabi ng Espiritu sa mga iglesia.” Para rin sa atin ang mga liham na ito. Habang hinihintay ang pagbabalik ni Jesus, makikinig tayo nang may pusong handang tumugon, hindi lamang makadagdag ng kaalaman.`,
+  openingBody3: `Dumarating muna ang biyaya bago ang ating tugon. Si Jesus ang namatay, nabuhay, at nagpalaya sa atin mula sa kasalanan (Pahayag 1:5–18). Sa Kanyang pag-ibig at sa tulong ng Espiritu, maaari tayong magsisi, magtiis, at manatiling tapat.`,
+  refrainLabel: `Paulit-ulit na paanyaya · salin para sa study`,
+  refrainVerse: `“Ang may pandinig ay makinig sa sinasabi ng Espiritu sa mga iglesia.”`,
+  refrainCitation: `Pahayag 2:7, 11, 17, 29 · salin para sa study`,
+  section02: `02 · Ephesus: katotohanang may pag-ibig`,
+  ephesusTitle: `Huwag iwan ang unang pag-ibig`,
+  ephesusBody1: `Pinuri ni Jesus ang Ephesus dahil sa kanilang pagsisikap, pagtitiis, at pagsusuri sa mga maling guro. Mahalagang ingatan ang katotohanan. Ngunit sinabi rin Niya: iniwan nila ang pag-ibig na mayroon sila noong una. Maaaring tama ang ating paniniwala at abala tayo sa gawain ng iglesia, pero lumalamig na ang ating pagmamahal kay Cristo at sa mga tao.`,
+  ephesusBody2: `Malinaw ang daan pabalik: alalahanin kung saan sila nahulog, magsisi, at gawin muli ang kanilang mga unang gawa. Hindi paanyaya ito na habulin ang dating damdamin. Paanyaya itong bumalik kay Jesus sa panalangin, pakikinig sa Kanyang Salita, at mapagpakumbabang paglilingkod. Nangangako Siya ng puno ng buhay sa magtatagumpay.`,
+  ephesusVerseLabel: `Pahayag 2:4 · salin para sa study`,
+  ephesusVerse: `“Iniwan mo ang pag-ibig na mayroon ka noong una.”`,
+  ephesusCitation: `Pahayag 2:4 · salin para sa study`,
+  discuss1Label: `Pag-usapan · 1`,
+  discuss1: `Ano ang pinuri ni Jesus sa Ephesus, at ano ang kulang? Saang gawain mo kailangang muling makita ang pag-ibig kay Jesus at sa tao?`,
+  section03: `03 · Smyrna: katapatan sa gitna ng hirap`,
+  smyrnaTitle: `Kilala ni Jesus ang inyong paghihirap`,
+  smyrnaBody1: `Sinabi ni Jesus sa Smyrna na alam Niya ang kanilang paghihirap at kahirapan, ngunit mayaman sila sa Kanya. Wala Siyang ibinigay na pagsaway sa iglesiang ito. Ang nagsasalita sa kanila ay ang Una at ang Huli, ang namatay at muling nabuhay. Kaya naiintindihan Niya ang bigat ng pagdurusa at hawak Niya ang pag-asang lampas sa kamatayan.`,
+  smyrnaBody2: `Hindi Niya ipinangakong mawawala agad ang pagsubok. Sinabi Niyang huwag matakot at manatiling tapat, kahit may kapalit. Ang “putong ng buhay” at ang pangakong hindi masasaktan ng ikalawang kamatayan ay paalala na hindi kayang burahin ng pag-uusig ang buhay na ibinibigay ni Cristo. Maaari nating dalhin sa Kanya ang takot nang hindi nagpapanggap na madali ang hirap.`,
+  smyrnaVerseLabel: `Pahayag 2:10 · salin para sa study`,
+  smyrnaVerse: `“Manatili kang tapat hanggang kamatayan, at ibibigay Ko sa iyo ang putong ng buhay.”`,
+  smyrnaCitation: `Pahayag 2:10 · salin para sa study`,
+  discuss2Label: `Pag-usapan · 2`,
+  discuss2: `Paano binabago ng pagkakilala ni Jesus sa kahirapan ng Smyrna ang pagtingin mo sa sariling pagsubok? Anong takot ang maaari mong ipagkatiwala sa Kanya ngayon?`,
+  section04: `04 · Pergamum: pananampalatayang walang kompromiso`,
+  pergamumTitle: `Manatiling tapat sa labas at sa loob`,
+  pergamumBody1: `Nananatili sa pangalan ni Jesus ang mga taga-Pergamum kahit pinatay si Antipas dahil sa kanyang patotoo. Ngunit may ilan sa kanila na yumayakap sa turo ni Balaam at ng mga Nicolaitan—mga turong humihila sa bayan ng Diyos tungo sa pagsamba sa diyus-diyosan at seksuwal na imoralidad. Kaya sinabi ni Jesus sa iglesia na magsisi.`,
+  pergamumBody2: `Maaari tayong tumayo para kay Cristo sa publiko habang pinapayagan ang kompromiso sa pribado. Maaaring dumating ang pressure sa trabaho, barkada, o relasyon. Hindi nito pinapaliit ang tunay na hirap ng pagpili ng tama. Ngunit tinatawag tayo ni Jesus na mas mahalin ang Kanyang pagsang-ayon kaysa ang pagiging katanggap-tanggap sa lahat. Sa magtatagumpay, ipinapangako Niya ang nakatagong manna at isang puting bato na may bagong pangalan—mga larawang nagpapakita ng Kanyang sariling pagtanggap at pag-aaruga.`,
+  pergamumVerseLabel: `Pahayag 2:16 · salin para sa study`,
+  pergamumVerse: `“Kaya magsisi ka.”`,
+  pergamumCitation: `Pahayag 2:16 · salin para sa study`,
+  discuss3Label: `Pag-usapan · 3`,
+  discuss3: `Ano ang kaibahan ng pagtindig ng Pergamum para kay Jesus at ng pagtanggap nila sa maling turo? Saang pagpili ngayong linggo makatutulong ang Kanyang Salita upang makaiwas sa kompromiso?`,
+  section05: `05 · Thyatira: pag-ibig na may pagkilatis`,
+  thyatiraTitle: `Maglingkod nang may katotohanan`,
+  thyatiraBody1: `Nakita ni Jesus ang lumalaking pag-ibig, pananampalataya, paglilingkod, at pagtitiis ng Thyatira. Ngunit hinayaan nila ang isang guro na tinawag na “Jezebel” na akayin ang mga tao sa pagsamba sa diyus-diyosan at seksuwal na imoralidad. Binigyan siya ni Jesus ng panahon para magsisi; seryoso ang Kanyang babala nang tumanggi siya. Sinusuri Niya ang puso at isip ng bawat isa.`,
+  thyatiraBody2: `Sa Ephesus, may pagkilatis pero kulang ang pag-ibig. Sa Thyatira, lumalago ang pag-ibig at paglilingkod pero kulang ang pagkilatis. Nais ni Jesus ang dalawa. Ang malasakit ay hindi pagpapabaya sa nakasasamang turo, at ang pagtatanggol sa katotohanan ay hindi dahilan upang mawala ang lambing sa tao. Sinabi Niya sa mga nanatiling tapat: panghawakan ang mayroon kayo hanggang sa Kanyang pagdating.`,
+  thyatiraBody3: `Ipinangako ni Jesus ang pakikibahagi sa Kanyang paghahari at ang tala sa umaga. Sa Pahayag 22:16, tinawag Niyang ang Kanyang sarili ang maningning na Tala sa Umaga. Siya ang pinakamahalagang gantimpala: ang presensya Niya sa mga nananatiling tapat.`,
+  thyatiraVerseLabel: `Pahayag 2:25 · salin para sa study`,
+  thyatiraVerse: `“Panghawakan lamang ninyo ang mayroon kayo hanggang sa pagdating Ko.”`,
+  thyatiraCitation: `Pahayag 2:25 · salin para sa study`,
+  discuss4Label: `Pag-usapan · 4`,
+  discuss4: `Paano magkasama ang pag-ibig at pagkilatis sa tugon ni Jesus sa Thyatira? Paano mo maipapakita ang dalawang ito sa isang totoong relasyon o gawain ng iglesia?`,
+  section06: `06 · Pakinggan at gawin`,
+  responseTitle: `Ano ang susundin mo ngayon?`,
+  responseBody1: `Ang iglesia na nais ni Jesus ay umiibig sa Kanya at sa tao, nananatiling tapat sa pagdurusa, tumatanggi sa kompromiso, at humahawak sa katotohanan nang may pag-ibig. Sa bawat liham, tinatawag Niya tayong makinig sa Espiritu. Ayon sa Santiago 1:25, ang pagpapala ay kasama ng taong tumitingin sa Salita ng Diyos at nagpapatuloy sa paggawa nito.`,
+  responseBody2: `Huwag nating gawing listahan ng paghusga sa iba ang apat na iglesia. Hayaan nating siyasatin tayo ni Jesus. Pumili ng isang tugon na maaari mong gawin sa tulong ng Kanyang Espiritu—hindi upang kitain ang Kanyang pag-ibig, kundi dahil una Niya tayong minahal.`,
+  discuss5Label: `Pag-usapan · 5`,
+  discuss5: `Alin sa apat na liham ang pinakamalinaw na paanyaya sa iyo ngayon? Anong isang hakbang ng pagsunod ang gagawin mo, at sino ang maaaring manalangin kasama mo?`,
+  responseStepLabel: `Tumugon`,
+  responseRead: `Basahin ang Pahayag 2:1–29; isulat ang sinabi ni Jesus na pinuri, itinuwid, at ipinangako sa bawat iglesia.`,
+  responseLove: `Maglaan ng oras sa panalangin at isang simpleng gawa ng pag-ibig para sa taong kailangan ng iyong malasakit.`,
+  responseTrust: `Ipagkatiwala kay Jesus ang isang takot o pagsubok, at humingi ng tulong upang manatiling tapat.`,
+  responseDiscern: `Pangalanan ang isang kompromisong kailangang talikuran; kausapin ang mapagkakatiwalaang mananampalataya at gumawa ng konkretong pagbabago.`,
+  promiseLabel: `Dalhin sa linggong ito`,
+  promise: `Pakinggan ang sinasabi ng Espiritu sa mga iglesia—at gawin ang ipinapakita ni Jesus. — Pahayag 2:29; Santiago 1:25`,
+  section07: `07 · Manalangin`,
+  prayerTitle: `Panalangin habang hinihintay Siya`,
+  prayer1: `Panginoong Jesus, salamat dahil kasama Ka ng Iyong iglesia at kilala Mo kami. Salamat sa Iyong pag-ibig at sa buhay na ibinigay Mo sa amin. Turuan Mo kaming makinig sa Iyong Salita nang may pusong handang sumunod.`,
+  prayer2: `Ibalik Mo kami sa pag-ibig kung naging malamig ang aming puso. Palakasin Mo ang mga dumaraan sa hirap at takot. Ilantad Mo nang may awa ang mga kompromisong pinapayagan namin, at bigyan Mo kami ng lakas na magsisi. Tulungan Mo kaming maglingkod nang may pag-ibig at pagkilatis.`,
+  prayer3: `Banal na Espiritu, hubugin Mo ang aming iglesia sa katotohanan at katapatan. Habang hinihintay ang pagbabalik ni Jesus, tulungan Mo kaming manatiling malapit sa Kanya at isabuhay ang aming narinig. Amen.`,
+  takeawayLabel: `Dalhin mo ito`,
+  takeaway: `Ang iglesia na nais ni Jesus ay nakikinig sa Kanya: umiibig nang may katotohanan, nananatiling tapat sa hirap, tumatanggi sa kompromiso, at sumusunod sa tulong ng Espiritu.`,
+  shareLabel: `Ibahagi ang study`,
+  shareTitle: `Buksan sa ibang device`,
+  shareBody: `I-scan o i-download ang QR code para direktang makabalik sa Bible study na ito.`,
+  downloadQr: `I-download ang QR code`,
+  scriptureNotice: `Ang mga English Scripture quotations ay mula sa ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, isang publishing ministry ng Good News Publishers. Ginamit nang may pahintulot. All rights reserved. Ang Taglish quotations ay mga salin para sa study.`,
+  footerTagline: `Nagkakatipon kay Jesus. Hinuhubog ng Kanyang Salita.`,
+};
+---
+
+<BaseLayout
+  title="The Church That Jesus Wants: Revelation 2 | DMI Calamba City"
+  description="A Bible study on Revelation 2: loving Christ, enduring suffering, rejecting compromise, and holding truth with love until Jesus comes."
+  bodyClass="study-page"
+  socialImage={coverPath}
+  socialImageAlt="Until Jesus Comes Canva cover with a map of the seven churches of Revelation"
+  socialImageWidth={2400}
+  socialImageHeight={1350}
+>
+  <a class="study-cover" href="#study" aria-label="Begin The Church That Jesus Wants Bible study" data-i18n-aria-label="coverLinkAria">
+    <picture>
+      <source srcset={`${coverWebp1280} 1280w, ${coverWebp2400} 2400w`} sizes="100vw" type="image/webp" />
+      <img src={coverPath} width="2400" height="1350" alt="Until Jesus Comes Canva cover with a map of the seven churches" data-i18n-alt="coverImageAlt" decoding="async" fetchpriority="high" />
+    </picture>
+  </a>
+
+  <header class="study-hero" id="study">
+    <nav class="study-nav" aria-label="Primary navigation" data-i18n-aria-label="navAria">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria"><img src={logoPath} width="900" height="900" alt="" /><span>DMI · Calamba City</span></a>
+      <LanguageToggle translations={translations} />
+      <span>18 October 2026</span>
+    </nav>
+    <div class="study-hero-copy">
+      <p class="eyebrow" data-i18n="eyebrow">Bible Study · Revelation 2:1–29</p>
+      <h1 data-i18n="title">The Church That Jesus Wants</h1>
+      <p class="study-subtitle" data-i18n="subtitle">Love, faithfulness, and truth while we await his return</p>
+    </div>
+    <blockquote class="hero-scripture"><p lang="en" data-i18n="heroScripture" data-i18n-lang>“He who has an ear, let him hear what the Spirit says to the churches.”</p><cite lang="en" data-i18n="heroCitation" data-i18n-lang>Revelation 2:29 · ESV</cite></blockquote>
+  </header>
+
+  <main class="study-content">
+    <aside class="study-aside" aria-label="Study summary" data-i18n-aria-label="summaryAria">
+      <div><span class="aside-label" data-i18n="themeLabel">Theme</span><p data-i18n="theme">Jesus is present among his churches and sees their true condition. He calls us to love, remain faithful in hardship, refuse compromise, and obey what the Spirit says while we wait for him.</p></div>
+      <div><span class="aside-label" data-i18n="keyTextsLabel">Key texts</span><p data-i18n="keyTexts">Revelation 2:1–29<br />James 1:25</p></div>
+      <div><span class="aside-label" data-i18n="timeLabel">Time</span><p data-i18n="time">35–40 minutes</p></div>
+      <div><span class="aside-label" data-i18n="presentationLabel">Presentation</span><a class="aside-action" href="https://canva.link/04l16o845glpt99" target="_blank" rel="noreferrer" data-i18n="presentationLink">Open in Canva <span aria-hidden="true">↗</span></a></div>
+      <div><span class="aside-label" data-i18n="serviceLabel">Sunday service</span><p data-i18n="serviceUnavailable">YouTube link not available yet</p></div>
+      <div><span class="aside-label" data-i18n="facebookLabel">Facebook Live</span><p data-i18n="facebookUnavailable">Facebook Live link not available yet</p></div>
+    </aside>
+
+    <article class="study-article">
+      <section aria-labelledby="opening-title">
+        <p class="section-number" data-i18n="section01">01 · Hear the Lord among us</p>
+        <h2 id="opening-title" data-i18n="openingTitle">Jesus speaks to his church</h2>
+        <p data-i18n="openingBody1">In Revelation 1, we saw the risen Jesus among the lampstands—his churches. In Revelation 2, he speaks to Ephesus, Smyrna, Pergamum, and Thyatira. He knows their work, suffering, love, and compromises. He is no distant observer; he is the Lord present with his people.</p>
+        <p data-i18n="openingBody2">Each church has its own situation, yet the invitation returns: “He who has an ear, let him hear what the Spirit says to the churches.” These letters are for us too. As we await Jesus’ return, we listen with hearts ready to respond, not simply to gain more information.</p>
+        <p data-i18n="openingBody3">Grace comes before our response. Jesus is the One who died, rose, and freed us from sin (Revelation 1:5–18). By his love and the Spirit’s help, we can repent, endure, and hold fast.</p>
+        <blockquote class="verse-card"><span data-i18n="refrainLabel">The repeated invitation · ESV</span><p lang="en" data-i18n="refrainVerse" data-i18n-lang>“He who has an ear, let him hear what the Spirit says to the churches.”</p><cite lang="en" data-i18n="refrainCitation" data-i18n-lang>Revelation 2:7, 11, 17, 29 · ESV</cite></blockquote>
+      </section>
+
+      <section aria-labelledby="ephesus-title">
+        <p class="section-number" data-i18n="section02">02 · Ephesus: truth with love</p>
+        <h2 id="ephesus-title" data-i18n="ephesusTitle">Do not leave your first love</h2>
+        <p data-i18n="ephesusBody1">Jesus commends Ephesus for hard work, endurance, and testing false teachers. Guarding the truth matters. Yet he also says they have left the love they had at first. We may believe rightly and stay busy in church work while growing cold toward Christ and the people around us.</p>
+        <p data-i18n="ephesusBody2">The way back is clear: remember where they have fallen, repent, and do the works they did at first. This is not a call to chase an old feeling. It is a call to return to Jesus in prayer, attention to his Word, and humble service. He promises the tree of life to the one who conquers.</p>
+        <blockquote class="verse-card"><span data-i18n="ephesusVerseLabel">Revelation 2:4 · ESV</span><p lang="en" data-i18n="ephesusVerse" data-i18n-lang>“You have abandoned the love you had at first.”</p><cite lang="en" data-i18n="ephesusCitation" data-i18n-lang>Revelation 2:4 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss1Label">Discuss · 1</span><p data-i18n="discuss1">What does Jesus affirm in Ephesus, and what is missing? Where might love for Jesus and people need to become visible again in your service?</p></div>
+      </section>
+
+      <section aria-labelledby="smyrna-title">
+        <p class="section-number" data-i18n="section03">03 · Smyrna: faithfulness in hardship</p>
+        <h2 id="smyrna-title" data-i18n="smyrnaTitle">Jesus knows your suffering</h2>
+        <p data-i18n="smyrnaBody1">Jesus tells Smyrna he knows their affliction and poverty, yet they are rich in him. He gives this church no rebuke. The One speaking to them is the First and the Last, who died and came to life. He understands the weight of suffering and holds hope beyond death.</p>
+        <p data-i18n="smyrnaBody2">He does not promise an immediate end to their trial. He tells them not to fear and to be faithful, even when it costs them. The “crown of life” and the promise that the second death will not hurt them remind us that persecution cannot erase the life Christ gives. We can bring fear to him without pretending hardship is easy.</p>
+        <blockquote class="verse-card"><span data-i18n="smyrnaVerseLabel">Revelation 2:10 · ESV</span><p lang="en" data-i18n="smyrnaVerse" data-i18n-lang>“Be faithful unto death, and I will give you the crown of life.”</p><cite lang="en" data-i18n="smyrnaCitation" data-i18n-lang>Revelation 2:10 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss2Label">Discuss · 2</span><p data-i18n="discuss2">How does Jesus’ knowledge of Smyrna’s poverty and suffering shape the way you see your own trial? What fear could you entrust to him today?</p></div>
+      </section>
+
+      <section aria-labelledby="pergamum-title">
+        <p class="section-number" data-i18n="section04">04 · Pergamum: faith without compromise</p>
+        <h2 id="pergamum-title" data-i18n="pergamumTitle">Hold fast outside and inside</h2>
+        <p data-i18n="pergamumBody1">The believers in Pergamum held fast to Jesus’ name even when Antipas was killed for his witness. Yet some among them embraced the teaching of Balaam and the Nicolaitans—teaching that drew God’s people toward idol worship and sexual immorality. Jesus therefore calls the church to repent.</p>
+        <p data-i18n="pergamumBody2">We can stand for Christ publicly while allowing compromise privately. Pressure may come through work, friends, or relationships. This does not make the cost of faithful choices small. But Jesus calls us to value his approval more than fitting in. To the one who conquers, he promises hidden manna and a white stone with a new name—images of his own provision and welcome.</p>
+        <blockquote class="verse-card"><span data-i18n="pergamumVerseLabel">Revelation 2:16 · ESV</span><p lang="en" data-i18n="pergamumVerse" data-i18n-lang>“Therefore repent.”</p><cite lang="en" data-i18n="pergamumCitation" data-i18n-lang>Revelation 2:16 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss3Label">Discuss · 3</span><p data-i18n="discuss3">What is the difference between Pergamum’s public loyalty to Jesus and its tolerance of false teaching? Where could his Word guide one choice this week away from compromise?</p></div>
+      </section>
+
+      <section aria-labelledby="thyatira-title">
+        <p class="section-number" data-i18n="section05">05 · Thyatira: love with discernment</p>
+        <h2 id="thyatira-title" data-i18n="thyatiraTitle">Serve with truth</h2>
+        <p data-i18n="thyatiraBody1">Jesus sees Thyatira’s growing love, faith, service, and patient endurance. Yet they tolerated a teacher called “Jezebel” who led people toward idol worship and sexual immorality. Jesus gave her time to repent; his warning is serious when she refused. He searches every mind and heart.</p>
+        <p data-i18n="thyatiraBody2">Ephesus had discernment but lacked love. Thyatira was growing in love and service but lacked discernment. Jesus wants both. Compassion does not mean leaving harmful teaching unchallenged, and defending truth does not excuse coldness toward people. To those who remained faithful, he said to hold fast until he comes.</p>
+        <p data-i18n="thyatiraBody3">Jesus promises a share in his reign and the morning star. In Revelation 22:16, he calls himself the bright Morning Star. He is the greatest reward: his presence with those who hold fast.</p>
+        <blockquote class="verse-card"><span data-i18n="thyatiraVerseLabel">Revelation 2:25 · ESV</span><p lang="en" data-i18n="thyatiraVerse" data-i18n-lang>“Only hold fast what you have until I come.”</p><cite lang="en" data-i18n="thyatiraCitation" data-i18n-lang>Revelation 2:25 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss4Label">Discuss · 4</span><p data-i18n="discuss4">How do love and discernment belong together in Jesus’ response to Thyatira? What would it look like to practice both in one real relationship or church responsibility?</p></div>
+      </section>
+
+      <section class="response-section" aria-labelledby="response-title">
+        <p class="section-number" data-i18n="section06">06 · Hear and do</p>
+        <h2 id="response-title" data-i18n="responseTitle">What will you obey today?</h2>
+        <p data-i18n="responseBody1">The church Jesus wants loves him and serves others, endures suffering, rejects compromise, and holds truth with love. In every letter, he calls us to hear the Spirit. According to James 1:25, blessing belongs with looking into God’s Word and continuing to do it.</p>
+        <p data-i18n="responseBody2">Let us not turn these four churches into a list for judging others. Let Jesus examine us. Choose one response you can practice with his Spirit’s help—not to earn his love, but because he loved us first.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss5Label">Discuss · 5</span><p data-i18n="discuss5">Which of the four letters speaks most clearly to you today? What one step of obedience will you take, and who could pray with you?</p></div>
+        <ol class="response-steps">
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseRead">Read Revelation 2:1–29; note what Jesus affirms, corrects, and promises to each church.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseLove">Make room for prayer and one simple act of love for someone who needs your care.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseTrust">Entrust one fear or trial to Jesus, asking for help to remain faithful.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseDiscern">Name one compromise to leave behind; talk with a trusted believer and make a concrete change.</p></li>
+        </ol>
+        <div class="key-statement dark"><span data-i18n="promiseLabel">Carry into the week</span><p data-i18n="promise">Hear what the Spirit says to the churches—and do what Jesus shows you. — Revelation 2:29; James 1:25</p></div>
+      </section>
+
+      <section class="closing-prayer" aria-labelledby="prayer-title">
+        <p class="section-number" data-i18n="section07">07 · Pray</p>
+        <h2 id="prayer-title" data-i18n="prayerTitle">A prayer while we wait</h2>
+        <p data-i18n="prayer1">Lord Jesus, thank You for being present with Your church and knowing us fully. Thank You for Your love and the life You have given us. Teach us to hear Your Word with hearts ready to obey.</p>
+        <p data-i18n="prayer2">Bring us back to love where our hearts have grown cold. Strengthen those facing hardship and fear. Mercifully expose the compromises we allow, and give us courage to repent. Help us serve with both love and discernment.</p>
+        <p data-i18n="prayer3">Holy Spirit, form our church in truth and faithfulness. As we await Jesus’ return, help us remain close to him and put into practice what we have heard. Amen.</p>
+      </section>
+
+      <section class="takeaway" aria-label="Study takeaway" data-i18n-aria-label="takeawayAria"><span data-i18n="takeawayLabel">Take this with you</span><p data-i18n="takeaway">The church Jesus wants listens to him: loving with truth, remaining faithful in hardship, rejecting compromise, and obeying by the Spirit’s help.</p></section>
+
+      <section class="qr-section" aria-labelledby="share-title">
+        <div><p class="section-number" data-i18n="shareLabel">Share the study</p><h2 id="share-title" data-i18n="shareTitle">Open on another device</h2><p data-i18n="shareBody">Scan or download this QR code to return directly to this Bible study.</p><a class="text-link" href={qrPath} download="dmi-church-jesus-wants-qr.png" data-i18n="downloadQr">Download QR code</a></div>
+        <a class="qr-card" href={pageURL} aria-label="Open this Bible study" data-i18n-aria-label="qrLinkAria"><img src={qrPath} width="720" height="720" alt="QR code for The Church That Jesus Wants Bible study" data-i18n-alt="qrImageAlt" /></a>
+      </section>
+
+      <p class="scripture-notice" lang="en" data-i18n="scriptureNotice" data-i18n-lang>Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. Taglish quotations are study translations.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer"><a href={base}>DMI Calamba City</a><div class="site-footer-actions"><span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span><SocialLinks /></div></footer>
+</BaseLayout>
