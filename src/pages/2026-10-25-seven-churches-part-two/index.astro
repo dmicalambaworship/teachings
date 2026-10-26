@@ -1,0 +1,204 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const slug = '2026-10-25-seven-churches-part-two';
+const pageURL = new URL(`${base}${slug}/`, Astro.site ?? Astro.url).toString();
+const coverPath = `${base}${slug}-cover.jpg`;
+const coverWebp1280 = `${base}${slug}-cover-1280.webp`;
+const coverWebp2400 = `${base}${slug}-cover-2400.webp`;
+const logoPath = `${base}dmi-logo.jpg`;
+const qrPath = `${base}qr/${slug}.png`;
+
+const translations = {
+  languageLabel: `Wika`,
+  languageAriaLabel: `Wika ng pagbabasa`,
+  navAria: `Pangunahing navigation`,
+  homeAria: `Bumalik sa DMI Calamba City home`,
+  summaryAria: `Buod ng Bible study`,
+  takeawayAria: `Pangunahing takeaway ng Bible study`,
+  coverLinkAria: `Simulan ang The 7 Churches — Part 2 Bible study`,
+  coverImageAlt: `Orihinal na Canva cover ng The 7 Churches, Part 2: gintong pamagat sa madilim na background, Revelation — Until He Comes Series`,
+  qrLinkAria: `Buksan ang Bible study na ito`,
+  qrImageAlt: `QR code para sa The 7 Churches — Part 2 Bible study`,
+  eyebrow: `Bible Study · Pahayag 3:1–22`,
+  title: `The 7 Churches — Part 2`,
+  subtitle: `Gumising, manatiling tapat, at umasa kay Cristo hanggang sa Kanyang pagdating`,
+  heroScripture: `“Ang may pandinig ay makinig sa sinasabi ng Espiritu sa mga iglesia.”`,
+  heroCitation: `Pahayag 3:22 · salin para sa study`,
+  themeLabel: `Tema`,
+  theme: `Nakikita ni Jesus ang tunay na kalagayan ng Kanyang iglesia. Tinatawag Niya tayong gumising, panghawakan ang Kanyang Salita, at talikuran ang pagiging kampante sa sarili. Sa Kanyang biyaya, mananatili tayong tapat hanggang wakas.`,
+  keyTextsLabel: `Mga susing talata`,
+  keyTexts: `Pahayag 3:1–6 · Sardis<br />Pahayag 3:7–13 · Philadelphia<br />Pahayag 3:14–22 · Laodicea`,
+  timeLabel: `Oras`,
+  time: `35–40 minuto`,
+  presentationLabel: `Presentation`,
+  presentationLink: `Buksan sa Canva <span aria-hidden="true">↗</span>`,
+  serviceLabel: `Sunday service`,
+  serviceLink: `Panoorin ang pangangaral sa YouTube <span aria-hidden="true">↗</span>`,
+  serviceTime: `Bahagi ng sermon: 01:02:32–01:54:25`,
+  facebookLabel: `Facebook Live`,
+  facebookUnavailable: `Wala pang ibinigay na link para sa service na ito.`,
+  section01: `01 · Nakikita ni Jesus ang tunay nating kalagayan`,
+  openingTitle: `Higit sa nakikita sa labas`,
+  openingBody1: `Sa Pahayag 1, ipinakilala si Jesus bilang nabuhay at niluwalhating Panginoon na nasa gitna ng Kanyang mga iglesia. Sa Pahayag 2, kinausap Niya ang Ephesus, Smyrna, Pergamum, at Thyatira. Ngayon, tinatapos natin ang pitong liham sa Sardis, Philadelphia, at Laodicea. Mga totoong iglesia ang unang tumanggap ng mga liham na ito; pinakikinggan din natin ngayon ang sinasabi ng Espiritu sa kanila.`,
+  openingBody2: `Ang iglesia ay ang mga tao, hindi lang ang gusaling pinagtitipunan natin. Kaya personal ang paulit-ulit na salita ni Jesus: “Alam Ko ang iyong mga gawa.” Nakikita Niya ang hindi nakikita ng iba—ang buhay sa likod ng ating reputasyon, ang katapatan sa gitna ng kahinaan, at ang pangangailangang natatakpan ng kaginhawahan.`,
+  openingBody3: `Ginamit sa sermon ang larawan ng mga lampstand: tinatawag ang iglesia na magpahayag ng liwanag ni Cristo sa mundo. Maaaring marami tayong aktibidad pero humihina na ang ating paglakad kasama Niya. Ang Panginoong namatay at muling nabuhay para sa atin ang nagsusuri at tumatawag sa atin pabalik. Sa Kanyang biyaya tayo tumutugon.`,
+  discuss1Label: `Pag-usapan · 1`,
+  discuss1: `Ano ang ipinapakita ng “Alam Ko ang iyong mga gawa” tungkol kay Jesus? Paano nito binabago ang paraan ng pagsusuri natin sa sarili at sa ating iglesia?`,
+  section02: `02 · Sardis: gumising at palakasin ang natitira`,
+  sardisTitle: `Huwag mabuhay sa dating tagumpay lamang`,
+  sardisBody1: `Ipinakilala ni Jesus ang Kanyang sarili bilang may hawak ng pitong espiritu ng Diyos at pitong bituin. Kilala Niya ang Sardis: may reputasyon silang buhay, pero patay sa espirituwal. Maaaring tuloy ang mga programa, meeting, at paglilingkod habang nanghihina na ang relasyon natin sa Diyos. Hindi sapat ang dating karanasan o tagumpay bilang sukatan ng ating paglakad sa Kanya ngayon.`,
+  sardisBody2: `Malinaw at agarang kumilos ang utos: gumising, palakasin ang natitira, alalahanin ang natanggap at narinig, panghawakan ito, at magsisi. Hindi lang ito panawagang maging mas abala. Bumalik tayo sa Salitang tinanggap natin at isabuhay ito. Seryoso ang babala ni Jesus sa hindi gigising; hindi dapat ipagpaliban ang pagbabalik sa Kanya.`,
+  sardisBody3: `May ilan pa sa Sardis na hindi nadungisan ang kanilang damit. Hindi nakalilimutan ni Jesus ang kanilang katapatan. Sa magtatagumpay, ipinapangako Niya ang puting damit, pangalang hindi buburahin sa aklat ng buhay, at pagkilala sa harap ng Ama at ng Kanyang mga anghel. Ang layunin ay lumakad kasama Niya, hindi lang magmukhang buhay sa harap ng tao.`,
+  sardisVerseLabel: `Pahayag 3:2 · salin para sa study`,
+  sardisVerse: `“Gumising ka, at palakasin ang natitira na malapit nang mamatay.”`,
+  sardisCitation: `Pahayag 3:2 · salin para sa study`,
+  discuss2Label: `Pag-usapan · 2`,
+  discuss2: `Saan ka natutuksong umasa na lang sa dating karanasan sa Diyos? Aling utos kay Sardis ang nagbibigay sa iyo ng malinaw na hakbang para lumago sa Kanya ngayon?`,
+  section03: `03 · Philadelphia: kumapit kahit kaunti ang lakas`,
+  philadelphiaTitle: `Nakikita ni Jesus ang tahimik na katapatan`,
+  philadelphiaBody1: `Si Jesus ang Banal at Totoo, ang may susi ni David. Ang binubuksan Niya ay walang makapagsasara, at ang isinasara Niya ay walang makapagbubukas. Sa Kanyang mga kamay nakasalalay ang kinabukasan ng iglesia. Sinabi Niya sa Philadelphia na kaunti ang kanilang lakas, ngunit tinupad nila ang Kanyang Salita at hindi itinanggi ang Kanyang pangalan. Wala Siyang ibinigay na pagsaway sa kanila.`,
+  philadelphiaBody2: `Hindi kabiguan ang pagkakaroon ng kaunting lakas. Ang mahalaga ay manatiling tapat kay Jesus sa gitna nito. Kapag nanginginig ang ating kalagayan, may pagsubok, o pakiramdam natin ay hindi tayo napapansin, ang utos Niya ay panghawakan ang mayroon tayo upang walang makaagaw ng ating putong. Kumapit sa Kanyang Salita at huwag itanggi ang Kanyang pangalan.`,
+  philadelphiaBody3: `Ipinangako ni Jesus na gagawing haligi sa templo ng Diyos ang magtatagumpay, at hindi na ito lalabas doon. Isusulat Niya rito ang pangalan ng Diyos, ng bagong Jerusalem, at ang Kanyang sariling bagong pangalan. Binibigyang-diin ng sermon ang katatagan at pagiging kabilang sa Diyos: kahit mahina ang pakiramdam natin ngayon, hindi marupok ang tahanang ipinapangako ni Cristo.`,
+  philadelphiaVerseLabel: `Pahayag 3:11 · salin para sa study`,
+  philadelphiaVerse: `“Ako ay darating na. Panghawakan mo ang mayroon ka, upang walang makaagaw ng iyong putong.”`,
+  philadelphiaCitation: `Pahayag 3:11 · salin para sa study`,
+  discuss3Label: `Pag-usapan · 3`,
+  discuss3: `Ano ang pinuri ni Jesus sa Philadelphia kahit kaunti ang kanilang lakas? Ano ang magiging hitsura ng paghawak sa Kanyang Salita sa isang pagsubok na kinakaharap mo ngayon?`,
+  section04: `04 · Laodicea: kilalanin ang pangangailangan kay Cristo`,
+  laodiceaTitle: `Kapag tinatakpan ng kaginhawahan ang ating pangangailangan`,
+  laodiceaBody1: `Si Jesus ang Amen, ang tapat at tunay na Saksi. Tama ang Kanyang pagsusuri kahit iba ang tingin natin sa sarili. Sabi ng Laodicea, mayaman sila at wala nang kailangan. Ngunit nakita ni Jesus ang kanilang espirituwal na kahirapan, pagkabulag, at kahubaran. Malakas ang Kanyang babala: dahil maligamgam sila, isusuka Niya sila sa Kanyang bibig.`,
+  laodiceaBody2: `Maaaring maging dahilan ng pagiging kampante ang pera, kakayahan, at komportableng buhay. Sa sermon, ipinaalala na hindi mapananatili ng kayamanan ang lakas at buhay natin magpakailanman. Hindi masama ang pagkakaroon ng resources, pero hindi nito kayang ibigay ang buhay na si Cristo lamang ang pinagmumulan. Kailangan natin Siya kahit maayos ang lahat sa paningin natin.`,
+  laodiceaBody3: `Pinayuhan sila ni Jesus na sa Kanya kumuha ng tunay na kayamanan, puting damit, at paningin. Ang sagot sa kanilang kakulangan ay nasa Kanya. Sinabi rin Niya na sinasaway at dinidisiplina Niya ang Kanyang minamahal; kaya maging masigasig at magsisi. Nakatayo Siya sa pinto at kumakatok, nag-aanyayang marinig ang Kanyang tinig at magbukas para sa pakikisama sa Kanya.`,
+  laodiceaVerseLabel: `Pahayag 3:19 · salin para sa study`,
+  laodiceaVerse: `“Ang mga minamahal Ko ay Aking sinasaway at dinidisiplina; kaya maging masigasig ka at magsisi.”`,
+  laodiceaCitation: `Pahayag 3:19 · salin para sa study`,
+  discuss4Label: `Pag-usapan · 4`,
+  discuss4: `Paano nagkaiba ang tingin ng Laodicea sa sarili at ang nakita ni Jesus? Saan maaaring natatakpan ng kaginhawahan ang pangangailangan mong lumapit sa Kanya?`,
+  section05: `05 · Dinggin ang Espiritu at magtagumpay`,
+  conquerTitle: `Tapat hanggang wakas, sa Kanyang biyaya`,
+  conquerBody1: `Iba-iba ang kalagayan ng tatlong iglesia, pero pareho ang paanyaya: dinggin ang sinasabi ng Espiritu at magtagumpay. Kailangang gumising ang Sardis, kumapit ang Philadelphia, at magsisi ang Laodicea. Gaya ng diin sa sermon, ang overcomer ay hindi kailangang ang pinakamalakas na Kristiyano, kundi ang patuloy na kay Jesus at nananatiling tapat sa Kanya. Para rin sa atin ang tawag na ito: huwag lang makinig, kundi tumugon nang may pananampalataya.`,
+  conquerBody2: `Kapansin-pansin ang pag-asa sa huling liham. Ang iglesiang tumanggap ng matinding pagsaway ay binigyan din ng kahanga-hangang pangako: ang magtatagumpay ay uupong kasama ni Cristo sa Kanyang trono, gaya ng pagtatagumpay Niya at pag-upong kasama ng Ama. Hindi dahilan ang pagsaway para mawalan ng pag-asa; paanyaya itong bumalik sa Panginoong nagmamahal at tumatawag sa atin.`,
+  conquerBody3: `Tinapos ang sermon sa panalangin ng lubos na pagdepende sa Diyos. Hindi natin kinikita ang Kanyang pag-ibig sa sariling lakas. Dahil sa biyaya Niya, maaari tayong magsisi, sumunod, at magtiis. Ang hinahanap nating buhay ay iglesiang tunay na nakalulugod kay Jesus mula sa loob palabas.`,
+  conquerVerseLabel: `Pahayag 3:21 · salin para sa study`,
+  conquerVerse: `“Ang magtatagumpay ay bibigyan Ko ng karapatang umupong kasama Ko sa Aking trono.”`,
+  conquerCitation: `Pahayag 3:21 · salin para sa study`,
+  discuss5Label: `Pag-usapan · 5`,
+  discuss5: `Kung susuriin ni Jesus ang ating iglesia ngayon, ano ang makikita Niya sa ating katapatan, pag-ibig, kabanalan, at pagtitiis? Anong isang pagbabago ang maaari nating simulan nang magkakasama?`,
+  section06: `06 · Isabuhay ang narinig`,
+  responseTitle: `Isang tapat na hakbang ngayong linggo`,
+  responseBody: `Huwag gamitin ang mga liham na ito para lagyan ng tatak ang ibang iglesia o tao. Hayaan munang siyasatin tayo ni Jesus. Pumili ng isang hakbang at humingi ng tulong sa Kanya at sa isang mapagkakatiwalaang kapatid.`,
+  responseStepLabel: `Tumugon`,
+  responseRead: `Basahin ang Pahayag 3:1–22. Isulat kung paano ipinakilala ni Jesus ang Kanyang sarili, ano ang nakita Niya, ano ang iniutos Niya, at ano ang ipinangako Niya sa bawat iglesia.`,
+  responseWake: `Maglaan ng oras ngayong linggo sa Salita at panalangin. Pangalanan ang isang napabayaang bahagi ng paglakad mo sa Diyos at ang gagawin mong pagbabalik dito.`,
+  responseHold: `Sa isang pagsubok ngayon, pumili ng konkretong pagsunod sa Salita ni Jesus. Hilingin sa isang kapatid na manalangin kasama mo at kumustahin ka sa linggong ito.`,
+  responseDepend: `Ipanalangin ang isang bahagi ng buhay kung saan pakiramdam mo ay wala ka nang kailangan. Ipagkatiwala ang iyong resources at plano kay Cristo, at sundin ang itinutuwid Niya.`,
+  promiseLabel: `Dalhin sa linggong ito`,
+  promise: `Gumising. Panghawakan ang Salita. Magsisi. Umasa kay Jesus hanggang wakas.`,
+  section07: `07 · Manalangin`,
+  prayerTitle: `Panginoon, buhayin Mo ang aming puso`,
+  prayer1: `Panginoong Jesus, salamat dahil kilala Mo ang Iyong iglesia at mahal Mo kami. Nakikita Mo ang tunay naming kalagayan. Ayaw naming magmukhang malusog sa labas habang malayo ang puso namin sa Iyo. Gisingin Mo kami at palakasin ang natitira.`,
+  prayer2: `Sa mga nanghihina at sinusubok, magbigay Ka ng lakas upang manatiling tapat sa Iyong Salita. Sa mga naging kampante sa sarili, buksan Mo ang aming mga mata. Tinatanggap namin ang Iyong pagtutuwid; akayin Mo kami sa pagsisisi at sa pakikisamang malapit sa Iyo.`,
+  prayer3: `Salamat sa Iyong biyaya at mga pangako. Hindi sa sarili naming lakas kundi sa lubos na pagdepende sa Iyo kami magpapatuloy. Banal na Espiritu, tulungan Mo kaming maging iglesiang nakalulugod kay Jesus mula sa loob palabas, hanggang sa Kanyang pagdating. Amen.`,
+  takeawayLabel: `Dalhin mo ito`,
+  takeaway: `Hindi reputasyon, dami ng gawain, o yaman ang sukatan ng tunay na buhay. Nakikita ni Jesus ang ating puso at tinatawag Niya tayong gumising, manatiling tapat, at lubos na umasa sa Kanya.`,
+  shareLabel: `Ibahagi ang study`,
+  shareTitle: `Buksan sa ibang device`,
+  shareBody: `I-scan o i-download ang QR code para direktang makabalik sa Bible study na ito.`,
+  downloadQr: `I-download ang QR code`,
+  scriptureNotice: `Ang mga English Scripture quotations ay mula sa ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, isang publishing ministry ng Good News Publishers. Ginamit nang may pahintulot. All rights reserved. Ang Taglish quotations ay mga salin para sa study.`,
+  footerTagline: `Nagkakatipon kay Jesus. Hinuhubog ng Kanyang Salita.`,
+};
+---
+
+<BaseLayout title="The 7 Churches — Part 2: Revelation 3 | DMI Calamba City" description="A Bible study on Sardis, Philadelphia, and Laodicea: wake up, hold fast, repent, and depend on Christ until he comes." bodyClass="study-page" socialImage={coverPath} socialImageAlt="The 7 Churches, Part 2: gold lettering on the original dark Canva cover, Revelation — Until He Comes Series" socialImageWidth={2400} socialImageHeight={1350}>
+  <a class="study-cover" href="#study" aria-label="Begin The 7 Churches — Part 2 Bible study" data-i18n-aria-label="coverLinkAria">
+    <picture><source srcset={`${coverWebp1280} 1280w, ${coverWebp2400} 2400w`} sizes="100vw" type="image/webp" /><img src={coverPath} width="2400" height="1350" alt="Original Canva cover of The 7 Churches, Part 2: gold title on a dark background, Revelation — Until He Comes Series" data-i18n-alt="coverImageAlt" decoding="async" fetchpriority="high" /></picture>
+  </a>
+  <header class="study-hero" id="study">
+    <nav class="study-nav" aria-label="Primary navigation" data-i18n-aria-label="navAria">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria"><img src={logoPath} width="900" height="900" alt="" /><span>DMI · Calamba City</span></a>
+      <LanguageToggle translations={translations} /><span>25 October 2026</span>
+    </nav>
+    <div class="study-hero-copy"><p class="eyebrow" data-i18n="eyebrow">Bible Study · Revelation 3:1–22</p><h1 data-i18n="title">The 7 Churches — Part 2</h1><p class="study-subtitle" data-i18n="subtitle">Wake up, remain faithful, and depend on Christ until he comes</p></div>
+    <blockquote class="hero-scripture"><p lang="en" data-i18n="heroScripture" data-i18n-lang>“He who has an ear, let him hear what the Spirit says to the churches.”</p><cite lang="en" data-i18n="heroCitation" data-i18n-lang>Revelation 3:22 · ESV</cite></blockquote>
+  </header>
+  <main class="study-content">
+    <aside class="study-aside" aria-label="Study summary" data-i18n-aria-label="summaryAria">
+      <div><span class="aside-label" data-i18n="themeLabel">Theme</span><p data-i18n="theme">Jesus sees the true condition of his church. He calls us to wake up, hold fast to his Word, and turn from self-sufficiency. By his grace, we remain faithful to the end.</p></div>
+      <div><span class="aside-label" data-i18n="keyTextsLabel">Key texts</span><p data-i18n="keyTexts">Revelation 3:1–6 · Sardis<br />Revelation 3:7–13 · Philadelphia<br />Revelation 3:14–22 · Laodicea</p></div>
+      <div><span class="aside-label" data-i18n="timeLabel">Time</span><p data-i18n="time">35–40 minutes</p></div>
+      <div><span class="aside-label" data-i18n="presentationLabel">Presentation</span><a class="aside-action" href="https://canva.link/6nome77ehasqkca" target="_blank" rel="noreferrer" data-i18n="presentationLink">Open in Canva <span aria-hidden="true">↗</span></a></div>
+      <div><span class="aside-label" data-i18n="serviceLabel">Sunday service</span><a class="aside-action" href="https://www.youtube.com/live/HtLh_lPSHCQ?si=KyG_ZOgTyPsEqG3x&amp;t=3752" target="_blank" rel="noreferrer" data-i18n="serviceLink">Watch the preaching on YouTube <span aria-hidden="true">↗</span></a><p data-i18n="serviceTime">Sermon segment: 01:02:32–01:54:25</p></div>
+      <div><span class="aside-label" data-i18n="facebookLabel">Facebook Live</span><p data-i18n="facebookUnavailable">A link for this service has not been supplied.</p></div>
+    </aside>
+    <article class="study-article">
+      <section aria-labelledby="opening-title">
+        <p class="section-number" data-i18n="section01">01 · Jesus sees our true condition</p><h2 id="opening-title" data-i18n="openingTitle">Beyond what appears on the outside</h2>
+        <p data-i18n="openingBody1">Revelation 1 reveals Jesus as the risen, glorified Lord among his churches. In Revelation 2, he addresses Ephesus, Smyrna, Pergamum, and Thyatira. We now complete the seven letters with Sardis, Philadelphia, and Laodicea. These were real churches that first received his words; today, we also listen to what the Spirit says to them.</p>
+        <p data-i18n="openingBody2">The church is the people, not simply the building where we gather. Jesus’ repeated words are therefore personal: “I know your works.” He sees what others cannot—the life behind our reputation, the faithfulness within our weakness, and the need hidden by our comfort.</p>
+        <p data-i18n="openingBody3">The sermon pictured the churches as lampstands, called to display Christ’s light to the world. We may have many activities while our walk with him grows weak. The Lord who died and rose for us is the One who examines us and calls us back. We respond because of his grace.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss1Label">Discuss · 1</span><p data-i18n="discuss1">What does “I know your works” reveal about Jesus? How does this change the way we examine ourselves and our church?</p></div>
+      </section>
+      <section aria-labelledby="sardis-title">
+        <p class="section-number" data-i18n="section02">02 · Sardis: wake up and strengthen what remains</p><h2 id="sardis-title" data-i18n="sardisTitle">Do not live on past victories alone</h2>
+        <p data-i18n="sardisBody1">Jesus introduces himself as the One who has the seven spirits of God and the seven stars. He knows Sardis: they have a reputation for being alive, but they are spiritually dead. Programs, meetings, and service may continue while our relationship with God fades. Past experiences and victories cannot measure the health of our walk with him today.</p>
+        <p data-i18n="sardisBody2">His commands are clear and urgent: wake up, strengthen what remains, remember what you received and heard, keep it, and repent. This calls for more than becoming busier. We return to the Word we received and put it into practice. Jesus’ warning to those who will not wake up is serious; returning to him cannot be put off.</p>
+        <p data-i18n="sardisBody3">A few in Sardis have not soiled their garments. Jesus has not overlooked their faithfulness. To the one who conquers, he promises white garments, a name never blotted out of the book of life, and acknowledgment before his Father and the angels. The goal is to walk with him, not simply to appear alive before others.</p>
+        <blockquote class="verse-card"><span data-i18n="sardisVerseLabel">Revelation 3:2 · ESV</span><p lang="en" data-i18n="sardisVerse" data-i18n-lang>“Wake up, and strengthen what remains and is about to die”</p><cite lang="en" data-i18n="sardisCitation" data-i18n-lang>Revelation 3:2 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss2Label">Discuss · 2</span><p data-i18n="discuss2">Where are you tempted to rely only on a past experience with God? Which command to Sardis gives you a clear step toward growing with him today?</p></div>
+      </section>
+      <section aria-labelledby="philadelphia-title">
+        <p class="section-number" data-i18n="section03">03 · Philadelphia: hold fast with little strength</p><h2 id="philadelphia-title" data-i18n="philadelphiaTitle">Jesus sees quiet faithfulness</h2>
+        <p data-i18n="philadelphiaBody1">Jesus is the Holy and True One who holds the key of David. What he opens, no one can shut; what he shuts, no one can open. The church’s future rests in his hands. He tells Philadelphia that they have little power, yet they have kept his Word and have not denied his name. He gives them no rebuke.</p>
+        <p data-i18n="philadelphiaBody2">Having little strength is not failure. What matters is remaining faithful to Jesus within that weakness. When our circumstances shake, trials come, or we feel overlooked, his command is to hold fast to what we have so that no one may seize our crown. Keep his Word and refuse to deny his name.</p>
+        <p data-i18n="philadelphiaBody3">Jesus promises to make the one who conquers a pillar in God’s temple, never to leave it. He will write on that person the name of God, the new Jerusalem, and his own new name. The sermon emphasized stability and belonging to God: even when we feel weak today, the home Christ promises is secure.</p>
+        <blockquote class="verse-card"><span data-i18n="philadelphiaVerseLabel">Revelation 3:11 · ESV</span><p lang="en" data-i18n="philadelphiaVerse" data-i18n-lang>“I am coming soon. Hold fast what you have, so that no one may seize your crown.”</p><cite lang="en" data-i18n="philadelphiaCitation" data-i18n-lang>Revelation 3:11 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss3Label">Discuss · 3</span><p data-i18n="discuss3">What does Jesus commend in Philadelphia despite their little strength? What would holding fast to his Word look like in one trial you face now?</p></div>
+      </section>
+      <section aria-labelledby="laodicea-title">
+        <p class="section-number" data-i18n="section04">04 · Laodicea: recognize your need for Christ</p><h2 id="laodicea-title" data-i18n="laodiceaTitle">When comfort conceals our need</h2>
+        <p data-i18n="laodiceaBody1">Jesus is the Amen, the faithful and true Witness. His assessment is right even when our view of ourselves differs. Laodicea says they are rich and need nothing. Jesus sees their spiritual poverty, blindness, and nakedness. His warning is strong: because they are lukewarm, he will spit them out of his mouth.</p>
+        <p data-i18n="laodiceaBody2">Money, ability, and a comfortable life can become reasons for complacency. The sermon reminded us that wealth cannot preserve our strength and life forever. Having resources is not wrong, but resources cannot supply the life that comes from Christ alone. We need him even when everything seems to be going well.</p>
+        <p data-i18n="laodiceaBody3">Jesus counsels them to come to him for true riches, white garments, and sight. He himself supplies what they lack. He also says that he reproves and disciplines those he loves; therefore, be zealous and repent. He stands at the door and knocks, inviting them to hear his voice and open to fellowship with him.</p>
+        <blockquote class="verse-card"><span data-i18n="laodiceaVerseLabel">Revelation 3:19 · ESV</span><p lang="en" data-i18n="laodiceaVerse" data-i18n-lang>“Those whom I love, I reprove and discipline, so be zealous and repent.”</p><cite lang="en" data-i18n="laodiceaCitation" data-i18n-lang>Revelation 3:19 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss4Label">Discuss · 4</span><p data-i18n="discuss4">How does Laodicea’s view of itself differ from what Jesus sees? Where might comfort be concealing your need to draw near to him?</p></div>
+      </section>
+      <section aria-labelledby="conquer-title">
+        <p class="section-number" data-i18n="section05">05 · Hear the Spirit and overcome</p><h2 id="conquer-title" data-i18n="conquerTitle">Faithful to the end, by his grace</h2>
+        <p data-i18n="conquerBody1">The three churches have different conditions, yet the invitation returns: hear what the Spirit says and overcome. Sardis must wake up, Philadelphia must hold fast, and Laodicea must repent. As the sermon emphasized, an overcomer is not necessarily the strongest Christian, but someone who continues to belong to Jesus and remains faithful to him. We receive the same call to respond in faith to what we hear.</p>
+        <p data-i18n="conquerBody2">The final letter holds remarkable hope. The church receiving a severe rebuke also receives an astonishing promise: the one who conquers will sit with Christ on his throne, as he conquered and sat with his Father. Correction is an invitation to return to the Lord who loves and calls us.</p>
+        <p data-i18n="conquerBody3">The sermon ended in prayer for complete dependence on God. We do not earn his love by our own strength. His grace enables us to repent, obey, and endure. We seek to be a church that truly pleases Jesus from the inside out.</p>
+        <blockquote class="verse-card"><span data-i18n="conquerVerseLabel">Revelation 3:21 · ESV</span><p lang="en" data-i18n="conquerVerse" data-i18n-lang>“The one who conquers, I will grant him to sit with me on my throne”</p><cite lang="en" data-i18n="conquerCitation" data-i18n-lang>Revelation 3:21 · ESV</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss5Label">Discuss · 5</span><p data-i18n="discuss5">If Jesus examined our church today, what would he see in our faithfulness, love, holiness, and perseverance? What one change could we begin together?</p></div>
+      </section>
+      <section class="response-section" aria-labelledby="response-title">
+        <p class="section-number" data-i18n="section06">06 · Put what you heard into practice</p><h2 id="response-title" data-i18n="responseTitle">One faithful step this week</h2>
+        <p data-i18n="responseBody">Let these letters lead us to allow Jesus to examine us before we label other churches or people. Choose one step and ask for his help and the support of a trusted believer.</p>
+        <ol class="response-steps">
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseRead">Read Revelation 3:1–22. Write down how Jesus introduces himself, what he sees, what he commands, and what he promises to each church.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseWake">Set aside time this week for Scripture and prayer. Name one neglected part of your walk with God and the step you will take to return to it.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseHold">In one present trial, choose a concrete act of obedience to Jesus’ Word. Ask a fellow believer to pray with you and check in this week.</p></li>
+          <li><span data-i18n="responseStepLabel">Respond</span><p data-i18n="responseDepend">Pray about one area where you feel you need nothing. Entrust your resources and plans to Christ, and act on his correction.</p></li>
+        </ol>
+        <div class="key-statement dark"><span data-i18n="promiseLabel">Carry into the week</span><p data-i18n="promise">Wake up. Hold fast to the Word. Repent. Depend on Jesus to the end.</p></div>
+      </section>
+      <section class="closing-prayer" aria-labelledby="prayer-title">
+        <p class="section-number" data-i18n="section07">07 · Pray</p><h2 id="prayer-title" data-i18n="prayerTitle">Lord, awaken our hearts</h2>
+        <p data-i18n="prayer1">Lord Jesus, thank You for knowing and loving Your church. You see our true condition. We do not want to appear healthy outside while our hearts are far from You. Awaken us and strengthen what remains.</p>
+        <p data-i18n="prayer2">Give strength to those who are weak and tested, that they may remain faithful to Your Word. Open our eyes where we have become self-sufficient. We receive Your correction; lead us into repentance and close fellowship with You.</p>
+        <p data-i18n="prayer3">Thank You for Your grace and promises. We continue in complete dependence on You. Holy Spirit, help us become a church that pleases Jesus from the inside out, until he comes. Amen.</p>
+      </section>
+      <section class="takeaway" aria-label="Study takeaway" data-i18n-aria-label="takeawayAria"><span data-i18n="takeawayLabel">Take this with you</span><p data-i18n="takeaway">Reputation, activity, and wealth cannot measure true life. Jesus sees our hearts and calls us to wake up, remain faithful, and depend fully on him.</p></section>
+      <section class="qr-section" aria-labelledby="share-title">
+        <div><p class="section-number" data-i18n="shareLabel">Share the study</p><h2 id="share-title" data-i18n="shareTitle">Open on another device</h2><p data-i18n="shareBody">Scan or download this QR code to return directly to this Bible study.</p><a class="text-link" href={qrPath} download="dmi-seven-churches-part-two-qr.png" data-i18n="downloadQr">Download QR code</a></div>
+        <a class="qr-card" href={pageURL} aria-label="Open this Bible study" data-i18n-aria-label="qrLinkAria"><img src={qrPath} width="720" height="720" alt="QR code for The 7 Churches — Part 2 Bible study" data-i18n-alt="qrImageAlt" /></a>
+      </section>
+      <p class="scripture-notice" lang="en" data-i18n="scriptureNotice" data-i18n-lang>Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. Taglish quotations are study translations.</p>
+    </article>
+  </main>
+  <footer class="site-footer"><a href={base}>DMI Calamba City</a><div class="site-footer-actions"><span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span><SocialLinks /></div></footer>
+</BaseLayout>
