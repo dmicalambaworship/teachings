@@ -26,6 +26,10 @@
 
 ### Bible Study — `src/pages/YYYY-MM-DD-slug/index.astro`
 
+- Write in the preacher’s own pastoral voice, speaking directly to the reader. The Bible study carries the teaching itself; it must not read as an outside writer’s report about a separate sermon.
+- Teach, explain, invite, and pray directly: “Let us trust Jesus,” not “The sermon invites us to trust Jesus”; “Alalahanin natin,” not “Ipinaalala sa sermon.” Avoid “the preacher said,” “the sermon emphasized,” and accounts of how the service began or ended in the study’s teaching prose.
+- Use “we/us/our” for shared application and “I/my” for the preacher’s personal experiences already present in the source. Preserve their facts; never invent testimony or turn someone else’s experience into the preacher’s own.
+- Apply this perspective equally in English and Taglish, including introductions, illustrations, discussion prompts, responses, prayers, and takeaways. Keep accurate Scripture attributions and factual resource labels such as “Watch the preaching” or a video timestamp.
 - Template: the newest study (currently `2026-09-06-altar-of-our-church`). Preserve its structure:
   cover link → hero (nav with date + toggle, eyebrow, title, subtitle, Scripture blockquote) → `study-content`: `study-aside` (Theme, Key texts, Time, Canva presentation, Sunday service, Facebook Live) + `study-article`: numbered sections 01→N with `discussion-prompt`s, `verse-card`s, response steps, closing prayer, takeaway, `qr-section`, `scripture-notice` → footer.
 - Covers: `picture` with webp `srcset` (1280w + 2400w) + jpg fallback; store `public/YYYY-MM-DD-slug-cover.jpg`, `-1280.webp`, `-2400.webp`.
