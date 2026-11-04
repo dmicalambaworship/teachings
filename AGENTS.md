@@ -32,7 +32,7 @@
 - Apply this perspective equally in English and Taglish, including introductions, illustrations, discussion prompts, responses, prayers, and takeaways. Keep accurate Scripture attributions and factual resource labels such as “Watch the preaching” or a video timestamp.
 - Template: the newest study (currently `2026-09-06-altar-of-our-church`). Preserve its structure:
   cover link → hero (nav with date + toggle, eyebrow, title, subtitle, Scripture blockquote) → `study-content`: `study-aside` (Theme, Key texts, Time, Canva presentation, Sunday service, Facebook Live) + `study-article`: numbered sections 01→N with `discussion-prompt`s, `verse-card`s, response steps, closing prayer, takeaway, `qr-section`, `scripture-notice` → footer.
-- Covers: `picture` with webp `srcset` (1280w + 2400w) + jpg fallback; store `public/YYYY-MM-DD-slug-cover.jpg`, `-1280.webp`, `-2400.webp`.
+- Covers: use the first slide of the study’s own Canva presentation as the cover and social image. Do not substitute a service thumbnail or another image if the slide cannot be obtained; resolve access first. Use a `picture` with webp `srcset` (1280w + 2400w) + jpg fallback; store `public/YYYY-MM-DD-slug-cover.jpg`, `-1280.webp`, `-2400.webp`.
 - QR: `public/qr/YYYY-MM-DD-slug.png` for the public article URL; `qr-section` links both the QR image and the page URL.
 - Summary links are article-specific: Canva presentation, YouTube service, Facebook Live video. Never placeholders; never reuse another study's URLs.
 - Home (`src/pages/index.astro`): newest study featured, older in reverse-chronological order.
