@@ -1,0 +1,240 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const slug = '2026-11-08-the-tribulation-period-begins';
+const pageURL = new URL(`${base}${slug}/`, Astro.site ?? Astro.url).toString();
+const cover = `${base}${slug}-cover.jpg`;
+const qr = `${base}qr/${slug}.png`;
+const translations = {
+  languageLabel: 'Wika',
+  languageAriaLabel: 'Wika ng pagbabasa',
+  navAria: 'Pangunahing navigation',
+  homeAria: 'Bumalik sa DMI Calamba City home',
+  date: '8 Nobyembre 2026',
+  coverLinkAria: 'Simulan ang The Tribulation Period Begins Bible study',
+  coverImageAlt: 'Unang Canva slide ng The Tribulation Period Begins: gintong pamagat, bukas na mga aklat, at krus sa madilim na background',
+  eyebrow: 'Bible Study · Pahayag 6–7',
+  title: 'The Tribulation Period Begins',
+  subtitle: 'Walang pagsubok ang makakaagaw sa ating walang hanggang pag-asa kay Cristo',
+  hero: 'Ang Kordero ang magiging Pastol nila, at papahirin ng Diyos ang bawat luha sa kanilang mga mata.',
+  heroCitation: 'Pahayag 7:17 · salin para sa study',
+  summaryAria: 'Buod ng Bible study',
+  themeLabel: 'Tema',
+  theme: 'Ang Diyos ay naghahari kahit gumuho ang mga inaasahan natin sa mundo. Ang mga tinubos ng Kordero ay may walang hanggang pag-asang hindi kayang agawin ng pagdurusa.',
+  keyLabel: 'Mga susing talata',
+  key: 'Pahayag 6:1–17 · Ang unang anim na selyo<br />Pahayag 7:1–17 · Ang bayan ng Diyos<br />Pahayag 19:11–16 · Ang tapat at tunay na Hari',
+  timeLabel: 'Oras',
+  time: '40–50 minuto',
+  presentation: 'Presentation',
+  presentationLink: 'Buksan sa Canva <span aria-hidden="true">↗</span>',
+  service: 'Sunday service',
+  serviceLink: 'Panoorin ang pangangaral sa YouTube <span aria-hidden="true">↗</span>',
+  serviceTime: 'Bahagi ng sermon: 01:16:00–02:10:00',
+  facebook: 'Facebook Live',
+  facebookUnavailable: 'Wala pang hiwalay na Facebook Live link. Mapapanood ang service sa YouTube sa itaas.',
+  discuss: 'Pag-usapan',
+  section1Title: 'Magsimula sa trono, hindi sa takot',
+  section1Body1: 'Minsan, nauuna ang takot kapag binabasa natin ang Revelation. May mga simbolong mahirap unawain at mga pangyayaring nakakatakot isipin. Pero hindi itinago ng Diyos ang wakas sa atin. Tulad ng kuwentong naiintindihan natin nang mas buo kapag alam natin ang ending, tinutulungan tayo ng aklat na ito na makita kung saan patungo ang lahat. Basahin natin ito nang may pag-asa at pagtitiwala sa Kanya.',
+  section1Body2: 'Bago buksan ang mga selyo sa Pahayag 6, alalahanin natin ang Pahayag 4–5. May nakaupo sa trono: ang Diyos ay banal, makapangyarihan, at karapat-dapat sambahin. Si Jesus ang nagtagumpay na Leon at ang Korderong pinatay ngunit buhay. Siya lamang ang karapat-dapat magbukas ng balumbon. Maaaring magulo ang mundo, pero hindi magulo ang langit. Hindi nawalan ng kontrol ang Diyos.',
+  section1Body3: 'May magkakaibang pagkaunawa ang mga Kristiyano sa ilang detalye at panahon ng mga pangitain. Sa pag-aaral na ito, tinitingnan natin ang mga selyo bilang mga paghatol na darating pa, habang kinikilala nating nakikita na sa kasaysayan ang digmaan at pagdurusa. Huwag nating hayaang matabunan ng pagtatalo sa timeline ang malinaw na katotohanan: ang Diyos ay naghahari, ang Kordero ang nagbubukas ng mga selyo, at hindi Niya kinakalimutan ang Kanyang bayan.',
+  section1Question: 'Paano binabago ng Pahayag 4–5 ang pagbasa natin sa mga paghatol sa Pahayag 6? Anong takot ang kailangan nating dalhin sa Diyos na nasa trono?',
+  section2Title: 'Ang apat na mangangabayo: marupok ang seguridad ng mundo',
+  section2Intro: 'Habang binubuksan ng Kordero ang unang apat na selyo, nakita ni Juan ang apat na mangangabayo. Basahin ang Pahayag 6:1–8 at pansinin ang mga salitang “ibinigay” at “ipinagkaloob.” Nakakatakot ang kanilang kapangyarihan, pero may hangganan ito. Hindi sila mga kapangyarihang lampas sa pamamahala ng Diyos.',
+  whiteTitle: 'Unang selyo · Ang puting kabayo',
+  whiteBody: 'May pana ang sakay nito, binigyan siya ng isang putong, at humayo siya upang manakop. Hindi siya pinangalanan sa talata. Nauunawaan natin siya rito bilang huwad na mesiyas: isang mananakop na gumagamit ng panlilinlang at huwad na kapayapaan. Ihambing natin siya sa Pahayag 19:11–16. Doon, malinaw na kinilala ang sakay bilang Tapat at Totoo, ang Salita ng Diyos, ang Hari ng mga hari at Panginoon ng mga panginoon. Huwag nating ipagkamali ang pangakong tagumpay sa tunay na paghahari ni Jesus.',
+  redTitle: 'Ikalawang selyo · Ang pulang kabayo',
+  redBody: 'Ipinagkaloob sa sakay nito na alisin ang kapayapaan sa lupa upang magpatayan ang mga tao. Ipinapakita nito ang digmaan, karahasan, at pagdanak ng dugo. Nakikita natin kung gaano kahalaga ang kapayapaan kapag ito ay nawawala. Maging ang saklaw ng karahasang ito ay hindi hiwalay sa kapangyarihan ng Diyos.',
+  blackTitle: 'Ikatlong selyo · Ang itim na kabayo',
+  blackBody: 'May timbangan ang sakay nito. Ang napakataas na presyo ng trigo at sebada ay larawan ng kakulangan at hirap sa kabuhayan. Hindi lamang buhay ang sinisira ng digmaan; sinisira rin nito ang kabuhayan at nagpapahirap sa pagkuha ng pagkain. Ang utos na huwag pinsalain ang langis at alak ay maaaring magpahiwatig ng hindi pantay na pagdurusa: may nananatiling may access sa mga bagay na hindi makuha ng iba.',
+  paleTitle: 'Ikaapat na selyo · Ang maputlang kabayo',
+  paleBody: 'Kamatayan ang pangalan ng sakay nito, at kasunod niya ang Hades. Binigyan sila ng kapangyarihan sa ikaapat na bahagi ng lupa upang pumatay sa pamamagitan ng tabak, gutom, salot, at mababangis na hayop. Malawak ang kapinsalaan, pero may itinakdang hangganan. Ang Diyos ay mapagmahal at banal; hindi Niya pababayaan ang kasamaan nang walang paghatol. Huwag nating balewalain ang Kanyang awa at ang panahon upang manumbalik sa Kanya.',
+  section2Question: 'Ano ang inilalantad ng apat na mangangabayo tungkol sa seguridad na iniaalok ng kapangyarihan, kapayapaan, at pera? Saan kailangang mas lumalim ang ating pagtitiwala kay Cristo?',
+  section3Title: 'Ikalimang selyo: naririnig ng Diyos ang mga nagdurusa',
+  section3Body1: 'Sa Pahayag 6:9–11, nakita ni Juan sa ilalim ng altar ang mga pinatay dahil sa Salita ng Diyos at sa kanilang patotoo. Nagtanong sila, “Hanggang kailan?” Hindi nila itinanggi ang sakit at kawalang-katarungan. Inilapit nila ang kanilang daing sa Panginoong banal at tapat. Binigyan sila ng puting damit at sinabihang magpahinga pa nang kaunti. Hindi paglimot sa kanila ang paghihintay; ang paghatol ay ayon sa sariling panahon ng Diyos.',
+  section3Body2: 'Kapag nakikita natin ang pag-uusig sa mga mananampalataya, maaari rin tayong magtanong kung bakit ito nangyayari. Hindi malayo o walang pakialam ang Diyos. Nakikita Niya ang kanilang pagdurusa. Maaaring mukhang nagwawagi ang kasamaan ngayon, pero mapagkakatiwalaan ang Kanyang Salita at tiyak ang Kanyang tagumpay.',
+  section3Body3: 'Kaya maging tapat tayo sa pagbabahagi ng gospel. Kailangan natin si Jesus bilang Tagapagligtas sa ating kasalanan. Hindi pangako ang pagsunod sa Kanya na yayaman tayo o mawawala ang lahat ng paghihirap. Kapag iyon ang inaasahan natin, maaari tayong panghinaan kapag may pagsubok. Sumusunod tayo kay Cristo dahil karapat-dapat Siya. Hindi nakasalalay sa ginhawa ngayon ang katiyakan ng ating gantimpala sa Kanya.',
+  section3Verse: 'Ang mga pinatay dahil sa Salita ng Diyos ay dumaing sa banal at tapat na Panginoon. Binigyan sila ng puting damit at sinabihang magpahinga pa nang kaunti.',
+  section3Citation: 'Pahayag 6:9–11 · salin para sa study',
+  section3Question: 'Paano tayo hinihikayat ng tugon ng Diyos sa mga martir na manalangin habang naghihintay ng katarungan? Paano tayo makapagbabahagi ng gospel nang hindi nangangako ng buhay na walang paghihirap?',
+  section4Title: 'Ikaanim na selyo: sino ang makatatayo?',
+  section4Body1: 'Nang buksan ang ikaanim na selyo, nakita ni Juan ang matinding lindol at pagyanig ng kalangitan at lupa. Nagtago ang mga hari, pinuno, mayayaman, makapangyarihan, alipin, at malaya. Sa harap ng paghatol ng Diyos, hindi kayang magligtas ng posisyon, kayamanan, o estado sa buhay. Nagtapos ang kabanata sa tanong: sino ang makatatayo sa harap ng Kanyang poot?',
+  section4Body2: 'Hindi lamang mahalaga kung paano magtatapos ang mundo. Mahalaga kung saan tayo nakatayo kay Cristo ngayon. Walang tagumpay o ari-arian na maibabayad natin para sa kaligtasan. Ang Diyos ay banal, at hindi makatatayo ang kasamaan sa harap Niya. Ang biyaya ay malayang kaloob, pero napakalaki ng halaga nito: ibinigay ng Anak ng Diyos ang Kanyang dugo upang tayo ay tubusin. Lumapit tayo sa Kordero sa pananampalataya.',
+  section4Verse: 'Dumating na ang dakilang araw ng Kanilang poot. Sino ang makatatayo?',
+  section4Citation: 'Pahayag 6:17 · salin para sa study',
+  section4Question: 'Anong pinanghahawakan natin ngayon ang walang kakayahang magligtas sa atin sa harap ng Diyos? Ano ang ibig sabihin ng lumapit kay Jesus sa halip na umasa rito?',
+  section5Title: 'Tinatakan: kilala ng Diyos ang mga sa Kanya',
+  section5Body1: 'Sa Pahayag 7:1–8, pinigil muna ang pinsala hanggang matatakan ang mga lingkod ng Diyos. Narinig ni Juan ang bilang na 144,000 mula sa mga lipi ng Israel. May mga Kristiyanong nauunawaan ang bilang na ito bilang tumutukoy sa Israel, at may mga nakakakita rito ng simbolikong larawan ng buong bayan ng Diyos. Sa gitna ng pagkakaibang ito, malinaw ang katiyakan: hindi nakakalimutan ng Diyos ang mga sa Kanya.',
+  section5Body2: 'Ang selyo ay tanda ng pagmamay-ari. Ang mga lingkod na ito ay sa Diyos. Hindi nito binubura ang pag-uusig na nakita natin sa ikalimang selyo; ang ating katawan ay maaari pa ring dumanas ng sakit at paghihirap. Pero hindi katumbas ng pagdurusa ang pag-abandona ng Diyos. Ang Kanyang bayan ay nasa Kanyang pangangalaga at hindi mawawala sa Kanyang pagkakilala.',
+  section5Body3: 'Ang pagiging sa Diyos ay humuhubog din sa ating pamumuhay. Hindi na sariling kagustuhan lamang ang sinusunod natin. May Panginoon tayong mapagkakatiwalaan. Isuko natin sa Kanya ang ating mga desisyon, oras, at paglilingkod bilang tugon sa Kanyang pagtubos, hindi bilang bayad para tanggapin Niya tayo.',
+  section5Question: 'Paano tayo pinalalakas ng pagiging sa Diyos kapag hindi nagbabago agad ang mahirap na kalagayan? Anong desisyon ngayong linggo ang nais nating ipasakop sa Kanya?',
+  section6Title: 'Walang hanggang pag-asa: ang Kordero ang ating Pastol',
+  section6Body1: 'Pagkatapos, nakita ni Juan ang napakaraming taong hindi mabilang mula sa bawat bansa, lipi, bayan, at wika. Nakatayo sila sa harap ng trono at ng Kordero, may puting damit at mga sanga ng palma. Ipinapahayag nila na sa Diyos at sa Kordero nagmumula ang kaligtasan. Narito ang sagot sa tanong na “Sino ang makatatayo?” Ang mga tinubos ng Kordero.',
+  section6Body2: 'Lumabas sila mula sa matinding kapighatian; nilabhan at pinaputi nila ang kanilang mga damit sa dugo ng Kordero. Hindi moral na pagsisikap, perpektong attendance sa church, o paglilingkod sa ministry ang makapagliligtas sa atin. Si Jesus lamang ang tumutubos. Ang nagtagumpay na Hari at Korderong pinatay ay siya ring Pastol na personal na mangangalaga sa Kanyang bayan.',
+  section6Body3: 'Hindi na sila magugutom o mauuhaw. Hindi na sila masasaktan ng matinding init. Aakayin sila ng Kordero sa mga bukal ng tubig ng buhay, at papahirin ng Diyos ang bawat luha sa kanilang mga mata. Hindi man ito ang kasalukuyan nating karanasan, ito ang tiyak na patutunguhan ng mga sa Kanya. Hindi kayang agawin ng pagdurusa ang pag-asang ito.',
+  section6Body4: 'Kaya pahalagahan natin ang kalayaan nating magbasa ng Salita, magtipon, at sumamba. Habang may mga kapatid tayong inuusig, huwag nating ipagpalit ang pagkilala kay Cristo sa mga bagay na lilipas. Maging totoo sa ating buhay ang mga inaawit natin sa Kanya. Higit sa pag-alam sa mga tanda ng Kanyang pagdating, mamuhay tayong tapat para sa Kanya na muling darating.',
+  section6Verse: 'Hindi na sila magugutom o mauuhaw. Ang Kordero ang kanilang Pastol; aakayin Niya sila sa mga bukal ng tubig ng buhay, at papahirin ng Diyos ang bawat luha sa kanilang mga mata.',
+  section6Citation: 'Pahayag 7:16–17 · salin para sa study',
+  section6Question: 'Aling pangako sa Pahayag 7:9–17 ang kailangan nating panghawakan ngayon? Paano makikita sa ating pagsamba at pamumuhay ang pagtitiwalang ito?',
+  responseSection: '07 · Isabuhay ang narinig',
+  responseTitle: 'Mamuhay na tapat para sa Darating',
+  responseIntro: 'Hindi nagtatapos sa pag-unawa sa mga simbolo ang pag-aaral natin. Pumili ng isang hakbang at gawin ito ngayong linggo.',
+  respond: 'Tumugon',
+  step1: 'Basahin ang Pahayag 6–7 nang buo. Itala ang mga palatandaan ng pamamahala ng Diyos at ang mga pangako Niya sa Kanyang bayan.',
+  step2: 'Dalhin kay Jesus ang isang pinagkukunan mo ng seguridad na maaaring pumalit sa Kanya. Ipagkatiwala sa Kanya ang isang konkretong desisyon sa pera, oras, o pagsunod.',
+  step3: 'Manalangin kasama ang isang kapatid para sa mga inuusig at para sa isang taong dumaraan sa paghihirap. Magbigay ng konkretong tulong o encouragement; ibahagi ang pag-asa kay Cristo nang hindi nangangakong mawawala agad ang sakit.',
+  promiseLabel: 'Panghawakan ngayong linggo',
+  promise: 'Ang Diyos ay nasa trono. Ang Kordero ang nagliligtas. Hindi Niya kinakalimutan ang mga sa Kanya.',
+  prayerSection: '08 · Manalangin',
+  prayerTitle: 'Panginoong Jesus, sa Iyo kami',
+  prayer1: 'Amang Diyos, salamat dahil banal Ka, tapat, at makapangyarihan. Kapag natatakot kami sa nangyayari sa mundo, ipaalala Mong hindi nawalan ng laman ang Iyong trono. Turuan Mo kaming magtiwala sa Iyong Salita at sa Iyong panahon.',
+  prayer2: 'Panginoong Jesus, hindi kami makatatayo sa sarili naming kabutihan. Salamat sa Iyong dugong ibinuhos upang kami ay tubusin. Patawarin Mo kami sa paglalagay ng aming pag-asa sa kayamanan, katayuan, o ginhawa. Sa Iyo kami; tinatanggap namin ang Iyong biyaya at isinusuko ang aming buhay sa Iyo.',
+  prayer3: 'Palakasin Mo ang mga kapatid naming nagdurusa at inuusig. Tulungan Mo kaming sumamba nang tapat, maglingkod nang may pag-ibig, at magbahagi ng Iyong kaligtasan. Ikaw ang aming Pastol. Habang hinihintay naming papahirin Mo ang bawat luha, ituon Mo ang aming mga mata sa Iyo. Amen.',
+  takeawayAria: 'Pangunahing takeaway ng Bible study',
+  takeawayLabel: 'Dalhin mo ito',
+  takeaway: 'Maaaring dumanas ng kapighatian ang mundo, pero ang mga sa Cristo ay may walang hanggang pag-asang hindi kayang agawin ng pagdurusa.',
+  shareLabel: 'Ibahagi ang study',
+  shareTitle: 'Buksan sa ibang device',
+  shareBody: 'I-scan o i-download ang QR code para direktang makabalik sa Bible study na ito.',
+  downloadQr: 'I-download ang QR code',
+  qrLinkAria: 'Buksan ang Bible study na ito',
+  qrImageAlt: 'QR code para sa The Tribulation Period Begins Bible study',
+  scriptureNotice: 'Ang mga Scripture excerpt dito ay mga malayang salin para sa study. Basahin ang buong Pahayag 6–7 at ang mga kaugnay na talata sa inyong Bibliya.',
+  footerTagline: 'Nagkakatipon kay Jesus. Hinuhubog ng Kanyang Salita.',
+};
+---
+
+<BaseLayout
+  title="The Tribulation Period Begins: Revelation 6–7 | DMI Calamba City"
+  description="A Bible study on Revelation 6–7: the six seals, God’s care for his people, and the eternal hope of those redeemed by the Lamb."
+  bodyClass="study-page"
+  socialImage={cover}
+  socialImageAlt="The Tribulation Period Begins Canva first slide with a gold title, open books, and a cross against a dark background"
+  socialImageWidth={2400}
+  socialImageHeight={1350}
+>
+  <a class="study-cover" href="#study" aria-label="Begin The Tribulation Period Begins Bible study" data-i18n-aria-label="coverLinkAria">
+    <picture>
+      <source srcset={`${base}${slug}-cover-1280.webp 1280w, ${base}${slug}-cover-2400.webp 2400w`} sizes="100vw" type="image/webp" />
+      <img src={cover} width="2400" height="1350" alt="The Tribulation Period Begins Canva first slide with a gold title, open books, and a cross against a dark background" data-i18n-alt="coverImageAlt" decoding="async" fetchpriority="high" />
+    </picture>
+  </a>
+  <header class="study-hero" id="study">
+    <nav class="study-nav" aria-label="Primary navigation" data-i18n-aria-label="navAria">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria"><img src={`${base}dmi-logo.jpg`} width="900" height="900" alt="" /><span>DMI · Calamba City</span></a>
+      <LanguageToggle translations={translations} />
+      <span><time datetime="2026-11-08" data-i18n="date">8 November 2026</time></span>
+    </nav>
+    <div class="study-hero-copy">
+      <p class="eyebrow" data-i18n="eyebrow">Bible Study · Revelation 6–7</p>
+      <h1 data-i18n="title">The Tribulation Period Begins</h1>
+      <p class="study-subtitle" data-i18n="subtitle">An eternal hope that suffering cannot take away</p>
+    </div>
+    <blockquote class="hero-scripture"><p lang="en" data-i18n="hero" data-i18n-lang>The Lamb will be their Shepherd, and God will wipe away every tear from their eyes.</p><cite lang="en" data-i18n="heroCitation" data-i18n-lang>Revelation 7:17 · study paraphrase</cite></blockquote>
+  </header>
+
+  <main class="study-content">
+    <aside class="study-aside" aria-label="Study summary" data-i18n-aria-label="summaryAria">
+      <div><span class="aside-label" data-i18n="themeLabel">Theme</span><p data-i18n="theme">God reigns even when the world’s securities collapse. Those redeemed by the Lamb have an eternal hope that suffering cannot take away.</p></div>
+      <div><span class="aside-label" data-i18n="keyLabel">Key texts</span><p data-i18n="key">Revelation 6:1–17 · The first six seals<br />Revelation 7:1–17 · God’s people<br />Revelation 19:11–16 · The faithful and true King</p></div>
+      <div><span class="aside-label" data-i18n="timeLabel">Time</span><p data-i18n="time">40–50 minutes</p></div>
+      <div><span class="aside-label" data-i18n="presentation">Presentation</span><a class="aside-action" href="https://www.canva.com/design/DAHaPYk-muw/vKiQv-IbF66gTq9H_S2Cpw/edit" target="_blank" rel="noreferrer" data-i18n="presentationLink">Open in Canva <span aria-hidden="true">↗</span></a></div>
+      <div><span class="aside-label" data-i18n="service">Sunday service</span><a class="aside-action" href="https://www.youtube.com/watch?v=IbOf7E7QimI&amp;t=4560" target="_blank" rel="noreferrer" data-i18n="serviceLink">Watch the preaching on YouTube <span aria-hidden="true">↗</span></a><p data-i18n="serviceTime">Sermon segment: 01:16:00–02:10:00</p></div>
+      <div><span class="aside-label" data-i18n="facebook">Facebook Live</span><p data-i18n="facebookUnavailable">A separate Facebook Live link is not available. Watch the service on YouTube above.</p></div>
+    </aside>
+
+    <article class="study-article">
+      <section aria-labelledby="section-1">
+        <p class="section-number">01</p>
+        <h2 id="section-1" data-i18n="section1Title">Begin with the throne, not with fear</h2>
+        <p data-i18n="section1Body1">Sometimes fear comes first when we read Revelation. There are symbols we struggle to understand and events we find frightening to imagine. But God has not hidden the ending from us. Like a story we understand more fully when we know its ending, this book helps us see where everything is going. Let us read it with hope and confidence in him.</p>
+        <p data-i18n="section1Body2">Before the seals open in Revelation 6, remember Revelation 4–5. The throne is occupied: God is holy, sovereign, and worthy of worship. Jesus is the victorious Lion and the Lamb who was slain yet lives. He alone is worthy to open the scroll. The world may look chaotic, but heaven is not in chaos. God has not lost control.</p>
+        <p data-i18n="section1Body3">Christians differ in how they understand some details and the timing of these visions. In this study, we understand the seals as judgments still to come, while recognizing that war and suffering already mark human history. Let us keep debates about the timeline from obscuring what is clear: God reigns, the Lamb opens the seals, and he does not forget his people.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss">Discuss</span><p data-i18n="section1Question">How do Revelation 4–5 shape our reading of the judgments in Revelation 6? What fear do we need to bring before the God on the throne?</p></div>
+      </section>
+
+      <section aria-labelledby="section-2">
+        <p class="section-number">02</p>
+        <h2 id="section-2" data-i18n="section2Title">The four horsemen: the world’s security is fragile</h2>
+        <p data-i18n="section2Intro">As the Lamb opens the first four seals, John sees four horsemen. Read Revelation 6:1–8 and notice the words “given” and “granted.” Their power is terrifying, yet it has limits. These are no powers beyond God’s rule.</p>
+        <h3 data-i18n="whiteTitle">First seal · The white horse</h3>
+        <p data-i18n="whiteBody">Its rider carries a bow, receives a crown, and goes out conquering. The passage does not name him. Here we understand him as a false messiah: a conqueror bringing deception and false peace. Compare him with Revelation 19:11–16. There the rider is explicitly identified as Faithful and True, the Word of God, the King of kings and Lord of lords. Let us be careful not to mistake promised victory for the true reign of Jesus.</p>
+        <h3 data-i18n="redTitle">Second seal · The red horse</h3>
+        <p data-i18n="redBody">Its rider is granted power to remove peace from the earth so that people kill one another. We see war, violence, and bloodshed. We recognize how precious peace is when it is taken away. Even the reach of this violence remains under God’s authority.</p>
+        <h3 data-i18n="blackTitle">Third seal · The black horse</h3>
+        <p data-i18n="blackBody">Its rider carries scales. The extraordinary prices of wheat and barley picture scarcity and economic suffering. War destroys livelihoods as well as lives, making food difficult to obtain. The command not to harm the oil and wine may point to unequal suffering: some retain access to goods that others cannot obtain.</p>
+        <h3 data-i18n="paleTitle">Fourth seal · The pale horse</h3>
+        <p data-i18n="paleBody">The rider is named Death, and Hades follows. They receive authority over a fourth of the earth to kill by sword, hunger, pestilence, and wild beasts. The destruction is extensive, yet bounded. God is loving and holy; he will not leave evil unjudged. Let us never treat his mercy, and the opportunity to turn back to him, lightly.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss">Discuss</span><p data-i18n="section2Question">What do the four horsemen expose about the security offered by power, peace, and money? Where does our trust in Christ need to deepen?</p></div>
+      </section>
+
+      <section aria-labelledby="section-3">
+        <p class="section-number">03</p>
+        <h2 id="section-3" data-i18n="section3Title">The fifth seal: God hears those who suffer</h2>
+        <p data-i18n="section3Body1">In Revelation 6:9–11, John sees beneath the altar those killed for the word of God and their testimony. They ask, “How long?” They do not deny the pain or injustice. They bring their cry before the Lord who is holy and true. Each receives a white robe and is told to rest a little longer. Their waiting does not mean they are forgotten; judgment follows God’s own timing.</p>
+        <p data-i18n="section3Body2">When we see believers persecuted, we too may ask why this happens. God is neither distant nor indifferent. He sees their suffering. Evil may appear to prevail today, but his word is trustworthy and his victory is certain.</p>
+        <p data-i18n="section3Body3">So let us share the gospel faithfully. We need Jesus as our Savior from sin. Following him does not promise wealth or the removal of every hardship. If that is what we expect, suffering may shake our faith. We follow Christ because he is worthy. The certainty of our reward in him does not depend on comfort today.</p>
+        <blockquote class="verse-card"><p lang="en" data-i18n="section3Verse" data-i18n-lang>Those slain for God’s word cry out to the holy and true Lord. They receive white robes and are told to rest a little longer.</p><cite lang="en" data-i18n="section3Citation" data-i18n-lang>Revelation 6:9–11 · study paraphrase</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss">Discuss</span><p data-i18n="section3Question">How does God’s response to the martyrs encourage us to pray while waiting for justice? How can we share the gospel without promising a life free from hardship?</p></div>
+      </section>
+
+      <section aria-labelledby="section-4">
+        <p class="section-number">04</p>
+        <h2 id="section-4" data-i18n="section4Title">The sixth seal: who can stand?</h2>
+        <p data-i18n="section4Body1">When the sixth seal opens, John sees a great earthquake and the upheaval of heaven and earth. Kings, rulers, the wealthy, the powerful, slaves, and free people hide. Position, riches, and social standing cannot save anyone from God’s judgment. The chapter ends with a question: who can stand before his wrath?</p>
+        <p data-i18n="section4Body2">How the world will end matters. Where we stand with Christ today matters too. No achievement or possession can purchase salvation. God is holy, and evil cannot stand before him. Grace is freely given, yet it came at a great cost: the Son of God shed his blood to redeem us. Let us come to the Lamb in faith.</p>
+        <blockquote class="verse-card"><p lang="en" data-i18n="section4Verse" data-i18n-lang>The great day of their wrath has come. Who can stand?</p><cite lang="en" data-i18n="section4Citation" data-i18n-lang>Revelation 6:17 · study paraphrase</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss">Discuss</span><p data-i18n="section4Question">What are we holding on to that cannot save us before God? What would it mean to come to Jesus rather than depend on it?</p></div>
+      </section>
+
+      <section aria-labelledby="section-5">
+        <p class="section-number">05</p>
+        <h2 id="section-5" data-i18n="section5Title">Sealed: God knows those who belong to him</h2>
+        <p data-i18n="section5Body1">In Revelation 7:1–8, harm is held back until God’s servants are sealed. John hears the number 144,000 from the tribes of Israel. Some Christians understand this number as referring to Israel; others see a symbolic picture of all God’s people. Amid that difference, the assurance is clear: God does not forget those who are his.</p>
+        <p data-i18n="section5Body2">The seal marks ownership. These servants belong to God. This does not erase the persecution we saw in the fifth seal; our bodies may still experience pain and hardship. Yet suffering does not mean God has abandoned us. His people remain in his care and are never lost to his knowledge.</p>
+        <p data-i18n="section5Body3">Belonging to God also shapes how we live. Our own desires no longer have the final word. We have a Master we can trust. Let us surrender our decisions, time, and service to him in response to his redemption, never as payment for his acceptance.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss">Discuss</span><p data-i18n="section5Question">How does belonging to God strengthen us when difficult circumstances do not immediately change? What decision this week do we want to place under his authority?</p></div>
+      </section>
+
+      <section aria-labelledby="section-6">
+        <p class="section-number">06</p>
+        <h2 id="section-6" data-i18n="section6Title">Eternal hope: the Lamb is our Shepherd</h2>
+        <p data-i18n="section6Body1">Then John sees a multitude no one can count, from every nation, tribe, people, and language. They stand before the throne and the Lamb, wearing white robes and holding palm branches. They declare that salvation belongs to God and to the Lamb. Here is the answer to “Who can stand?” Those redeemed by the Lamb.</p>
+        <p data-i18n="section6Body2">They have come out of the great tribulation and washed their robes white in the blood of the Lamb. Moral effort, perfect church attendance, and ministry service cannot save us. Jesus alone redeems. The victorious King and the Lamb who was slain is also the Shepherd who personally cares for his people.</p>
+        <p data-i18n="section6Body3">They will hunger and thirst no more. Scorching heat will no longer hurt them. The Lamb will lead them to springs of living water, and God will wipe away every tear from their eyes. Though this is not yet our present experience, it is the certain destination of those who belong to him. Suffering cannot take this hope away.</p>
+        <p data-i18n="section6Body4">So let us value our freedom to read the Word, gather, and worship. While our brothers and sisters endure persecution, let us not trade knowing Christ for things that will pass away. Let our lives give truth to the words we sing to him. As we learn the signs of his coming, let us live faithfully for the One who is coming.</p>
+        <blockquote class="verse-card"><p lang="en" data-i18n="section6Verse" data-i18n-lang>They will hunger and thirst no more. The Lamb will be their Shepherd, leading them to springs of living water, and God will wipe away every tear from their eyes.</p><cite lang="en" data-i18n="section6Citation" data-i18n-lang>Revelation 7:16–17 · study paraphrase</cite></blockquote>
+        <div class="discussion-prompt"><span data-i18n="discuss">Discuss</span><p data-i18n="section6Question">Which promise in Revelation 7:9–17 do we need to hold on to today? How can this trust become visible in our worship and daily life?</p></div>
+      </section>
+
+      <section class="response-section" aria-labelledby="response-title">
+        <p class="section-number" data-i18n="responseSection">07 · Put what you heard into practice</p>
+        <h2 id="response-title" data-i18n="responseTitle">Live faithfully for the One who is coming</h2>
+        <p data-i18n="responseIntro">Our study continues beyond understanding the symbols. Choose one step and take it this week.</p>
+        <ol class="response-steps">
+          <li><span data-i18n="respond">Respond</span><p data-i18n="step1">Read Revelation 6–7 in full. Note the signs of God’s authority and his promises to his people.</p></li>
+          <li><span data-i18n="respond">Respond</span><p data-i18n="step2">Bring to Jesus one source of security that could take his place. Entrust a concrete decision about money, time, or obedience to him.</p></li>
+          <li><span data-i18n="respond">Respond</span><p data-i18n="step3">Pray with another believer for persecuted Christians and someone facing hardship. Offer practical help or encouragement; share hope in Christ without promising that the pain will immediately disappear.</p></li>
+        </ol>
+        <div class="key-statement dark"><span data-i18n="promiseLabel">Hold on to this through the week</span><p data-i18n="promise">God is on the throne. The Lamb saves. He does not forget those who belong to him.</p></div>
+      </section>
+
+      <section class="closing-prayer" aria-labelledby="prayer-title">
+        <p class="section-number" data-i18n="prayerSection">08 · Pray</p>
+        <h2 id="prayer-title" data-i18n="prayerTitle">Lord Jesus, we belong to You</h2>
+        <p data-i18n="prayer1">Father God, thank You that You are holy, faithful, and sovereign. When events in our world frighten us, remind us that Your throne is occupied. Teach us to trust Your word and Your timing.</p>
+        <p data-i18n="prayer2">Lord Jesus, we cannot stand in our own goodness. Thank You for shedding Your blood to redeem us. Forgive us for placing our hope in wealth, status, or comfort. We belong to You; we receive Your grace and surrender our lives to You.</p>
+        <p data-i18n="prayer3">Strengthen our brothers and sisters who suffer and face persecution. Help us worship sincerely, serve in love, and share Your salvation. You are our Shepherd. As we wait for You to wipe away every tear, fix our eyes on You. Amen.</p>
+      </section>
+      <section class="takeaway" aria-label="Study takeaway" data-i18n-aria-label="takeawayAria"><span data-i18n="takeawayLabel">Take this with you</span><p data-i18n="takeaway">The world may experience tribulation, but those who belong to Christ have an eternal hope that suffering cannot take away.</p></section>
+      <section class="qr-section" aria-labelledby="share-title">
+        <div><p class="section-number" data-i18n="shareLabel">Share the study</p><h2 id="share-title" data-i18n="shareTitle">Open on another device</h2><p data-i18n="shareBody">Scan or download this QR code to return directly to this Bible study.</p><a class="text-link" href={qr} download="dmi-the-tribulation-period-begins-qr.png" data-i18n="downloadQr">Download QR code</a></div>
+        <a class="qr-card" href={pageURL} aria-label="Open this Bible study" data-i18n-aria-label="qrLinkAria"><img src={qr} width="720" height="720" alt="QR code for The Tribulation Period Begins Bible study" data-i18n-alt="qrImageAlt" /></a>
+      </section>
+      <p class="scripture-notice" lang="en" data-i18n="scriptureNotice" data-i18n-lang>Scripture excerpts on this page are study paraphrases. Read Revelation 6–7 in full and the related passages in your Bible.</p>
+    </article>
+  </main>
+  <footer class="site-footer"><a href={base}>DMI Calamba City</a><div class="site-footer-actions"><span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span><SocialLinks /></div></footer>
+</BaseLayout>
