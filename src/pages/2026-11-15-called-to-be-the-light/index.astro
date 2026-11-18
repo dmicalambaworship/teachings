@@ -1,0 +1,239 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const slug = '2026-11-15-called-to-be-the-light';
+const pageURL = new URL(`${base}${slug}/`, Astro.site ?? Astro.url).toString();
+const cover = `${base}${slug}-cover.jpg`;
+const qr = `${base}qr/${slug}.png`;
+const translations = {
+  languageLabel: 'Wika',
+  languageAriaLabel: 'Wika ng pagbabasa',
+  navAria: 'Pangunahing navigation',
+  homeAria: 'Bumalik sa DMI Calamba City home',
+  date: '15 Nobyembre 2026',
+  coverLinkAria: 'Simulan ang Called to Be the Light Bible study',
+  coverImageAlt: 'Canva page 7: Called to Be the Light, Mateo 5:14–16, na may liwanag mula sa bahagyang bukas na pinto sa madilim na silid',
+  eyebrow: 'Until He Comes · Bible Study · Mateo 5:14–16',
+  title: 'Called to Be the Light',
+  subtitle: 'Tanggapin ang liwanag ni Jesus. Ipakita ang kabutihan ng Ama saanman tayo naroroon.',
+  hero: 'Paliwanagin ninyo ang inyong ilaw sa harap ng iba upang makita nila ang inyong mabubuting gawa at luwalhatiin ang inyong Ama sa langit.',
+  heroCitation: 'Mateo 5:16 · salin para sa study',
+  summaryAria: 'Buod ng Bible study',
+  themeLabel: 'Tema',
+  theme: 'Si Jesus ang pinagmumulan ng liwanag. Habang sumusunod tayo sa Kanya, naipapakita natin ang Kanyang kabutihan sa tahanan, trabaho, paaralan, at komunidad upang maluwalhati ang Ama.',
+  keyLabel: 'Mga susing talata',
+  key: 'Mateo 5:14–16 · Tinawag na maging ilaw<br />Juan 8:12 · Si Jesus ang ilaw ng sanlibutan<br />Juan 15:5, 18 · Manatili sa Kanya kahit may pagtanggi<br />Efeso 5:8–9 · Mamuhay bilang mga anak ng liwanag',
+  timeLabel: 'Oras',
+  time: '35–45 minuto',
+  presentation: 'Canva presentation',
+  presentationLink: 'Buksan ang mga slide <span aria-hidden="true">↗</span>',
+  service: 'Sunday service',
+  serviceLink: 'Panoorin ang pangangaral sa YouTube <span aria-hidden="true">↗</span>',
+  serviceTime: 'Bahagi ng sermon: 01:08:16–01:43:20',
+  facebook: 'Facebook Live',
+  facebookLink: 'Panoorin ang service sa Facebook <span aria-hidden="true">↗</span>',
+  discuss: 'Pag-usapan',
+  section1Title: 'Kailangan natin ng liwanag',
+  section1Body1: 'Ano ang isa sa pinakamahalagang kailangan sa photography? Maaaring napakaganda ng camera, lens, lokasyon, at subject. Pero kung walang liwanag, hindi makukunan nang malinaw ang gusto nating makita. Sa karanasan ko sa photography, hindi sapat ang magandang kagamitan; kailangang makatanggap ng liwanag ang camera.',
+  section1Body2: 'Alalahanin natin ang brownout sa gabi. Ang simpleng paglalakad sa bahay o paghahanap ng flashlight ay biglang nagiging mahirap. Gayundin sa pagmamaneho: kahit kaunting ilaw ay nakatutulong para makita ang daan at makausad. Nagbibigay ng visibility at direksyon ang liwanag, at ang araw ay bahagi ng pagkakaloob ng Diyos para sa buhay sa mundo.',
+  section1Body3: 'Ganito rin natin kailangan ang liwanag sa ating kalooban. Maaari tayong mukhang maayos, abala, at may plano, pero kailangan pa rin nating makita kung ano ang totoo at saan tayo patungo. Habang hinihintay natin ang pagbabalik ni Cristo, mahalagang itanong: kaninong liwanag ang sinusundan natin sa araw-araw?',
+  section1Question: 'Saan tayo kasalukuyang nahihirapang makita ang tamang direksyon? Ano ang karaniwan nating sinusundan kapag hindi malinaw ang daan?',
+  section2Title: 'Si Jesus ang pinagmumulan ng liwanag',
+  section2Verse: 'Ako ang ilaw ng sanlibutan. Ang sumusunod sa Akin ay hindi lalakad sa kadiliman kundi magkakaroon ng liwanag ng buhay.',
+  section2Citation: 'Juan 8:12 · salin para sa study',
+  section2Body1: 'Si Jesus ang pinagmumulan ng katotohanan, kaligtasan, pag-asa, at espirituwal na buhay. Kapag sari-saring opinyon at mga naririnig natin online ang pinaghahalo natin bilang batayan ng katotohanan, madali tayong malito. Lumapit tayo kay Jesus at sa Kanyang Salita upang makilala ang tama at ang direksyong dapat tahakin.',
+  section2Body2: 'Ang buhay ko ay patotoo ng paglipat mula sa kadiliman tungo sa liwanag. Dati, wala akong malinaw na direksyon. Umiikot ang buhay ko sa pag-inom, pakikipagrelasyon sa iba’t ibang babae, at paglalaro ng Dota. Nang magkahiwalay ang mga magulang ko, naging magulo ang mga relasyon ko at nag-alala ako kung may pang-tuition pa ako para makatapos. Sa panahong iyon ng brokenness, gumamit ang Diyos ng ibang tao upang imbitahan ako sa church. Doon ko tinanggap si Jesus at nakita ang pag-asang wala sa dati kong pamumuhay.',
+  section2Body3: 'Hindi ko noon maisip na magiging bahagi ako ng church, lalo nang tatayo upang magbahagi ng Kanyang Salita. Pero binabago ni Jesus ang buhay. Huwag na nating hintaying gumuho ang lahat bago tayo lumapit sa Kanya. Kung maayos ang buhay natin ngayon, kailangan pa rin natin Siya. At kung wasak ang pakiramdam natin, maaari tayong lumapit sa Kanya ngayon.',
+  section2Body4: 'Pansinin ang sinabi Niya: ang sumusunod sa Akin. Higit ito sa pag-alam ng impormasyon tungkol kay Jesus. Kasama rito ang pakikinig, pagtitiwala, at pagsunod sa Kanya araw-araw. Hindi ibig sabihin na mawawala na ang lahat ng struggle. Pero may katotohanan at gabay na tayong panghahawakan habang lumalakad kasama Niya.',
+  section2Question: 'Ano ang pagkakaiba ng pag-alam tungkol kay Jesus at pagsunod sa Kanya? Saang bahagi ng buhay natin kailangang maging aktuwal na pagsunod ang ating nalalaman?',
+  section3Title: 'Ipakita ang liwanag na tinanggap natin',
+  section3Body1: 'Hindi gumagawa ng sarili nitong liwanag ang buwan; nire-reflect nito ang liwanag ng araw. Gamitin natin iyon bilang simpleng larawan ng ating pagtawag. Si Jesus ang pinagmumulan. Tayo ang tumatanggap at nagpapakita ng Kanyang liwanag sa iba. Kaya hindi nakasalalay sa pagpapakitang perpekto tayo ang ating patotoo, kundi sa pananatili natin sa Kanya at sa pagbabagong ginagawa Niya sa atin.',
+  section3Body2: 'Maging tapat tayo: minsan, tayo pa ang nakakasakit o nagiging hadlang sa paglapit ng iba kay Jesus. Kapag self-righteous tayo at iniisip nating mas mabuti tayo kaysa sa kanila, hindi natin naipapakita ang Kanyang puso. Ang tamang tugon ay magsisi, humingi ng tawad, at magpasakop muli sa Kanyang pagbabago.',
+  section3Body3: 'Hindi binubura ng ating mga pagkabigo ang ating assignment. Kailangan nating harapin ang kasalanan, pero maaari tayong bumalik kay Jesus at matutong magliwanag muli. Huwag nating gawing dahilan ang “hindi naman ako perfect” para manatili sa nakasasakit na ugali. Sa biyaya Niya, maaari tayong magpakumbaba at sumunod.',
+  section3Question: 'Paano tayo matutulungang magpakumbaba at magsisi ng katotohanang si Jesus ang source ng liwanag natin? May relasyon bang kailangan nating lapitan nang may paghingi ng tawad o pagwawasto?',
+  section4Title: 'Huwag itago ang ilaw: ituro natin sila sa Ama',
+  section4Body1: 'Basahin ang Mateo 5:14–16. Ang bayang nasa burol ay nakikita. Ang ilawan ay inilalagay sa patungan para maliwanagan ang bahay. Sayang ang ilaw na tinatakpan. Gayundin, hindi dapat matapos sa pagtitipon natin sa church ang pagiging Kristiyano. Dalhin natin ang ating pananampalataya sa trabaho, tahanan, negosyo, paaralan, at pakikitungo sa ibang tao.',
+  section4Body2: 'Malinaw din ang layunin ni Jesus: makita nila ang ating mabubuting gawa at luwalhatiin ang Ama. Ang layunin ay makita nila kung gaano kabuti ang Diyos. Hindi natin kailangang ipakitang mas magaling o mas banal tayo kaysa sa iba. Maaari tayong maglingkod, makinig, manalangin, at magbahagi ng gospel nang may pagpapakumbaba.',
+  section4Statement: 'Hindi ang makita nila kung gaano tayo kaliwanag ang layunin. Ang layunin ay makita nila kung gaano kabuti ang ating Diyos.',
+  section4Body3: 'Nakita natin ang isang halimbawa sa street worship natin noong October sa Pahinga Kape. May mga dumaraan na huminto at nagpalapit para ipanalangin. May isang naka-wheelchair na nakarinig ng worship at lumapit din. Sa prayer walk mula sa City Hall patungong CCC, ipinanalangin natin ang mga paaralan at ang ating lungsod. Hindi natin alam ang buong pinagdaraanan ng bawat nakakasalubong natin, pero maaari nating maipadama ang pag-aalaga ng Diyos sa pamamagitan ng presensya, panalangin, at pagbabahagi ng Kanyang pag-ibig.',
+  section4Question: 'Ano ang pagkakaiba ng paggawa ng mabuti upang mapansin tayo at paggawa nito upang maluwalhati ang Ama? Paano natin maipapakita ang pag-aalaga Niya sa isang tao sa labas ng church ngayong linggo?',
+  section5Title: 'Limang paraan para maipakita ang liwanag ni Jesus',
+  connectedTitle: '1 · Manatiling konektado kay Jesus',
+  connectedBody: 'Manalangin, basahin ang Salita, at sumunod. Sa Juan 15:5, itinuturo ni Jesus na ang nananatili sa Kanya ang namumunga; wala tayong magagawa kung hiwalay sa Kanya. Mahirap ipakita ang Kanyang karakter kung hindi natin Siya kinikilala. Maglaan ng oras para sa Kanya at isabuhay ang Kanyang itinuturo.',
+  liveTitle: '2 · Mamuhay tulad ni Jesus',
+  liveBody: 'Basahin ang Efeso 5:8–9. Tinatawag tayong mamuhay bilang mga anak ng liwanag, na may bunga ng kabutihan, katuwiran, at katotohanan. Makikita ito sa pag-ibig, kabaitan, pagpapatawad, at pagpapakumbaba. Kapag mabilis tayong magalit, huminto tayo at magpasakop sa Kanya bago tumugon.',
+  faithTitle: '3 · Huwag itago ang pananampalataya',
+  faithBody: 'Ang ilawan sa Mateo 5:15 ay nilalayong magbigay-liwanag. Maging Kristiyano saanman tayo naroroon. Ibahagi natin ang gospel, mag-alok ng panalangin nang may paggalang, at hayaang tumugma ang ating mga salita sa ating buhay.',
+  worksTitle: '4 · Gumawa ng mabuti',
+  worksBody: 'Hindi natin ginagawa ang mabuti upang kitain ang kaligtasan. Ang mabubuting gawa ay bunga ng pag-ibig ng Diyos na tinanggap natin at ng ating pagmamahal sa Kanya. Hayaan nating makita ang Kanyang kabutihan sa tapat na trabaho, praktikal na tulong, at malasakit na walang hinihintay na papuri.',
+  shineTitle: '5 · Magliwanag kung saan ka naroroon',
+  shineBody: 'Maaaring mahirap ang kalakaran sa trabaho o malakas ang impluwensya ng mga kaibigan. Hindi nagbabago ang pagtawag natin na maging ilaw. Sa tahanan, trabaho, negosyo, paaralan, at komunidad, tumanggi tayong makisama sa mali at patuloy na magmahal. Tingnan natin ang mga taong nakakasama natin bilang mga taong maaari nating paglingkuran.',
+  section5Question: 'Alin sa limang hakbang ang kailangang unahin natin ngayon? Anong tiyak na pagbabago ang makikita sa ating schedule, salita, o pakikitungo ngayong linggo?',
+  section6Title: 'Magpatuloy kahit may pagtanggi',
+  section6Verse: 'Kung kinapopootan kayo ng mundo, alalahanin ninyong Ako muna ang kinapootan nito.',
+  section6Citation: 'Juan 15:18 · salin para sa study',
+  section6Body1: 'Hindi lahat ay tatanggap sa ating patotoo. Maaaring tanggihan ang alok nating panalangin o ang pagbabahagi natin tungkol kay Jesus. Inihanda Niya tayo rito. Huwag nating gawing sukatan ng katapatan ang agarang pagtanggap o papuri ng mga tao. Maaari tayong patuloy na magmahal nang hindi pinipilit ang iba o isinasantabi ang ating pananampalataya.',
+  section6Body2: 'Kaya palalimin natin ang relasyon natin kay Jesus. Hindi natin kayang panatilihin ang liwanag sa sariling lakas. Lumapit tayo sa Kanya nang tapat: may kahinaan tayo, pero handa tayong magpagamit. Habang hinihintay natin ang Kanyang pagdating, maaari na ngayong makita sa ating buhay ang kabutihan Niya.',
+  responseSection: '07 · Isabuhay ang narinig',
+  responseTitle: 'Magliwanag sa isang konkretong paraan ngayong linggo',
+  responseIntro: 'Pumili ng isang taong maaari mong paglingkuran at isang hakbang ng pagsunod. Magsimula sa pananatili kay Jesus.',
+  respond: 'Tumugon',
+  step1: 'Basahin ang Juan 8:12 at Mateo 5:14–16. Sa panalangin, ipakita sa Diyos ang isang bahaging kailangan ng Kanyang liwanag at sundin ang malinaw Niyang itinuturo.',
+  step2: 'Pumili ng isang relasyon sa bahay, trabaho, o paaralan. Humingi ng tawad kung kailangan, magpatawad, o magbigay ng praktikal na tulong nang walang hinihintay na kapalit.',
+  step3: 'Ipanalangin ang isang tao o lugar sa iyong komunidad. Mag-alok ng panalangin o ibahagi kung paano ka binigyan ni Jesus ng pag-asa. Igalang ang tugon nila at patuloy na magpakita ng kabutihan.',
+  promiseLabel: 'Panghawakan ngayong linggo',
+  promise: 'Si Jesus ang pinagmumulan ng liwanag. Manatili tayo sa Kanya at hayaang makita ng iba ang kabutihan ng Ama.',
+  prayerSection: '08 · Manalangin',
+  prayerTitle: 'Jesus, ipakita Mo ang Iyong liwanag sa aming buhay',
+  prayer1: 'Panginoong Jesus, Ikaw ang ilaw ng sanlibutan. Salamat dahil nilalapitan Mo kami sa aming kadiliman at binibigyan ng katotohanan, pag-asa, at bagong buhay. Binubuksan namin ang aming puso upang tanggapin Ka at sundin ang Iyong Salita.',
+  prayer2: 'Patawarin Mo kami sa pagtatago ng aming pananampalataya, sa pagmamataas, at sa mga paraang nakasakit kami ng iba. Turuan Mo kaming magsisi, humingi ng tawad, at mamuhay ayon sa Iyong karakter. Panatilihin Mo kaming malapit sa Iyo sa panalangin, sa Salita, at sa pagsunod.',
+  prayer3: 'Gamitin Mo ang aming buhay sa tahanan, trabaho, paaralan, at lungsod. Bigyan Mo kami ng tapang na magbahagi ng gospel at pusong mapagpakumbaba sa paglilingkod. Kahit may pagtanggi, tulungan Mo kaming magmahal. Sa lahat ng aming ginagawa, maluwalhati ang Ama. Amen.',
+  takeawayAria: 'Pangunahing takeaway ng Bible study',
+  takeawayLabel: 'Dalhin mo ito',
+  takeaway: 'Tinawag tayong magliwanag upang makita ng mga tao kung gaano kabuti ang Diyos. Si Jesus ang source; ipakita natin ang Kanyang liwanag saanman tayo naroroon.',
+  shareLabel: 'Ibahagi ang study',
+  shareTitle: 'Buksan sa ibang device',
+  shareBody: 'I-scan o i-download ang QR code para direktang makabalik sa Bible study na ito.',
+  downloadQr: 'I-download ang QR code',
+  qrLinkAria: 'Buksan ang Bible study na ito',
+  qrImageAlt: 'QR code para sa Called to Be the Light Bible study',
+  scriptureNotice: 'Ang mga Scripture excerpt dito ay mga malayang salin para sa study. Basahin ang buong Mateo 5:14–16, Juan 8:12, Juan 15:5, 18, at Efeso 5:8–9 sa inyong Bibliya.',
+  footerTagline: 'Nagkakatipon kay Jesus. Hinuhubog ng Kanyang Salita.',
+};
+---
+
+<BaseLayout
+  title="Called to Be the Light: Until He Comes | DMI Calamba City"
+  description="A Bible study on Matthew 5:14–16: receive the light of Jesus, remain in him, and reflect the Father’s goodness at home, at work, and in the community."
+  bodyClass="study-page"
+  socialImage={cover}
+  socialImageAlt="Canva page 7: Called to Be the Light, Matthew 5:14–16, with light entering a dark room through an open door"
+  socialImageWidth={2400}
+  socialImageHeight={1350}
+>
+  <a class="study-cover" href="#study" aria-label="Begin Called to Be the Light Bible study" data-i18n-aria-label="coverLinkAria">
+    <picture>
+      <source srcset={`${base}${slug}-cover-1280.webp 1280w, ${base}${slug}-cover-2400.webp 2400w`} sizes="100vw" type="image/webp" />
+      <img src={cover} width="2400" height="1350" alt="Canva page 7: Called to Be the Light, Matthew 5:14–16, with light entering a dark room through an open door" data-i18n-alt="coverImageAlt" decoding="async" fetchpriority="high" />
+    </picture>
+  </a>
+  <header class="study-hero" id="study">
+    <nav class="study-nav" aria-label="Primary navigation" data-i18n-aria-label="navAria">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria"><img src={`${base}dmi-logo.jpg`} width="900" height="900" alt="" /><span>DMI · Calamba City</span></a>
+      <LanguageToggle translations={translations} />
+      <span><time datetime="2026-11-15" data-i18n="date">15 November 2026</time></span>
+    </nav>
+    <div class="study-hero-copy">
+      <p class="eyebrow" data-i18n="eyebrow">Until He Comes · Bible Study · Matthew 5:14–16</p>
+      <h1 data-i18n="title">Called to Be the Light</h1>
+      <p class="study-subtitle" data-i18n="subtitle">Receive the light of Jesus. Show the Father’s goodness wherever we are.</p>
+    </div>
+    <blockquote class="hero-scripture"><p lang="en" data-i18n="hero" data-i18n-lang>Let your light shine before others, so they may see your good works and glorify your Father in heaven.</p><cite lang="en" data-i18n="heroCitation" data-i18n-lang>Matthew 5:16 · study paraphrase</cite></blockquote>
+  </header>
+
+  <main class="study-content">
+    <aside class="study-aside" aria-label="Study summary" data-i18n-aria-label="summaryAria">
+      <div><span class="aside-label" data-i18n="themeLabel">Theme</span><p data-i18n="theme">Jesus is the source of light. As we follow him, we reflect his goodness at home, at work, at school, and in our community so that the Father is glorified.</p></div>
+      <div><span class="aside-label" data-i18n="keyLabel">Key texts</span><p data-i18n="key">Matthew 5:14–16 · Called to be the light<br />John 8:12 · Jesus, the light of the world<br />John 15:5, 18 · Remain in him through rejection<br />Ephesians 5:8–9 · Live as children of light</p></div>
+      <div><span class="aside-label" data-i18n="timeLabel">Time</span><p data-i18n="time">35–45 minutes</p></div>
+      <div><span class="aside-label" data-i18n="presentation">Canva presentation</span><a href="https://canva.link/v6x9d8mp848bq5q" target="_blank" rel="noreferrer" data-i18n="presentationLink">Open the slides <span aria-hidden="true">↗</span></a></div>
+      <div><span class="aside-label" data-i18n="service">Sunday service</span><a href="https://www.youtube.com/watch?v=oqp7hWv_MI4&amp;t=4096" target="_blank" rel="noreferrer" data-i18n="serviceLink">Watch the preaching on YouTube <span aria-hidden="true">↗</span></a><p data-i18n="serviceTime">Sermon segment: 01:08:16–01:43:20</p></div>
+      <div><span class="aside-label" data-i18n="facebook">Facebook Live</span><a href="https://www.facebook.com/DMICalamba/videos/1167235818999562" target="_blank" rel="noreferrer" data-i18n="facebookLink">Watch the service on Facebook <span aria-hidden="true">↗</span></a></div>
+    </aside>
+
+    <article class="study-article">
+      <section aria-labelledby="section-1">
+        <p class="section-number">01</p>
+        <h2 id="section-1" data-i18n="section1Title">We need the light</h2>
+        <p data-i18n="section1Body1">What is one of the most important elements in photography? We can have an excellent camera, lens, location, and subject. Yet without light, we cannot clearly capture what we want to see. In my experience with photography, good equipment is not enough; the camera needs to receive light.</p>
+        <p data-i18n="section1Body2">Think about a power outage at night. Walking through the house or finding a flashlight suddenly becomes difficult. It is similar when driving: even a little light helps us see the road and move forward. Light gives visibility and direction, and sunlight is part of God’s provision for life on earth.</p>
+        <p data-i18n="section1Body3">We need light in our inner lives too. We can look successful, stay busy, and make plans while still needing to see what is true and where we are going. As we await Christ’s return, let us ask: whose light guides our everyday steps?</p>
+        <div class="discussion-prompt"><span data-i18n="discuss">Discuss</span><p data-i18n="section1Question">Where are we struggling to see the right direction? What do we usually follow when the way ahead seems unclear?</p></div>
+      </section>
+
+      <section aria-labelledby="section-2">
+        <p class="section-number">02</p>
+        <h2 id="section-2" data-i18n="section2Title">Jesus is the source of light</h2>
+        <blockquote class="verse-card"><p lang="en" data-i18n="section2Verse" data-i18n-lang>I am the light of the world. Whoever follows me will not walk in darkness but will have the light of life.</p><cite lang="en" data-i18n="section2Citation" data-i18n-lang>John 8:12 · study paraphrase</cite></blockquote>
+        <p data-i18n="section2Body1">Jesus is the source of truth, salvation, hope, and spiritual life. When we build our understanding of truth from a mixture of opinions and whatever we hear online, we can easily become confused. Let us come to Jesus and his Word to learn what is right and which direction to take.</p>
+        <p data-i18n="section2Body2">My life is a testimony of moving from darkness to light. I once had no clear direction. My life revolved around drinking, relationships with different women, and playing Dota. When my parents separated, my relationships were troubled and I worried about having enough tuition to finish my studies. In that brokenness, God used other people to invite me to church. There I received Jesus and found hope that my old way of life could not give.</p>
+        <p data-i18n="section2Body3">I could not have imagined becoming part of the church, much less standing to share his Word. But Jesus changes lives. Let us come to him before everything falls apart. If life is comfortable today, we still need him. If we feel broken, we can come to him now.</p>
+        <p data-i18n="section2Body4">Notice his words: whoever follows me. This goes beyond knowing information about Jesus. It means listening, trusting, and obeying him each day. It does not mean every struggle disappears. We have his truth and guidance to hold on to as we walk with him.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss">Discuss</span><p data-i18n="section2Question">What is the difference between knowing about Jesus and following him? Where does what we know need to become actual obedience?</p></div>
+      </section>
+
+      <section aria-labelledby="section-3">
+        <p class="section-number">03</p>
+        <h2 id="section-3" data-i18n="section3Title">Reflect the light we have received</h2>
+        <p data-i18n="section3Body1">The moon does not produce its own light; it reflects the light of the sun. Let that be a simple picture of our calling. Jesus is the source. We receive and reflect his light to others. Our witness depends on remaining in him and allowing him to change us, rather than presenting ourselves as perfect.</p>
+        <p data-i18n="section3Body2">Let us be honest: sometimes we hurt people or become a barrier to their coming to Jesus. When we become self-righteous and think we are better than others, we fail to reflect his heart. Our response is to repent, ask forgiveness, and submit again to his transforming work.</p>
+        <p data-i18n="section3Body3">Our failures do not change our assignment. We must face our sin, and we can return to Jesus and learn to shine again. Let us never use “I am not perfect” as a reason to keep a harmful habit. By his grace, we can humble ourselves and obey.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss">Discuss</span><p data-i18n="section3Question">How does knowing that Jesus is our source help us become humble and repent? Is there a relationship where we need to ask forgiveness or put something right?</p></div>
+      </section>
+
+      <section aria-labelledby="section-4">
+        <p class="section-number">04</p>
+        <h2 id="section-4" data-i18n="section4Title">Let the light be seen: point people to the Father</h2>
+        <p data-i18n="section4Body1">Read Matthew 5:14–16. A city on a hill is visible. A lamp belongs on a stand where it can light the house. A covered light cannot serve its purpose. Our Christian life must reach beyond gathering at church. Let us carry our faith into our work, homes, businesses, schools, and relationships.</p>
+        <p data-i18n="section4Body2">Jesus also makes the purpose clear: people are to see our good works and glorify the Father. We want them to recognize God’s goodness. We do not need to present ourselves as more impressive or more holy than others. We can serve, listen, pray, and share the gospel with humility.</p>
+        <div class="key-statement"><p data-i18n="section4Statement">The goal is not for people to see how bright we are. The goal is for people to see how good our God is.</p></div>
+        <p data-i18n="section4Body3">We saw one example during our October street worship at Pahinga Kape. People passing by stopped and came for prayer. One person using a wheelchair heard the worship and came over too. During our prayer walk from City Hall toward CCC, we prayed for schools and our city. We do not know everything the people we meet are carrying, but our presence, prayers, and sharing of God’s love can express his care.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss">Discuss</span><p data-i18n="section4Question">How does doing good for attention differ from doing it to glorify the Father? How can we express his care to someone beyond the church this week?</p></div>
+      </section>
+
+      <section aria-labelledby="section-5">
+        <p class="section-number">05</p>
+        <h2 id="section-5" data-i18n="section5Title">Five ways to reflect the light of Jesus</h2>
+        <h3 data-i18n="connectedTitle">1 · Stay connected to Jesus</h3>
+        <p data-i18n="connectedBody">Pray, read the Word, and obey. In John 15:5, Jesus teaches that those who remain in him bear fruit; apart from him we can do nothing. It is difficult to reflect his character when we are not getting to know him. Make time for him and put his teaching into practice.</p>
+        <h3 data-i18n="liveTitle">2 · Live like Jesus</h3>
+        <p data-i18n="liveBody">Read Ephesians 5:8–9. We are called to live as children of light, bearing the fruit of goodness, righteousness, and truth. This takes shape in love, kindness, forgiveness, and humility. When we are quick to anger, let us pause and submit to him before responding.</p>
+        <h3 data-i18n="faithTitle">3 · Do not hide your faith</h3>
+        <p data-i18n="faithBody">The lamp in Matthew 5:15 is meant to give light. Let us live as Christians wherever we are. Share the gospel, offer prayer respectfully, and let our words agree with our lives.</p>
+        <h3 data-i18n="worksTitle">4 · Do good works</h3>
+        <p data-i18n="worksBody">We do good works as the fruit of God’s love received and our love for him. They do not earn salvation. Let his goodness become visible through honest work, practical help, and care that does not wait for applause.</p>
+        <h3 data-i18n="shineTitle">5 · Shine where you are</h3>
+        <p data-i18n="shineBody">The culture at work may be difficult, or our friends’ influence may be strong. Our calling to be light remains. At home, at work, in business, at school, and in the community, let us refuse to join in wrongdoing and continue to love. See the people around us as people we can serve.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss">Discuss</span><p data-i18n="section5Question">Which of these five steps needs our attention first? What specific change will become visible in our schedule, words, or relationships this week?</p></div>
+      </section>
+
+      <section aria-labelledby="section-6">
+        <p class="section-number">06</p>
+        <h2 id="section-6" data-i18n="section6Title">Keep going through rejection</h2>
+        <blockquote class="verse-card"><p lang="en" data-i18n="section6Verse" data-i18n-lang>If the world hates you, remember that it hated me first.</p><cite lang="en" data-i18n="section6Citation" data-i18n-lang>John 15:18 · study paraphrase</cite></blockquote>
+        <p data-i18n="section6Body1">Not everyone will welcome our witness. Someone may decline prayer or reject what we share about Jesus. He prepared us for this. Let us measure faithfulness by more than immediate acceptance or people’s praise. We can keep loving without pressuring others or setting aside our faith.</p>
+        <p data-i18n="section6Body2">So let us deepen our relationship with Jesus. We cannot sustain this light by our own strength. Come to him honestly: we have weaknesses, and we are willing to be used. As we await his coming, his goodness can already be visible in our lives today.</p>
+      </section>
+
+      <section class="response-section" aria-labelledby="response-title">
+        <p class="section-number" data-i18n="responseSection">07 · Put what you heard into practice</p>
+        <h2 id="response-title" data-i18n="responseTitle">Shine in one concrete way this week</h2>
+        <p data-i18n="responseIntro">Choose one person to serve and one step of obedience. Begin by remaining in Jesus.</p>
+        <ol class="response-steps">
+          <li><span data-i18n="respond">Respond</span><p data-i18n="step1">Read John 8:12 and Matthew 5:14–16. In prayer, bring God one area that needs his light and obey what he clearly teaches.</p></li>
+          <li><span data-i18n="respond">Respond</span><p data-i18n="step2">Choose one relationship at home, at work, or at school. Ask forgiveness where needed, forgive, or offer practical help without expecting something in return.</p></li>
+          <li><span data-i18n="respond">Respond</span><p data-i18n="step3">Pray for one person or place in your community. Offer prayer or share how Jesus has given you hope. Respect their response and continue to show kindness.</p></li>
+        </ol>
+        <div class="key-statement dark"><span data-i18n="promiseLabel">Hold on to this through the week</span><p data-i18n="promise">Jesus is the source of light. Let us remain in him and let others see the Father’s goodness.</p></div>
+      </section>
+
+      <section class="closing-prayer" aria-labelledby="prayer-title">
+        <p class="section-number" data-i18n="prayerSection">08 · Pray</p>
+        <h2 id="prayer-title" data-i18n="prayerTitle">Jesus, shine Your light through our lives</h2>
+        <p data-i18n="prayer1">Lord Jesus, You are the light of the world. Thank You for meeting us in our darkness and giving us truth, hope, and new life. We open our hearts to receive You and follow Your Word.</p>
+        <p data-i18n="prayer2">Forgive us for hiding our faith, for pride, and for the ways we have hurt others. Teach us to repent, ask forgiveness, and live according to Your character. Keep us close to You in prayer, in the Word, and in obedience.</p>
+        <p data-i18n="prayer3">Use our lives at home, at work, at school, and in our city. Give us courage to share the gospel and humble hearts to serve. Help us love even through rejection. In everything we do, may the Father be glorified. Amen.</p>
+      </section>
+      <section class="takeaway" aria-label="Study takeaway" data-i18n-aria-label="takeawayAria"><span data-i18n="takeawayLabel">Take this with you</span><p data-i18n="takeaway">We are called to shine so people can see how good God is. Jesus is the source; let us reflect his light wherever we are.</p></section>
+      <section class="qr-section" aria-labelledby="share-title">
+        <div><p class="section-number" data-i18n="shareLabel">Share the study</p><h2 id="share-title" data-i18n="shareTitle">Open on another device</h2><p data-i18n="shareBody">Scan or download this QR code to return directly to this Bible study.</p><a class="text-link" href={qr} download="dmi-called-to-be-the-light-qr.png" data-i18n="downloadQr">Download QR code</a></div>
+        <a class="qr-card" href={pageURL} aria-label="Open this Bible study" data-i18n-aria-label="qrLinkAria"><img src={qr} width="720" height="720" alt="QR code for Called to Be the Light Bible study" data-i18n-alt="qrImageAlt" /></a>
+      </section>
+      <p class="scripture-notice" lang="en" data-i18n="scriptureNotice" data-i18n-lang>Scripture excerpts on this page are study paraphrases. Read Matthew 5:14–16, John 8:12, John 15:5, 18, and Ephesians 5:8–9 in full in your Bible.</p>
+    </article>
+  </main>
+  <footer class="site-footer"><a href={base}>DMI Calamba City</a><div class="site-footer-actions"><span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span><SocialLinks /></div></footer>
+</BaseLayout>
