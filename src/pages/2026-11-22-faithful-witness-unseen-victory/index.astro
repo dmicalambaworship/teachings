@@ -1,0 +1,236 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+
+const base = import.meta.env.BASE_URL;
+const slug = '2026-11-22-faithful-witness-unseen-victory';
+const pageURL = new URL(`${base}${slug}/`, Astro.site ?? Astro.url).toString();
+const cover = `${base}${slug}-cover.jpg`;
+const coverAlt = 'Faithful Witness & Unseen Victory, Revelation 8–13, with a multitude gathered before the Lamb';
+const qr = `${base}qr/${slug}.png`;
+const facebookVideo = 'https://www.facebook.com/DMICalamba/videos/1449590010172139';
+const translations = {
+  languageLabel: 'Wika',
+  languageAriaLabel: 'Wika ng pagbabasa',
+  coverLinkAria: 'Simulan ang Faithful Witness & Unseen Victory na Bible study',
+  coverAlt: 'Faithful Witness & Unseen Victory, Pahayag 8–13, na may napakaraming taong nagtipon sa harap ng Kordero',
+  navAria: 'Pangunahing navigation',
+  homeAria: 'Bumalik sa home page ng DMI Calamba City',
+  date: '22 Nobyembre 2026',
+  eyebrow: 'Until He Comes · Bible Study · Pahayag 8–13',
+  title: 'Faithful Witness & Unseen Victory',
+  subtitle: 'Patuloy nating ipahayag si Jesus kahit may kumokontra. Ang tagumpay natin ay nasa Kordero.',
+  heroVerse: 'Nagtagumpay sila laban sa kanya dahil sa dugo ng Kordero at sa salita ng kanilang patotoo. Nanatili silang tapat kahit kamatayan ang kapalit.',
+  heroCitation: 'Pahayag 12:11 · paraphrase para sa study',
+  summaryAria: 'Buod ng Bible study',
+  themeLabel: 'Tema',
+  theme: 'Tinatawag tayo ng buhay na Cristo na magpatotoo kahit may pagsalungat, kilatisin kung ano ang humihingi ng ating pagsamba, at manatiling tapat sa Kanya.',
+  keyLabel: 'Mga susing talata',
+  keyTexts: 'Pahayag 6:9–10 at 7:9–12 · Ang panalangin ng mga martir at ang pagsamba ng napakaraming tao<br />Pahayag 8:3–5, 9:20–21 at 10:9–11 · Panalangin, pagsisisi at ang balumbon<br />Pahayag 11:3, 11–15 · Ang mga saksi at ang paghahari ni Cristo<br />Pahayag 12:9–12 at 13:7–17 · Tagumpay ng Kordero at pagtitiis ng mga banal',
+  timeLabel: 'Tagal',
+  time: '40 minuto',
+  presentationLabel: 'Canva presentation',
+  presentationLink: 'Buksan ang mga slide',
+  serviceLabel: 'Sunday service',
+  serviceTime: 'Bahagi ng preaching sa recording: 00:52:51–01:57:37',
+  facebookLabel: 'Facebook Live',
+  facebookLink: 'Panoorin ang November 22 service sa Facebook',
+  discuss: 'Pag-usapan',
+  readingTitle: 'Basahin ang Pahayag nang nakatingin kay Cristo',
+  reading1: 'Pansinin natin kung saan tayo dinadala ni Juan. Sa dulo ng kabanata 11, ipinapahayag na sa langit ang paghahari ni Cristo. Pagdating sa kabanata 12, nakikita nating bumabalik ang pangitain sa pagsilang ng batang kinatatakutan ng dragon. Tinutulungan tayo ng pagbalik na ito na makita ang parehong panahon mula sa ibang anggulo.',
+  reading2: 'Ito ang tinatawag na progressive parallelism o recapitulation. Sa mga tatak, trumpeta, at mangkok, binabalikan ng Pahayag ang panahon sa pagitan ng una at muling pagdating ni Jesus habang tumitindi ang paghatol. Sa kabanata 6, sumisigaw ang mga martir ng “Hanggang kailan?” Sa kabanata 7, tinatatakan ng Diyos ang Kanyang bayan at ipinapakita ang napakaraming sumasamba sa harap ng Kordero. Hawak Niya ang Kanyang bayan maging sa gitna ng pagsubok.',
+  readingQuestion: 'Habang magkasama nating binabasa ang Pahayag 6:9–10 at 7:9–12, paano tayo tinutulungan ng dalawang eksena na manalangin kapag tila mabagal dumating ang katarungan?',
+  trumpetsTitle: 'Dinirinig ng Diyos ang ating panalangin',
+  trumpetsVerse: 'Umakyat sa harap ng Diyos ang usok ng insenso kasama ng mga panalangin ng mga banal. Pagkatapos, inihagis sa lupa ang apoy mula sa altar.',
+  trumpetsCitation: 'Pahayag 8:3–5 · paraphrase para sa study',
+  trumpets1: 'Nang buksan ng Kordero ang ikapitong tatak, tumahimik ang langit. Kasama ng insenso, umakyat sa Diyos ang mga panalangin ng mga banal. Mula rin sa altar na iyon nanggaling ang apoy na inihagis sa lupa. Nakikita natin dito ang pagtugon ng Diyos sa daing ng Kanyang bayan. May bigat sa Kanya ang mga panalanging parang walang nakakarinig.',
+  trumpets2: 'Tinamaan ng unang apat na trumpeta ang lupa, dagat, tubig-tabang, at kalangitan. Sa ikalima at ikaanim, bumukas ang kailaliman at pinakawalan ang hukbo mula sa Eufrates. Ipinapaalala nito ang mga salot sa Egipto. Gayunman, ayon sa Pahayag 9:20–21, marami ang kumapit pa rin sa mga diyus-diyosan at sa kasalanan. Kapag ipinapakita ng Diyos sa atin ang kinakapitan natin, humingi tayo ng pusong handang magsisi.',
+  trumpetsQuestion: 'Ano ang ipinapakita ng Pahayag 9:20–21 tungkol sa pusong nasanay nang kumapit sa ibang bagay? Saang bahagi ng buhay natin kailangang sumunod sa isang malinaw na itinuturo ng Diyos?',
+  witnessTitle: 'Magpatotoo kahit may kapalit',
+  witness1: 'Sa Pahayag 10, ipinakain kay Juan ang maliit na balumbon bago siya muling inutusang magpahayag. Matamis ito sa bibig at mapait sa tiyan. Matamis ang mabuting balita ng kaligtasan. Mabigat din ang mensaheng dala natin dahil seryoso ang kasalanan at paghatol, at maaari tayong tutulan dahil kay Jesus. Sabihin natin nang tapat kung anong pag-asa ang ibinibigay Niya kahit may mga pagsubok pa rin.',
+  witness2: 'Nangaral ang dalawang saksi na nakasuot ng damit-sako. Nang matapos nila ang kanilang patotoo, pinatay sila ng halimaw at natuwa ang mundo. Binigyan sila ng Diyos ng buhay sa harap mismo ng kanilang mga kaaway. Pagdating ng ikapitong trumpeta, ipinahayag sa langit na maghahari si Cristo magpakailanman. May bumabasa sa dalawang saksi bilang dalawang partikular na tao. Sa kanila ay makikita rin natin ang tawag sa buong iglesya na patuloy na ibahagi ang mabuting balita tungkol kay Jesus at ipaubaya sa Kanya ang bunga.',
+  witness3: 'Noong mga tatlong taong gulang ako, sabi sa akin, tumatakbo ako sa harap habang may worship service at kumakapit sa tatay ko. Ngayon, biyaya ng Diyos na nakakapagbahagi ako ng Kanyang Salita. Ipanalangin natin ang mga bata sa church habang lumalaki sila. May mga paraan ang Diyos para gamitin ang buhay nila sa Kanyang kaluwalhatian na ngayon ay hindi pa natin nakikita.',
+  witnessQuestion: 'Anong bahagi ng mabuting balita ang nahihirapan tayong sabihin kapag ayaw itong marinig ng mga tao? Paano natin maibabahagi ang totoo nang may malasakit?',
+  conflictTitle: 'Sa dugo ng Kordero nakasalalay ang tagumpay',
+  conflict1: 'Sa Pahayag 12, may babaeng manganganak at naghihintay ang dragon para lamunin ang bata. Ligtas ang bata sa piling ng Diyos at itinapon ang dragon. Sa likod ng pagsalungat na nararanasan ng bayan ng Diyos, nakikita natin ang galit ng natalong kaaway na alam na maikli na ang panahon niya.',
+  conflict2: 'Sinusundan pa rin ng dragon ang mga sumusunod sa utos ng Diyos at kumakapit sa patotoo tungkol kay Jesus. Sa Pahayag 12:11, ang tagumpay nila ay nasa dugo ng Kordero, at nananatili silang tapat sa kanilang patotoo kahit kamatayan ang kapalit. Kapag nanghihina tayo, alalahanin nating si Jesus ang nagbigay ng Kanyang buhay at muling nabuhay. Sa nagawa Niya tayo humuhugot ng lakas para magpatuloy.',
+  conflictQuestion: 'Paano binabago ng Pahayag 12:11 ang pagtingin natin sa isang sitwasyon na tila pagkatalo ang pagiging tapat kay Jesus?',
+  allegianceTitle: 'Kilatisin kung ano ang humihingi ng ating pagsamba',
+  allegianceVerse: 'Dito kailangan ang pagtitiis at pananampalataya ng mga banal.',
+  allegianceCitation: 'Pahayag 13:10 · paraphrase para sa study',
+  allegiance1: 'Sa Pahayag 13, ginagamit ng dragon ang halimaw mula sa dagat para humingi ng pagsamba at kalabanin ang mga banal. Pansinin ang mga salitang “pinahintulutan ito.” May hangganan ang kapangyarihan nito. Ang halimaw mula sa lupa ay mukhang kordero pero magsalita ay parang dragon. Dinadala nito ang pagsamba sa unang halimaw, at ginagamit pati ang pagbili at pagbenta para idiin ang mga tao.',
+  allegiance2: 'Sa Pahayag 7, tinatatakan ng Diyos ang mga taong sa Kanya. Sa Pahayag 13, ipinipilit ng halimaw ang sarili nitong tanda. Harapin natin ang tanong na dinadala ng dalawang larawan: kanino tayo mananatiling tapat kapag may mawawala sa atin? Kilatisin natin ang mga pangakong parang mabuti pero humihingi ng pagsunod na para lamang kay Cristo.',
+  allegianceQuestion: 'Saan natin nakikita ang pressure na isantabi ang pagsunod kay Cristo kapalit ng kita, pagtanggap, o ginhawa? Anong tulong ang maibibigay natin sa isa’t isa para manatiling tapat?',
+  eternityTitle: 'Mamuhay sa liwanag ng walang hanggan',
+  eternity1: 'Isipin natin ang isang maliit na alon sa napakalawak na dagat. Ganoon kaliit ang isang sandali kung ihahambing sa walang hanggan, pero lubos na naroroon ang Diyos sa bawat sandali ng buhay natin. Sabi sa 2 Pedro 3:8, sa Panginoon ang isang araw ay gaya ng isang libong taon. Ang pag-ibig na ipinakita Niya sa atin kay Jesus ay umaabot sa bawat sandali. Dahil buhay si Cristo, maaari tayong kumapit sa Kanya habang tumatanda, nagkakasakit, o nanghihina.',
+  eternity2: 'Ang buhay na walang hanggan ay ang makilala ang Diyos at makasama Siya magpakailanman. Habang lumilipas ang ating mga tagumpay at ari-arian, patuloy na hinuhubog ni Cristo kung sino tayo upang maipakita natin ang Kanyang kaluwalhatian. Basahin ang Pahayag 7:9–12 at tingnan ang mga tao mula sa bawat bansa na sumasamba sa harap ng Kordero. Ang kaligtasan ay sa Diyos at sa Kordero. Sa biyaya Niya tayo inililigtas habang sumasampalataya tayo sa Kanya. Muli nating isuko sa Kanya ang ating buhay.',
+  eternity3: 'Basahin din ang Roma 5:3–5. Sa gitna ng paghihirap, tinuturuan tayo ng Diyos na magtiis. Ang pagtitiis ay humuhubog sa ating karakter, at ang hinubog na karakter ay nagbubunga ng pag-asa. May ginagawa ang Diyos sa atin habang tinuturuan Niya tayong manatiling tapat.',
+  responseSection: '07 · Isabuhay',
+  responseTitle: 'Isang hakbang ng katapatan ngayong linggo',
+  respond: 'Tumugon',
+  step1: 'Basahin ang Pahayag 8:3–5. Dalhin sa Diyos ang isang sitwasyon kung saan matagal ka nang naghihintay ng katarungan o tulong. Ipanalangin din ang isang taong dumaraan sa parehong pagsubok.',
+  step2: 'Pumili ng isang taong maaari mong kuwentuhan ngayong linggo tungkol sa pag-asa mo kay Jesus. Magsalita nang tapat at pakinggan din ang pinagdaraanan niya.',
+  step3: 'Tukuyin ang isang kompromiso na kinakaharap mo. Ipanalangin ito kasama ng isang kapatid sa pananampalataya at magtakda ng isang konkretong hakbang ng pagsunod kay Jesus.',
+  prayerSection: '08 · Manalangin',
+  prayerTitle: 'Panginoong Jesus, tulungan Mo kaming manatiling tapat',
+  prayer: 'Panginoong Jesus, salamat dahil pinakinggan Mo ang aming mga panalangin at ibinigay Mo ang Iyong buhay para sa amin. Patawarin Mo kami sa mga pagkakataong mas hinangad namin ang pagtanggap at ginhawa kaysa ang makasunod sa Iyo. Bigyan Mo kami ng tapang na magpatotoo at ng karunungang makakilatis sa panlilinlang. Patuloy Mong hubugin ang aming karakter upang makita ng iba ang Iyong kabutihan. Iniaalay namin ang buhay namin sa Iyo. Ingatan Mo kaming tapat habang hinihintay namin ang Iyong pagbabalik. Amen.',
+  takeawayAria: 'Pangunahing aral ng Bible study',
+  takeawayLabel: 'Baunin ito',
+  takeaway: 'Nagtagumpay na ang Kordero. Dahil sa Kanyang biyaya, maaari tayong manatiling tapat at magpatotoo hanggang sa Kanyang pagbabalik.',
+  shareLabel: 'Ibahagi ang study',
+  shareTitle: 'Buksan sa ibang device',
+  shareBody: 'I-scan o i-download ang QR code para direktang mabuksan itong Bible study.',
+  downloadQr: 'I-download ang QR code',
+  qrLinkAria: 'Buksan itong Bible study',
+  qrAlt: 'QR code para sa Faithful Witness & Unseen Victory na Bible study',
+  scriptureNotice: 'Ang mga sipi ng Kasulatan dito ay mga paraphrase para sa study. Basahin sa inyong Biblia ang Pahayag 8–13 kasama ang Pahayag 6–7, 2 Pedro 3:8, at Roma 5:3–5.',
+  footerTagline: 'Nagkakaisa kay Jesus. Hinuhubog ng Kanyang Salita.',
+};
+---
+
+<BaseLayout
+  title="Faithful Witness & Unseen Victory: Until He Comes | DMI Calamba City"
+  description="A Bible study on Revelation 8–13 about prayer, faithful witness amid opposition, and the victory of the Lamb that sustains our allegiance to Jesus."
+  bodyClass="study-page"
+  socialImage={cover}
+  socialImageAlt={coverAlt}
+  socialImageWidth={2400}
+  socialImageHeight={1350}
+>
+  <a class="study-cover" href="#study" aria-label="Begin the Faithful Witness &amp; Unseen Victory Bible study" data-i18n-aria-label="coverLinkAria">
+    <picture>
+      <source srcset={`${base}${slug}-cover-1280.webp 1280w, ${base}${slug}-cover-2400.webp 2400w`} sizes="100vw" type="image/webp" />
+      <img src={cover} width="2400" height="1350" alt={coverAlt} data-i18n-alt="coverAlt" decoding="async" fetchpriority="high" />
+    </picture>
+  </a>
+
+  <header class="study-hero" id="study">
+    <nav class="study-nav" aria-label="Primary navigation" data-i18n-aria-label="navAria">
+      <a class="brand-lockup" href={base} aria-label="Return to DMI Calamba City home" data-i18n-aria-label="homeAria">
+        <img src={`${base}dmi-logo.jpg`} width="900" height="900" alt="" />
+        <span>DMI · Calamba City</span>
+      </a>
+      <LanguageToggle translations={translations} />
+      <span><time datetime="2026-11-22" data-i18n="date">22 November 2026</time></span>
+    </nav>
+    <div class="study-hero-copy">
+      <p class="eyebrow" data-i18n="eyebrow">Until He Comes · Bible Study · Revelation 8–13</p>
+      <h1 data-i18n="title">Faithful Witness &amp; Unseen Victory</h1>
+      <p class="study-subtitle" data-i18n="subtitle">Keep bearing witness to Jesus through opposition. Our victory rests in the Lamb.</p>
+    </div>
+    <blockquote class="hero-scripture">
+      <p lang="en" data-i18n="heroVerse" data-i18n-lang>They overcame him by the blood of the Lamb and by the word of their testimony. They stayed faithful even at the cost of their lives.</p>
+      <cite lang="en" data-i18n="heroCitation" data-i18n-lang>Revelation 12:11 · study paraphrase</cite>
+    </blockquote>
+  </header>
+
+  <main class="study-content">
+    <aside class="study-aside" aria-label="Study summary" data-i18n-aria-label="summaryAria">
+      <div><span class="aside-label" data-i18n="themeLabel">Theme</span><p data-i18n="theme">The living Christ calls us to bear witness through opposition, discern what demands our worship, and hold fast to him.</p></div>
+      <div><span class="aside-label" data-i18n="keyLabel">Key texts</span><p data-i18n="keyTexts">Revelation 6:9–10 and 7:9–12 · The martyrs’ prayer and the multitude’s worship<br />Revelation 8:3–5, 9:20–21, and 10:9–11 · Prayer, repentance, and the scroll<br />Revelation 11:3, 11–15 · The witnesses and Christ’s reign<br />Revelation 12:9–12 and 13:7–17 · The Lamb’s victory and the saints’ endurance</p></div>
+      <div><span class="aside-label" data-i18n="timeLabel">Time</span><p data-i18n="time">40 minutes</p></div>
+      <div><span class="aside-label" data-i18n="presentationLabel">Canva presentation</span><a href="https://canva.link/88n5ugek6usfsoa" target="_blank" rel="noreferrer" data-i18n="presentationLink">Open the slides</a></div>
+      <div><span class="aside-label" data-i18n="serviceLabel">Sunday service</span><p data-i18n="serviceTime">Sermon segment in the recording: 00:52:51–01:57:37</p></div>
+      <div><span class="aside-label" data-i18n="facebookLabel">Facebook Live</span><a href={facebookVideo} target="_blank" rel="noreferrer" data-i18n="facebookLink">Watch the November 22 service on Facebook</a></div>
+    </aside>
+
+    <article class="study-article">
+      <section aria-labelledby="reading-title">
+        <p class="section-number">01</p>
+        <h2 id="reading-title" data-i18n="readingTitle">Read Revelation with our eyes on Christ</h2>
+        <p data-i18n="reading1">Pay attention to where John takes us. At the end of chapter 11, heaven announces Christ’s reign. In chapter 12, the vision takes us back to the birth of the child the dragon fears. That return helps us see the same age from another angle.</p>
+        <p data-i18n="reading2">We call this progressive parallelism or recapitulation. In the seals, trumpets, and bowls, Revelation revisits the age between Jesus’ first coming and his return, with judgments growing more severe. In chapter 6, the martyrs cry out, “How long?” In chapter 7, God seals his people and shows us a multitude worshiping before the Lamb. He holds his people through their suffering.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss">Discuss</span><p data-i18n="readingQuestion">Read Revelation 6:9–10 alongside 7:9–12. How do these two scenes help us pray when justice seems slow in coming?</p></div>
+      </section>
+
+      <section aria-labelledby="trumpets-title">
+        <p class="section-number">02</p>
+        <h2 id="trumpets-title" data-i18n="trumpetsTitle">God hears our prayers</h2>
+        <blockquote class="verse-card">
+          <p lang="en" data-i18n="trumpetsVerse" data-i18n-lang>The smoke of the incense rose before God with the prayers of the saints. Then fire from the altar was thrown to earth.</p>
+          <cite lang="en" data-i18n="trumpetsCitation" data-i18n-lang>Revelation 8:3–5 · study paraphrase</cite>
+        </blockquote>
+        <p data-i18n="trumpets1">When the Lamb opens the seventh seal, heaven falls silent. The prayers of the saints rise before God with the incense. From that same altar, fire is thrown to earth. We see God responding to the cry of his people. Even prayers that seem to go unheard matter to him.</p>
+        <p data-i18n="trumpets2">The first four trumpets strike land, sea, fresh water, and sky. With the fifth and sixth, the abyss opens and cavalry is released from the Euphrates. The plagues in Egypt help us recognize these as warnings. Yet Revelation 9:20–21 tells us that many still clung to their idols and sins. When God exposes what we are holding on to, let us ask him for hearts willing to repent.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss">Discuss</span><p data-i18n="trumpetsQuestion">What does Revelation 9:20–21 show us about a heart that has grown used to clinging to other things? Where do we need to respond to something God has already made clear?</p></div>
+      </section>
+
+      <section aria-labelledby="witness-title">
+        <p class="section-number">03</p>
+        <h2 id="witness-title" data-i18n="witnessTitle">Bear witness even when it costs us</h2>
+        <p data-i18n="witness1">In Revelation 10, John eats the little scroll before he is told to prophesy again. It is sweet in his mouth and bitter in his stomach. The good news of salvation is sweet. The message we carry also weighs on us because sin and judgment are real, and following Jesus can bring opposition. Let us speak honestly about the hope he gives us through the troubles we still face.</p>
+        <p data-i18n="witness2">The two witnesses prophesy in sackcloth. When they finish their testimony, the beast kills them and the world celebrates. God breathes life into them before their enemies. At the seventh trumpet, heaven announces that Christ will reign forever. Some readers understand the witnesses to be two particular people. We can also see in them the calling of the whole church to keep sharing the good news of Jesus and entrust the outcome to him.</p>
+        <p data-i18n="witness3">I was told that when I was about three, I would run around at the front during worship and cling to my dad. Today it is by God’s grace that I get to share his Word. Let us pray for the children in our church as they grow up. God can use their lives for his glory in ways we cannot yet see.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss">Discuss</span><p data-i18n="witnessQuestion">Which part of the good news is hardest for us to say when people may resist it? How can we speak truthfully and with care?</p></div>
+      </section>
+
+      <section aria-labelledby="conflict-title">
+        <p class="section-number">04</p>
+        <h2 id="conflict-title" data-i18n="conflictTitle">Victory rests on the blood of the Lamb</h2>
+        <p data-i18n="conflict1">In Revelation 12, a woman is about to give birth, and the dragon waits to devour her child. The child is taken safely to God, and the dragon is thrown down. Behind the opposition God’s people face, we see the anger of a defeated enemy who knows his time is short.</p>
+        <p data-i18n="conflict2">The dragon still pursues those who keep God’s commands and hold to the testimony of Jesus. In Revelation 12:11, their victory rests on the blood of the Lamb, and they hold to their testimony even when it costs their lives. When we are weary, remember that Jesus gave his life and rose again. What he has done gives us strength to endure.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss">Discuss</span><p data-i18n="conflictQuestion">How does Revelation 12:11 change the way we see a situation where faithfulness to Jesus feels like defeat?</p></div>
+      </section>
+
+      <section aria-labelledby="allegiance-title">
+        <p class="section-number">05</p>
+        <h2 id="allegiance-title" data-i18n="allegianceTitle">Discern what demands our worship</h2>
+        <blockquote class="verse-card">
+          <p lang="en" data-i18n="allegianceVerse" data-i18n-lang>This calls for the endurance and faith of the saints.</p>
+          <cite lang="en" data-i18n="allegianceCitation" data-i18n-lang>Revelation 13:10 · study paraphrase</cite>
+        </blockquote>
+        <p data-i18n="allegiance1">In Revelation 13, the dragon uses the beast from the sea to demand worship and wage war against the saints. Pay attention to the words “it was allowed.” Its power has limits. The beast from the earth looks like a lamb and speaks like a dragon. It directs worship to the first beast and uses even buying and selling to pressure people.</p>
+        <p data-i18n="allegiance2">In Revelation 7, God seals the people who belong to him. In Revelation 13, the beast imposes its own mark. Let us face the question these images put before us. Who will have our allegiance when giving it comes at a cost? Pay attention to promises that sound good while asking for the obedience that belongs to Christ.</p>
+        <div class="discussion-prompt"><span data-i18n="discuss">Discuss</span><p data-i18n="allegianceQuestion">Where do we feel pressure to set aside obedience to Christ for income, acceptance, or comfort? How can we help one another stay faithful?</p></div>
+      </section>
+
+      <section aria-labelledby="eternity-title">
+        <p class="section-number">06</p>
+        <h2 id="eternity-title" data-i18n="eternityTitle">Live in the light of eternity</h2>
+        <p data-i18n="eternity1">Think of one small wave in a vast ocean. A moment is that small beside eternity, yet God is fully present in every moment of our lives. Second Peter 3:8 reminds us that with the Lord one day is like a thousand years. The love he has shown us through Jesus reaches through every moment. Because Christ is alive, we can cling to him as we age, face illness, or grow weary.</p>
+        <p data-i18n="eternity2">Eternal life is knowing God and being with him forever. As our achievements and possessions pass away, Christ is at work shaping who we are so that we reflect his glory. Read Revelation 7:9–12 and see people from every nation worshiping before the Lamb. Salvation belongs to God and to the Lamb. By his grace we are saved through faith in him. Let us surrender our lives to him again.</p>
+        <p data-i18n="eternity3">Read Romans 5:3–5 as well. Through suffering, God teaches us to endure. Endurance forms our character, and tested character produces hope. God is doing something in us as he teaches us to stay faithful.</p>
+      </section>
+
+      <section class="response-section" aria-labelledby="response-title">
+        <p class="section-number" data-i18n="responseSection">07 · Put it into practice</p>
+        <h2 id="response-title" data-i18n="responseTitle">Take one step of faithfulness this week</h2>
+        <ol class="response-steps">
+          <li><span data-i18n="respond">Respond</span><p data-i18n="step1">Read Revelation 8:3–5. Bring God one situation where you have been waiting for justice or help. Pray for someone going through the same struggle.</p></li>
+          <li><span data-i18n="respond">Respond</span><p data-i18n="step2">Choose one person you can tell this week about the hope Jesus has given you. Speak honestly and make time to listen to what they are going through.</p></li>
+          <li><span data-i18n="respond">Respond</span><p data-i18n="step3">Name one compromise you are facing. Pray about it with another believer and decide on one concrete act of obedience to Jesus.</p></li>
+        </ol>
+      </section>
+
+      <section class="closing-prayer" aria-labelledby="prayer-title">
+        <p class="section-number" data-i18n="prayerSection">08 · Pray</p>
+        <h2 id="prayer-title" data-i18n="prayerTitle">Lord Jesus, help us stay faithful</h2>
+        <p data-i18n="prayer">Lord Jesus, thank you for hearing our prayers and giving your life for us. Forgive us for the times we have wanted acceptance and comfort more than we wanted to obey you. Give us courage to bear witness and wisdom to recognize deception. Keep shaping our character so others can see your goodness. We surrender our lives to you. Keep us faithful as we wait for your return. Amen.</p>
+      </section>
+
+      <section class="takeaway" aria-label="Study takeaway" data-i18n-aria-label="takeawayAria">
+        <span data-i18n="takeawayLabel">Take this with you</span>
+        <p data-i18n="takeaway">The Lamb has won. By his grace, we can stay faithful and bear witness until he comes.</p>
+      </section>
+
+      <section class="qr-section" aria-labelledby="share-title">
+        <div>
+          <p class="section-number" data-i18n="shareLabel">Share the study</p>
+          <h2 id="share-title" data-i18n="shareTitle">Open on another device</h2>
+          <p data-i18n="shareBody">Scan or download the QR code to open this Bible study directly.</p>
+          <a class="text-link" href={qr} download={`dmi-${slug}-qr.png`} data-i18n="downloadQr">Download QR code</a>
+        </div>
+        <a class="qr-card" href={pageURL} aria-label="Open this Bible study" data-i18n-aria-label="qrLinkAria">
+          <img src={qr} width="720" height="720" alt="QR code for the Faithful Witness &amp; Unseen Victory Bible study" data-i18n-alt="qrAlt" />
+        </a>
+      </section>
+      <p class="scripture-notice" lang="en" data-i18n="scriptureNotice" data-i18n-lang>Scripture excerpts here are study paraphrases. Read Revelation 8–13 together with Revelation 6–7, 2 Peter 3:8, and Romans 5:3–5 in your Bible.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <a href={base}>DMI Calamba City</a>
+    <div class="site-footer-actions"><span data-i18n="footerTagline">Gathered around Jesus. Formed by his Word.</span><SocialLinks /></div>
+  </footer>
+</BaseLayout>
